@@ -1,3 +1,5 @@
+name: fh2
+
 x-django: &django
   build: .
   restart: always
@@ -5,11 +7,16 @@ x-django: &django
   environment:
     DJANGO_SETTINGS_MODULE: config.settings.production
     REDIS_URL: redis://redis:6379/0
+    DB_HOST: db
+    DB_PORT: "5432"
   volumes:
     - ./media:/app/media
     - ./private_media:/app/private_media
   depends_on:
-    - redis
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_started
 
 services:
   web:
@@ -17,6 +24,20 @@ services:
   worker:
     <<: *django
     command: celery -A config worker --loglevel=info --concurrency=2
+  db:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
   redis:
     image: redis:7-alpine
     restart: always
@@ -25,10 +46,14 @@ services:
     image: nginx:1.27-alpine
     restart: always
     ports:
-      - "8013:80"
+      # เปิดเฉพาะในเครื่อง ให้ reverse proxy ของเซิร์ฟเวอร์ส่งต่อเข้ามา คนนอกยิงพอร์ตนี้ตรงไม่ได้
+      - "127.0.0.1:${HOST_PORT:-8023}:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       # เมานต์เฉพาะ media สาธารณะ private_media ต้องไม่อยู่ใน nginx
       - ./media:/srv/media:ro
     depends_on:
       - web
+
+volumes:
+  postgres_data:

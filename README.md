@@ -55,7 +55,9 @@ createdb fh_app
 docker compose up -d --build
 ```
 
-Compose รัน web, Celery worker, Redis และ nginx โดยใช้ `config.settings.production` ซึ่งจะไม่ยอมเริ่มถ้าขาด `SECRET_KEY`, `ALLOWED_HOSTS` หรือ `REDIS_URL`
+Compose รัน web, Celery worker, PostgreSQL, Redis และ nginx โดยใช้ `config.settings.production` ซึ่งจะไม่ยอมเริ่มถ้าขาด `SECRET_KEY`, `ALLOWED_HOSTS` หรือ `REDIS_URL`
+
+เว็บเปิดที่ `127.0.0.1:8023` เปลี่ยนพอร์ตได้ด้วย `HOST_PORT` ใน `.env` และต้องมี reverse proxy ของเซิร์ฟเวอร์ส่งต่อเข้ามา
 
 ก่อนเปิดจริงให้ลบข้อมูลตัวอย่าง
 

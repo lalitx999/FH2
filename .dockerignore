@@ -1,0 +1,12 @@
+.env
+.git
+.venv
+.claude
+.test-admin-password
+PLAN.md
+media
+private_media
+staticfiles
+**/__pycache__
+**/*.pyc
+**/.DS_Store
