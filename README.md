@@ -26,6 +26,12 @@ createdb fh_app
 .venv/bin/python manage.py load_sample_data --remove
 ```
 
+นำเข้าเฉพาะทรัพย์จำลองโซนพัทยา 28 รายการ ทุกหมวดทั้งขายและเช่า คำสั่ง `--remove` ลบรายการเหล่านี้และทำเลพัทยาที่ไม่มีทรัพย์เหลือด้วย:
+
+```bash
+.venv/bin/python manage.py load_sample_data --pattaya
+```
+
 ถ้ายังไม่ตั้ง `EMAIL_HOST_USER` ใน `.env` อีเมลและรหัส OTP จะพิมพ์ออก console แทนการส่งจริง
 
 ```bash

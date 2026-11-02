@@ -16,6 +16,7 @@ from accounts.models import EmailOTP, User
 from properties.selectors.property_selector import map_points
 from properties.services import image_service as services
 from properties.services.consignment_service import convert_to_property
+from properties.constants import FEATURES
 from properties.forms import LandmarksField
 from properties.models import Bookmark, Category, Consignment, ConsignmentDeed, Location, Property, coords_from_maps_link, thai_slugify
 
@@ -386,6 +387,25 @@ class MapAndDataTests(Base):
         self.assertNotIn(real.property_code, set(samples.values_list("property_code", flat=True)))
         call_command("load_sample_data", remove=True, stdout=open("/dev/null", "w"))
         self.assertEqual(list(Property.objects.all()), [real])
+
+    def test_pattaya_sample_covers_every_category_and_can_be_removed(self):
+        out = open("/dev/null", "w")
+        call_command("load_sample_data", pattaya=True, stdout=out)
+        call_command("load_sample_data", pattaya=True, stdout=out)
+        samples = Property.objects.filter(is_sample=True)
+        self.assertEqual(samples.count(), 28)
+        combos = set(samples.values_list("category__slug", "property_type"))
+        self.assertEqual(combos, {(c.slug, t) for c in Category.objects.all() for t in Property.Type.values})
+        self.assertEqual(set(samples.values_list("sale_condition", flat=True)), set(Property.SaleCondition.values))
+        for prop in samples:
+            self.assertLessEqual(set(prop.features), set(FEATURES), prop.property_code)
+            self.assertTrue(12.7 < prop.latitude < 13.15 and 100.85 < prop.longitude < 101.05, prop.property_code)
+        detail = self.client.get(samples.first().get_absolute_url())
+        self.assertContains(detail, 'content="noindex, follow"')
+        self.assertEqual(self.client.get("/properties/?location=jomtien").status_code, 200)
+        call_command("load_sample_data", remove=True, stdout=out)
+        self.assertFalse(Property.objects.filter(is_sample=True).exists())
+        self.assertFalse(Location.objects.filter(slug="jomtien").exists())
 
     def test_consignment_land_size_converts_to_listing(self):
         consignment = self.make_consignment(property_type="LAND", land_rai=1, land_ngan=2, land_sqw=50)

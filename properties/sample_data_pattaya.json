@@ -1,0 +1,303 @@
+{
+  "locations": [
+    {"slug": "pattaya-nua", "name": "พัทยาเหนือ"},
+    {"slug": "pattaya-klang", "name": "พัทยากลาง"},
+    {"slug": "pattaya-tai", "name": "พัทยาใต้"},
+    {"slug": "naklua", "name": "นาเกลือ"},
+    {"slug": "pratumnak", "name": "เขาพระตำหนัก"},
+    {"slug": "jomtien", "name": "จอมเทียน"},
+    {"slug": "na-jomtien", "name": "นาจอมเทียน"},
+    {"slug": "bang-saray", "name": "บางเสร่"},
+    {"slug": "huai-yai", "name": "ห้วยใหญ่"},
+    {"slug": "nong-prue-mabprachan", "name": "หนองปรือ - มาบประชัน"},
+    {"slug": "pong", "name": "โป่ง"},
+    {"slug": "laem-chabang", "name": "แหลมฉบัง"}
+  ],
+  "properties": [
+    {
+      "property_code": "HPTY01", "title": "ขาย พูลวิลล่า 4 ห้องนอน วิวอ่างเก็บน้ำมาบประชัน สระส่วนตัว",
+      "description": "พูลวิลล่าชั้นเดียวบนที่ดินกว้าง ห้องนั่งเล่นเปิดออกสู่สระว่ายน้ำส่วนตัว ครัวแยก สวนรอบบ้าน เหมาะอยู่อาศัยหรือทำบ้านพักรับรอง",
+      "price": 19900000, "property_type": "SALE", "category": "house", "location": "nong-prue-mabprachan",
+      "bedrooms": 4, "bathrooms": 5, "floors": 1, "parking_spaces": 3, "size_land": 180, "size_usable": 420,
+      "direction": "ทิศเหนือ", "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)", "pet_friendly": true,
+      "features": {"pool": true, "garden": true, "parking": true, "ready_to_move": true, "security_24h": true},
+      "landmarks": [{"name": "อ่างเก็บน้ำมาบประชัน", "distance": "1.5 กม."}, {"name": "เซ็นทรัล พัทยา", "distance": "9 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9150,100.9480"
+    },
+    {
+      "property_code": "HPTY02", "title": "ขาย บ้านเดี่ยว 2 ชั้น ห้วยใหญ่ หมู่บ้านมีรปภ. พร้อมเข้าอยู่",
+      "description": "บ้านเดี่ยวในหมู่บ้านจัดสรร 3 ห้องนอน ต่อเติมครัวแล้ว เดินทางออกถนนสุขุมวิทสะดวก เหมาะกับครอบครัวที่ต้องการอยู่ประจำ",
+      "price": 3590000, "property_type": "SALE", "category": "house", "location": "huai-yai",
+      "bedrooms": 3, "bathrooms": 2, "floors": 2, "parking_spaces": 2, "size_land": 55, "size_usable": 140,
+      "direction": "ทิศตะวันออก", "furniture": "บางส่วน (Partly Furnished)",
+      "features": {"parking": true, "kitchen_extension": true, "security_24h": true},
+      "landmarks": [{"name": "สวนนงนุชพัทยา", "distance": "6 กม."}, {"name": "ถนนสุขุมวิท", "distance": "2 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.8420,100.9690"
+    },
+    {
+      "property_code": "HPTY03", "title": "ให้เช่า พูลวิลล่า 3 ห้องนอน จอมเทียน ใกล้หาด รับสัตว์เลี้ยง",
+      "description": "พูลวิลล่าตกแต่งครบ สระว่ายน้ำส่วนตัว เดินทางถึงหาดจอมเทียนไม่กี่นาที เหมาะเช่าอยู่ระยะยาว",
+      "price": 65000, "property_type": "RENT", "category": "house", "location": "jomtien",
+      "bedrooms": 3, "bathrooms": 4, "floors": 2, "parking_spaces": 2, "size_land": 90, "size_usable": 260,
+      "direction": "ทิศใต้", "furniture": "เฟอร์นิเจอร์ครบ + เครื่องใช้ไฟฟ้า", "pet_friendly": true,
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 130000, "advance_payment": 65000, "move_in_date": "พร้อมเข้าอยู่ทันที",
+      "features": {"pool": true, "garden": true, "aircon": true, "wifi": true, "ready_to_move": true},
+      "landmarks": [{"name": "หาดจอมเทียน", "distance": "800 เมตร"}, {"name": "ตลาดน้ำ 4 ภาค", "distance": "5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.8860,100.8810"
+    },
+    {
+      "property_code": "HPTY04", "title": "ให้เช่า บ้านเดี่ยว 2 ชั้น หนองปรือ 3 ห้องนอน ราคาคุ้มค่า",
+      "description": "บ้านเดี่ยวพร้อมแอร์ทุกห้องนอน ที่จอดรถในบ้าน 2 คัน ใกล้ตลาดและโรงเรียน เหมาะกับครอบครัว",
+      "price": 22000, "property_type": "RENT", "category": "house", "location": "nong-prue-mabprachan",
+      "bedrooms": 3, "bathrooms": 3, "floors": 2, "parking_spaces": 2, "size_land": 60, "size_usable": 150,
+      "direction": "ทิศตะวันตก", "furniture": "บางส่วน (Partly Furnished)",
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 44000, "advance_payment": 22000,
+      "features": {"aircon": true, "parking": true},
+      "landmarks": [{"name": "ถนนสุขุมวิท", "distance": "3 กม."}, {"name": "เซ็นทรัล พัทยา", "distance": "6 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9230,100.9350"
+    },
+    {
+      "property_code": "HPTY05", "title": "ขายพร้อมผู้เช่า บ้านเดี่ยวนาจอมเทียน รับค่าเช่าต่อเนื่อง",
+      "description": "บ้านเดี่ยวมีผู้เช่าระยะยาวอยู่แล้ว เหมาะกับนักลงทุนที่ต้องการรับค่าเช่าได้ทันที รายละเอียดสัญญาเช่าสอบถามเจ้าหน้าที่",
+      "price": 6750000, "property_type": "SALE", "category": "house", "location": "na-jomtien",
+      "sale_condition": "SALE_WITH_TENANT", "source": "CO_BROKER",
+      "bedrooms": 3, "bathrooms": 3, "floors": 2, "parking_spaces": 2, "size_land": 72, "size_usable": 190,
+      "direction": "ทิศตะวันออกเฉียงเหนือ", "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "features": {"garden": true, "parking": true},
+      "landmarks": [{"name": "หาดนาจอมเทียน", "distance": "2 กม."}, {"name": "สวนนงนุชพัทยา", "distance": "4 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.7950,100.9360"
+    },
+    {
+      "property_code": "HPTY06", "title": "ขาย ทาวน์โฮม 2 ชั้น นาเกลือ ใกล้ปราสาทสัจธรรม",
+      "description": "ทาวน์โฮม 3 ห้องนอน รีโนเวทใหม่ พื้นที่ใช้สอยคุ้มค่า ใกล้ถนนนาเกลือและร้านค้า เดินทางเข้าตัวเมืองพัทยาสะดวก",
+      "price": 2190000, "property_type": "SALE", "category": "townhome", "location": "naklua",
+      "bedrooms": 3, "bathrooms": 2, "floors": 2, "parking_spaces": 1, "size_land": 20, "size_usable": 110,
+      "direction": "ทิศเหนือ", "furniture": "เปล่า (Unfurnished)",
+      "features": {"renovated": true, "parking": true},
+      "landmarks": [{"name": "ปราสาทสัจธรรม", "distance": "1.2 กม."}, {"name": "ตลาดลานโพธิ์นาเกลือ", "distance": "900 เมตร"}],
+      "google_maps_link": "https://maps.google.com/?q=12.9710,100.9050"
+    },
+    {
+      "property_code": "HPTY07", "title": "ให้เช่า ทาวน์โฮม 3 ชั้น พัทยาใต้ ทำออฟฟิศหรืออยู่อาศัยได้",
+      "description": "ทาวน์โฮมทำเลกลางเมือง จดทะเบียนบริษัทได้ เหมาะทำออฟฟิศขนาดเล็กควบที่พัก",
+      "price": 28000, "property_type": "RENT", "category": "townhome", "location": "pattaya-tai",
+      "bedrooms": 3, "bathrooms": 3, "floors": 3, "parking_spaces": 2, "size_land": 22, "size_usable": 180,
+      "direction": "ทิศใต้", "furniture": "บางส่วน (Partly Furnished)",
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 56000, "advance_payment": 28000,
+      "features": {"company_registration_allowed": true, "aircon": true, "parking": true},
+      "landmarks": [{"name": "Walking Street", "distance": "1.5 กม."}, {"name": "ถนนเทพประสิทธิ์", "distance": "700 เมตร"}],
+      "google_maps_link": "https://maps.google.com/?q=12.9180,100.8830"
+    },
+    {
+      "property_code": "CPTY01", "title": "ขาย คอนโดวิวทะเล จอมเทียน 2 ห้องนอน ชั้นสูง",
+      "description": "ห้องมุมวิวทะเลเปิดโล่ง ตกแต่งครบพร้อมเข้าอยู่ ส่วนกลางมีสระว่ายน้ำและฟิตเนส เดินถึงชายหาดได้",
+      "price": 4200000, "property_type": "SALE", "category": "condo", "location": "jomtien",
+      "bedrooms": 2, "bathrooms": 2, "floors": 24, "parking_spaces": 1, "size_usable": 68,
+      "direction": "ทิศตะวันตก", "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)", "common_fee": 3400,
+      "features": {"pool": true, "gym": true, "lift": true, "security_24h": true, "ready_to_move": true},
+      "landmarks": [{"name": "หาดจอมเทียน", "distance": "200 เมตร"}, {"name": "ตลาดน้ำ 4 ภาค", "distance": "4 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.8800,100.8740"
+    },
+    {
+      "property_code": "CPTY02", "title": "ขาย คอนโดสตูดิโอ พัทยากลาง ใกล้เซ็นทรัล เหมาะปล่อยเช่า",
+      "description": "ห้องสตูดิโอกลางเมือง เดินทางสะดวก ใกล้ห้างและชายหาด เหมาะซื้อปล่อยเช่าหรือพักผ่อนวันหยุด",
+      "price": 1850000, "property_type": "SALE", "category": "condo", "location": "pattaya-klang",
+      "bedrooms": 1, "bathrooms": 1, "floors": 12, "size_usable": 28,
+      "direction": "ทิศตะวันออก", "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)", "common_fee": 1400,
+      "features": {"pool": true, "lift": true, "wifi": true, "security_24h": true},
+      "landmarks": [{"name": "เซ็นทรัล พัทยา", "distance": "600 เมตร"}, {"name": "หาดพัทยา", "distance": "700 เมตร"}],
+      "google_maps_link": "https://maps.google.com/?q=12.9350,100.8860"
+    },
+    {
+      "property_code": "CPTY03", "title": "ขาย เพนท์เฮาส์ เขาพระตำหนัก 4 ห้องนอน วิวทะเลพาโนรามา",
+      "description": "เพนท์เฮาส์ 2 ชั้น ลิฟต์ส่วนตัว ระเบียงกว้างมองเห็นอ่าวพัทยาและจอมเทียน ตกแต่งด้วยเฟอร์นิเจอร์นำเข้า",
+      "price": 24500000, "property_type": "SALE", "category": "condo", "location": "pratumnak",
+      "bedrooms": 4, "bathrooms": 5, "floors": 30, "parking_spaces": 3, "size_usable": 310,
+      "direction": "ทิศตะวันตก", "furniture": "เฟอร์นิเจอร์แบรนด์เนมนำเข้า", "common_fee": 18000,
+      "features": {"penthouse": true, "private_lift": true, "pool": true, "gym": true, "maid_room": true, "concierge": true},
+      "landmarks": [{"name": "หาดโคซี่", "distance": "500 เมตร"}, {"name": "Walking Street", "distance": "2.5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9130,100.8700"
+    },
+    {
+      "property_code": "CPTY04", "title": "ขายหรือเช่า คอนโด 1 ห้องนอน นาเกลือ ริมทะเล",
+      "description": "ห้องตกแต่งครบ มีทั้งราคาขายและราคาเช่า ราคาที่แสดงคือราคาขาย ค่าเช่าเดือนละ 20,000 บาท สอบถามเงื่อนไขได้",
+      "price": 3150000, "property_type": "SALE", "category": "condo", "location": "naklua",
+      "sale_condition": "SALE_AND_RENT",
+      "bedrooms": 1, "bathrooms": 1, "floors": 18, "parking_spaces": 1, "size_usable": 42,
+      "direction": "ทิศตะวันตกเฉียงเหนือ", "furniture": "บิ้วท์อินพรีเมียม (Built-in)", "common_fee": 2100,
+      "features": {"pool": true, "gym": true, "lift": true, "coworking": true},
+      "landmarks": [{"name": "หาดวงศ์อมาตย์", "distance": "300 เมตร"}, {"name": "ปราสาทสัจธรรม", "distance": "1 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9640,100.8920"
+    },
+    {
+      "property_code": "CPTY05", "title": "ให้เช่า คอนโดสตูดิโอ พัทยาใต้ ใกล้ถนนเทพประสิทธิ์",
+      "description": "ห้องขนาดกะทัดรัด เฟอร์นิเจอร์ครบ เหมาะอยู่คนเดียว ค่าเช่ารวมอินเทอร์เน็ต",
+      "price": 12000, "property_type": "RENT", "category": "condo", "location": "pattaya-tai",
+      "bedrooms": 1, "bathrooms": 1, "floors": 7, "size_usable": 26,
+      "direction": "ทิศเหนือ", "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "minimum_lease": "สัญญา 6 เดือน", "deposit": 24000, "advance_payment": 12000, "move_in_date": "พร้อมเข้าอยู่ทันที",
+      "features": {"pool": true, "lift": true, "wifi": true, "aircon": true},
+      "landmarks": [{"name": "ถนนเทพประสิทธิ์", "distance": "300 เมตร"}, {"name": "Walking Street", "distance": "2 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9150,100.8870"
+    },
+    {
+      "property_code": "CPTY06", "title": "ให้เช่า คอนโด 1 ห้องนอน พัทยาเหนือ ใกล้ Terminal 21",
+      "description": "ห้องชั้นสูง วิวเมือง ใกล้ห้างและท่ารถโดยสารพัทยาเหนือ เดินทางกลับกรุงเทพฯ สะดวก",
+      "price": 25000, "property_type": "RENT", "category": "condo", "location": "pattaya-nua",
+      "bedrooms": 1, "bathrooms": 1, "floors": 21, "parking_spaces": 1, "size_usable": 40,
+      "direction": "ทิศตะวันออก", "furniture": "เฟอร์นิเจอร์ครบ + เครื่องใช้ไฟฟ้า",
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 50000, "advance_payment": 25000,
+      "features": {"pool": true, "gym": true, "lift": true, "security_24h": true},
+      "landmarks": [{"name": "Terminal 21 พัทยา", "distance": "400 เมตร"}, {"name": "สถานีขนส่งพัทยาเหนือ", "distance": "1.2 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9500,100.8890"
+    },
+    {
+      "property_code": "CPTY07", "title": "ให้เช่า คอนโด 2 ห้องนอน นาจอมเทียน รับสัตว์เลี้ยงเล็ก",
+      "description": "ห้องกว้าง ระเบียงเห็นทะเล อาคารเงียบสงบ เหมาะพักระยะยาวสำหรับครอบครัวเล็ก รับสัตว์เลี้ยงขนาดเล็กตามเงื่อนไข",
+      "price": 38000, "property_type": "RENT", "category": "condo", "location": "na-jomtien",
+      "bedrooms": 2, "bathrooms": 2, "floors": 15, "parking_spaces": 1, "size_usable": 75,
+      "direction": "ทิศตะวันตก", "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)", "pet_friendly": true,
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 76000, "advance_payment": 38000,
+      "features": {"pool": true, "gym": true, "lift": true, "ev_charger": true},
+      "landmarks": [{"name": "หาดนาจอมเทียน", "distance": "150 เมตร"}, {"name": "สวนนงนุชพัทยา", "distance": "3.5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.7890,100.9220"
+    },
+    {
+      "property_code": "LPTY01", "title": "ขาย ที่ดินติดถนน ห้วยใหญ่ 2 ไร่ ถมแล้ว หน้ากว้าง",
+      "description": "ที่ดินแปลงมุม ถมเรียบร้อย ติดถนนลาดยาง ไฟฟ้าถึง เหมาะทำบ้านพักหรือโครงการขนาดเล็ก",
+      "price": 12000000, "property_type": "SALE", "category": "land", "location": "huai-yai",
+      "size_land": 800, "direction": "ทิศใต้",
+      "features": {"filled_land": true, "corner_plot": true, "main_road_front": true},
+      "landmarks": [{"name": "ถนนสุขุมวิท", "distance": "3 กม."}, {"name": "สวนนงนุชพัทยา", "distance": "7 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.8350,100.9750"
+    },
+    {
+      "property_code": "LPTY02", "title": "ขาย ที่ดินเปล่า โป่ง 1 ไร่ ใกล้มอเตอร์เวย์ ราคาเริ่มต้นลงทุน",
+      "description": "ที่ดินเปล่ารูปแปลงสวย บรรยากาศสงบ เดินทางออกมอเตอร์เวย์สะดวก เหมาะทำบ้านสวนหรือเก็บไว้ลงทุน",
+      "price": 3500000, "property_type": "SALE", "category": "land", "location": "pong", "source": "CO_BROKER",
+      "size_land": 400, "direction": "ทิศเหนือ",
+      "features": {"wide_street": true},
+      "landmarks": [{"name": "มอเตอร์เวย์สาย 7", "distance": "4 กม."}, {"name": "อ่างเก็บน้ำมาบประชัน", "distance": "5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9300,100.9900"
+    },
+    {
+      "property_code": "LPTY03", "title": "ขาย ที่ดินใกล้ทะเล บางเสร่ 280 ตร.ว. เหมาะสร้างพูลวิลล่า",
+      "description": "แปลงขนาดกำลังดี อยู่ไม่ไกลจากหาดบางเสร่ สาธารณูปโภคครบ เหมาะสร้างพูลวิลล่าหรือบ้านพักตากอากาศ",
+      "price": 8900000, "property_type": "SALE", "category": "land", "location": "bang-saray",
+      "size_land": 280, "direction": "ทิศตะวันตก",
+      "features": {"filled_land": true},
+      "landmarks": [{"name": "หาดบางเสร่", "distance": "700 เมตร"}, {"name": "ท่าเรือบางเสร่", "distance": "1.5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.7480,100.9280"
+    },
+    {
+      "property_code": "LPTY04", "title": "ให้เช่า ที่ดินติดถนนสุขุมวิท หนองปรือ เหมาะเปิดโชว์รูมหรือลานจอด",
+      "description": "ที่ดินหน้ากว้างติดถนนใหญ่ มองเห็นชัดเจน เหมาะเปิดโชว์รูม ลานจอดรถ หรือร้านค้า สัญญาระยะยาวได้",
+      "price": 60000, "property_type": "RENT", "category": "land", "location": "nong-prue-mabprachan",
+      "size_land": 320, "direction": "ทิศตะวันออก",
+      "minimum_lease": "สัญญา 3 ปี", "deposit": 180000, "advance_payment": 60000,
+      "features": {"main_road_front": true, "filled_land": true, "spacious_parking": true},
+      "landmarks": [{"name": "ถนนสุขุมวิท", "distance": "ติดถนน"}, {"name": "เซ็นทรัล พัทยา", "distance": "5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9280,100.9060"
+    },
+    {
+      "property_code": "BPTY01", "title": "ขาย ตึกแถว 4 ชั้น พัทยาใต้ ติดถนน เหมาะทำธุรกิจ",
+      "description": "อาคารพาณิชย์ 4 ชั้น หน้ากว้าง 4 เมตร อยู่ในย่านการค้า เหมาะทำร้านค้าชั้นล่างและห้องพักชั้นบน",
+      "price": 9500000, "property_type": "SALE", "category": "commercial", "location": "pattaya-tai",
+      "bedrooms": 3, "bathrooms": 4, "floors": 4, "parking_spaces": 1, "size_land": 18, "size_usable": 280,
+      "direction": "ทิศเหนือ",
+      "features": {"street_front": true, "company_registration_allowed": true},
+      "landmarks": [{"name": "ถนนพัทยาใต้", "distance": "ติดถนน"}, {"name": "Walking Street", "distance": "900 เมตร"}],
+      "google_maps_link": "https://maps.google.com/?q=12.9230,100.8790"
+    },
+    {
+      "property_code": "BPTY02", "title": "ให้เช่า อาคารพาณิชย์ 3 ชั้น พัทยากลาง ย่านนักท่องเที่ยว",
+      "description": "ทำเลคนเดินผ่านทั้งวัน เหมาะเปิดร้านอาหาร คาเฟ่ ร้านนวด หรือสำนักงาน",
+      "price": 70000, "property_type": "RENT", "category": "commercial", "location": "pattaya-klang",
+      "bathrooms": 3, "floors": 3, "size_land": 20, "size_usable": 240, "direction": "ทิศใต้",
+      "minimum_lease": "สัญญา 3 ปี", "deposit": 210000, "advance_payment": 70000,
+      "features": {"street_front": true, "aircon": true},
+      "landmarks": [{"name": "เซ็นทรัล พัทยา", "distance": "450 เมตร"}, {"name": "หาดพัทยา", "distance": "300 เมตร"}],
+      "google_maps_link": "https://maps.google.com/?q=12.9370,100.8830"
+    },
+    {
+      "property_code": "BPTY03", "title": "ให้เช่า ห้องแถว 2 ชั้น จอมเทียน ใกล้ชายหาด เปิดร้านได้เลย",
+      "description": "ห้องแถวขนาดเล็ก ปรับปรุงใหม่ เหมาะเปิดคาเฟ่ ร้านเช่ารถ หรือร้านของฝาก ลงทุนเริ่มต้นไม่สูง",
+      "price": 45000, "property_type": "RENT", "category": "commercial", "location": "jomtien",
+      "bathrooms": 2, "floors": 2, "size_land": 16, "size_usable": 110, "direction": "ทิศตะวันตก",
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 90000, "advance_payment": 45000,
+      "features": {"renovated": true, "street_front": true},
+      "landmarks": [{"name": "หาดจอมเทียน", "distance": "150 เมตร"}, {"name": "ถนนจอมเทียนสาย 2", "distance": "ติดถนน"}],
+      "google_maps_link": "https://maps.google.com/?q=12.8900,100.8750"
+    },
+    {
+      "property_code": "WPTY01", "title": "ขาย โรงงานพร้อมสำนักงาน แหลมฉบัง ไฟ 3 เฟส รถเทรลเลอร์เข้าได้",
+      "description": "โรงงานพร้อมสำนักงาน 2 ชั้น พื้นรับน้ำหนักสูง ลานกลับรถกว้าง ใกล้ท่าเรือแหลมฉบัง เหมาะกับธุรกิจส่งออกและการผลิต",
+      "price": 38000000, "property_type": "SALE", "category": "warehouse", "location": "laem-chabang",
+      "bathrooms": 4, "floors": 2, "parking_spaces": 10, "size_land": 1200, "size_usable": 1800, "direction": "ทิศใต้",
+      "features": {"three_phase_electric": true, "container_accessible": true, "office_attached": true, "spacious_parking": true},
+      "landmarks": [{"name": "ท่าเรือแหลมฉบัง", "distance": "6 กม."}, {"name": "มอเตอร์เวย์สาย 7", "distance": "4 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=13.0950,100.9300"
+    },
+    {
+      "property_code": "WPTY02", "title": "ให้เช่า โกดัง 800 ตร.ม. แหลมฉบัง ใกล้ท่าเรือ",
+      "description": "โกดังเพดานสูง พร้อมสำนักงานชั้นลอย รถคอนเทนเนอร์เข้าถึงหน้าโกดัง เหมาะเก็บสินค้าและกระจายสินค้า",
+      "price": 120000, "property_type": "RENT", "category": "warehouse", "location": "laem-chabang", "source": "CO_BROKER",
+      "bathrooms": 2, "floors": 1, "parking_spaces": 6, "size_land": 500, "size_usable": 800, "direction": "ทิศตะวันออก",
+      "minimum_lease": "สัญญา 3 ปี", "deposit": 360000, "advance_payment": 120000,
+      "features": {"container_accessible": true, "three_phase_electric": true, "mezzanine": true},
+      "landmarks": [{"name": "ท่าเรือแหลมฉบัง", "distance": "4 กม."}, {"name": "ถนนสุขุมวิท", "distance": "2 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=13.0800,100.9200"
+    },
+    {
+      "property_code": "WPTY03", "title": "ให้เช่า โกดังขนาดเล็ก โป่ง 300 ตร.ม. เหมาะธุรกิจออนไลน์",
+      "description": "โกดังขนาดกะทัดรัด ค่าเช่าไม่สูง มีพื้นที่จอดรถหน้าโกดัง เหมาะเก็บสต๊อกสินค้าและแพ็กของ",
+      "price": 45000, "property_type": "RENT", "category": "warehouse", "location": "pong",
+      "bathrooms": 1, "floors": 1, "parking_spaces": 3, "size_land": 200, "size_usable": 300, "direction": "ทิศเหนือ",
+      "minimum_lease": "สัญญา 1 ปี", "deposit": 90000, "advance_payment": 45000,
+      "features": {"three_phase_electric": true, "parking": true},
+      "landmarks": [{"name": "มอเตอร์เวย์สาย 7", "distance": "3 กม."}, {"name": "ถนนสุขุมวิท", "distance": "9 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9200,100.9950"
+    },
+    {
+      "property_code": "TPTY01", "title": "ขาย โรงแรมบูติก 28 ห้อง พัทยากลาง พร้อมใบอนุญาต ดำเนินกิจการต่อได้",
+      "description": "โรงแรมขนาดกลาง 28 ห้องพัก พร้อมสระว่ายน้ำบนดาดฟ้าและลิฟต์ ทำเลใกล้ห้างและชายหาด รายละเอียดใบอนุญาตและรายได้สอบถามเจ้าหน้าที่",
+      "price": 85000000, "property_type": "SALE", "category": "hotel", "location": "pattaya-klang",
+      "bedrooms": 28, "bathrooms": 30, "floors": 6, "parking_spaces": 8, "size_land": 150, "size_usable": 1650, "direction": "ทิศตะวันตก",
+      "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "features": {"pool": true, "lift": true, "security_24h": true, "wifi": true},
+      "landmarks": [{"name": "เซ็นทรัล พัทยา", "distance": "700 เมตร"}, {"name": "หาดพัทยา", "distance": "500 เมตร"}],
+      "google_maps_link": "https://maps.google.com/?q=12.9330,100.8820"
+    },
+    {
+      "property_code": "TPTY02", "title": "ขาย รีสอร์ตริมทะเล บางเสร่ 12 หลัง บรรยากาศเงียบสงบ",
+      "description": "รีสอร์ตแบบวิลล่า 12 หลังบนที่ดินกว่า 3 ไร่ มีร้านอาหารและสระว่ายน้ำส่วนกลาง เดินถึงชายหาด เหมาะรับกลุ่มครอบครัวและงานสัมมนาเล็ก",
+      "price": 120000000, "property_type": "SALE", "category": "hotel", "location": "bang-saray", "source": "CO_BROKER",
+      "bedrooms": 12, "bathrooms": 14, "floors": 2, "parking_spaces": 15, "size_land": 1300, "size_usable": 1400, "direction": "ทิศตะวันตก",
+      "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "features": {"pool": true, "garden": true, "spacious_parking": true},
+      "landmarks": [{"name": "หาดบางเสร่", "distance": "100 เมตร"}, {"name": "สวนนงนุชพัทยา", "distance": "10 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.7420,100.9220"
+    },
+    {
+      "property_code": "TPTY03", "title": "ให้เช่า อพาร์ตเมนต์ทั้งตึก 40 ห้อง พัทยาเหนือ รายได้ประจำ",
+      "description": "อพาร์ตเมนต์ 5 ชั้น 40 ห้องพัก เช่าทั้งอาคารเพื่อบริหารเอง ทำเลใกล้ห้างและแหล่งงาน",
+      "price": 180000, "property_type": "RENT", "category": "hotel", "location": "pattaya-nua",
+      "bedrooms": 40, "bathrooms": 40, "floors": 5, "parking_spaces": 12, "size_land": 180, "size_usable": 1500, "direction": "ทิศตะวันออก",
+      "minimum_lease": "สัญญา 5 ปี", "deposit": 540000, "advance_payment": 180000,
+      "features": {"lift": true, "wifi": true, "security_24h": true},
+      "landmarks": [{"name": "Terminal 21 พัทยา", "distance": "1 กม."}, {"name": "ถนนสุขุมวิท", "distance": "1.5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.9560,100.8940"
+    },
+    {
+      "property_code": "TPTY04", "title": "ให้เช่า เกสต์เฮาส์ 10 ห้อง จอมเทียน พร้อมเปิดรับแขก",
+      "description": "เกสต์เฮาส์ขนาดเล็กตกแต่งแล้ว มีห้องพัก 10 ห้องและล็อบบี้ อยู่ใกล้ชายหาด เหมาะกับผู้เริ่มทำธุรกิจที่พัก",
+      "price": 95000, "property_type": "RENT", "category": "hotel", "location": "jomtien",
+      "bedrooms": 10, "bathrooms": 11, "floors": 3, "parking_spaces": 3, "size_land": 60, "size_usable": 480, "direction": "ทิศใต้",
+      "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "minimum_lease": "สัญญา 3 ปี", "deposit": 285000, "advance_payment": 95000,
+      "features": {"wifi": true, "aircon": true, "ready_to_move": true},
+      "landmarks": [{"name": "หาดจอมเทียน", "distance": "350 เมตร"}, {"name": "ตลาดน้ำ 4 ภาค", "distance": "4.5 กม."}],
+      "google_maps_link": "https://maps.google.com/?q=12.8780,100.8790"
+    }
+  ]
+}
