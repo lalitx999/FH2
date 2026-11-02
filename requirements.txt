@@ -1,0 +1,10 @@
+Django>=5.2,<5.3
+psycopg[binary]>=3.2
+pillow>=11
+python-dotenv>=1
+gunicorn>=23
+whitenoise>=6.7
+celery>=5.4
+redis>=5
+requests>=2.32
+anthropic>=1

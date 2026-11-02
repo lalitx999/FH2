@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}ลงประกาศ | Finding House{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="ลงประกาศ" sub="ขั้นที่ 1 จาก 2: ข้อมูลทรัพย์" %}
+<div class="container py-4" style="max-width: 56rem">
+  <form method="post" class="card p-4 fh-shadow" novalidate>
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+    <div class="mt-4 text-end"><button class="btn btn-primary" type="submit">ถัดไป: เพิ่มรูปภาพ<i class="fa-solid fa-arrow-right ms-1"></i></button></div>
+  </form>
+</div>
+{% endblock %}

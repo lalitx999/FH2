@@ -1,0 +1,5 @@
+<div class="card p-4 h-100">
+  <div class="fh-stars mb-2" aria-label="{{ review.rating }} ดาว">{% for star in review.stars %}<i class="fa-solid fa-star"></i>{% endfor %}</div>
+  <p>{{ review.comment|linebreaksbr }}</p>
+  <p class="fw-medium mb-0 mt-auto">{{ review.reviewer_name }}</p>
+</div>

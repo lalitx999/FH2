@@ -1,0 +1,7 @@
+<label class="fh-dropzone mb-3">
+  <span class="fh-icon-circle mb-2"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+  <span class="d-block fw-medium">{{ label }}</span>
+  <span class="d-block small text-body-secondary">{{ hint }}</span>
+  <input class="visually-hidden" type="file" multiple accept="{{ accept }}" data-upload-url="{{ url }}" data-target="#{{ grid }}" data-progress="#{{ grid }}-progress">
+</label>
+<div class="progress mb-3 d-none" id="{{ grid }}-progress" role="progressbar" aria-label="ความคืบหน้าการอัปโหลด"><div class="progress-bar" style="width: 0"></div></div>

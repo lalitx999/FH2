@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading="ฝากขาย" %}
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead><tr><th>ผู้ฝากขาย</th><th>ประเภท</th><th>ทำเล</th><th>ราคา</th><th>สถานะ</th><th></th></tr></thead>
+      <tbody>
+        {% for c in items %}
+        <tr>
+          <td class="text-nowrap">{{ c.owner_name }}<div class="small text-body-secondary">{{ c.owner_phone }}</div></td>
+          <td class="text-nowrap">{{ c.get_property_type_display }}</td>
+          <td class="text-nowrap">{{ c.district }} {{ c.province }}</td>
+          <td class="text-nowrap">{{ c.target_price|floatformat:"0g" }}</td>
+          <td class="text-nowrap"><span class="fh-badge {% if c.status == 'PENDING' %}gold{% elif c.status == 'REJECTED' %}red{% endif %}">{{ c.get_status_display }}</span></td>
+          <td class="text-end"><a class="btn btn-sm btn-soft btn-icon" href="{% url 'dashboard:consignment_detail' c.pk %}" aria-label="ดูรายละเอียด" title="ดูรายละเอียด"><i class="fa-regular fa-eye"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-file-signature" text="ยังไม่มีคำขอฝากขาย" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

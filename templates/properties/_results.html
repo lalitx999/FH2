@@ -1,0 +1,23 @@
+<div class="fh-results-head">
+  <div>
+    <h2 class="h3 mb-1">ทรัพย์คัดสรรทำเลดี</h2>
+    <p class="small text-body-secondary mb-0">พบ <strong class="fh-count">{{ page.paginator.count }}</strong> รายการที่ตรงกับการค้นหาของคุณ</p>
+  </div>
+  <a class="fh-more" href="{% url 'pages:home' %}#map-search"><i class="fa-solid fa-map me-2"></i>ดูบนแผนที่<i class="fa-solid fa-arrow-right ms-2"></i></a>
+</div>
+{% if page.object_list %}
+<div class="fh-lgrid">
+  {% for p in page.object_list %}{% include "properties/_listing_card.html" %}{% endfor %}
+</div>
+{% include "partials/pagination.html" %}
+{% else %}
+<div class="fh-noresult">
+  <span class="fh-icon-sq lg"><i class="fa-solid fa-house"></i></span>
+  <h3 class="h5 mt-3 mb-1">ไม่พบทรัพย์ที่ตรงกับการค้นหา</h3>
+  <p class="small text-body-secondary mb-4">ลองปรับตัวกรอง หรือลงประกาศทรัพย์ของคุณได้เลย</p>
+  <div class="d-flex justify-content-center gap-2 flex-wrap">
+    <a class="btn btn-outline" href="{% url 'properties:list' %}">ล้างการค้นหา</a>
+    <a class="btn btn-primary" href="{% url 'properties:sell' %}"><i class="fa-solid fa-plus me-1"></i>ลงประกาศ</a>
+  </div>
+</div>
+{% endif %}

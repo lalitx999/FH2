@@ -1,0 +1,8 @@
+<div class="fh-section-head">
+  <div>
+    <span class="fh-accent-bar"></span>
+    <h2>{{ title }}</h2>
+    {% if sub %}<p>{{ sub }}</p>{% endif %}
+  </div>
+  {% if href %}<a class="fh-more d-none d-sm-inline-flex" href="{{ href }}">{{ link }}<i class="fa-solid fa-arrow-right ms-2"></i></a>{% endif %}
+</div>

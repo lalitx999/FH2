@@ -1,0 +1,27 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading="ผู้ใช้งาน" %}
+<form class="row g-2 mb-3" method="get">
+  <div class="col-md-8"><input class="form-control" type="search" name="q" value="{{ q }}" placeholder="ค้นหาอีเมลหรือชื่อ" aria-label="ค้นหา"></div>
+  <div class="col-md-4 d-grid"><button class="btn btn-soft" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>ค้นหา</button></div>
+</form>
+<div class="card p-3">
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+      <thead><tr><th>ชื่อ</th><th>อีเมล</th><th>บทบาท</th><th>สถานะ</th><th></th></tr></thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td class="text-nowrap">{{ item.get_full_name|default:"-" }}</td>
+          <td class="text-nowrap">{{ item.email }}</td>
+          <td class="text-nowrap"><span class="fh-badge {% if item.is_staff %}gold{% endif %}">{{ item.get_role_display }}</span></td>
+          <td class="text-nowrap">{% if item.is_active %}<span class="fh-badge">ใช้งาน</span>{% else %}<span class="fh-badge red">ยังไม่ยืนยัน/ปิด</span>{% endif %}</td>
+          <td class="text-end"><a class="btn btn-sm btn-soft btn-icon" href="{% url 'dashboard:user_edit' item.pk %}" aria-label="แก้ไข" title="แก้ไข"><i class="fa-regular fa-pen-to-square"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

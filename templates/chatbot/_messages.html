@@ -1,0 +1,18 @@
+{% for item in chat_messages %}
+{% if item.role == "user" %}
+<div class="fh-chat-msg user">{{ item.content|linebreaksbr }}</div>
+{% elif item.status == "pending" %}
+<div class="fh-chat-msg bot pending" data-poll-url="{% url 'chatbot:message' item.pk %}" aria-label="กำลังตอบ"><span></span><span></span><span></span></div>
+{% else %}
+<div class="fh-chat-msg bot">{{ item.content|linebreaksbr }}</div>
+{% for prop in item.suggestions.all %}
+<a class="fh-chat-card" href="{{ prop.get_absolute_url }}">
+  <i class="fa-solid {{ prop.category.icon }}"></i>
+  <span><strong>{{ prop.title }}</strong><small>{{ prop.get_property_type_display }} {{ prop.price|floatformat:"0g" }} บาท · {{ prop.location.name }}</small></span>
+</a>
+{% endfor %}
+{% for action in item.actions %}
+<a class="btn btn-sm btn-outline fh-chat-action" href="{{ action.url }}"><i class="fa-solid {{ action.icon }} me-1"></i>{{ action.label }}</a>
+{% endfor %}
+{% endif %}
+{% endfor %}

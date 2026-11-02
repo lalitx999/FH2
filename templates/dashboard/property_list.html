@@ -1,0 +1,39 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading="ประกาศ" create_url="dashboard:property_new" %}
+<form class="row g-2 mb-3" method="get">
+  <div class="col-md-5"><input class="form-control" type="search" name="q" value="{{ q }}" placeholder="ค้นหาชื่อหรือรหัสทรัพย์" aria-label="ค้นหา"></div>
+  <div class="col-md-4">
+    <select class="form-select" name="status" aria-label="สถานะ">
+      <option value="">ทุกสถานะ</option>
+      {% for value, label in statuses %}<option value="{{ value }}" {% if value == current_status %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3 d-grid"><button class="btn btn-soft" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>กรอง</button></div>
+</form>
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead><tr><th>รหัส</th><th>หัวข้อ</th><th>ราคา</th><th>ทำเล</th><th>สถานะ</th><th>รูป</th><th></th></tr></thead>
+      <tbody>
+        {% for p in items %}
+        <tr>
+          <td class="text-nowrap">{{ p.property_code }}</td>
+          <td style="min-width: 14rem">{{ p.title }}</td>
+          <td class="text-nowrap">{{ p.price|floatformat:"0g" }}</td>
+          <td class="text-nowrap">{{ p.location.name }}</td>
+          <td class="text-nowrap"><span class="fh-badge {% if p.status == 'REVIEW' %}gold{% elif p.status == 'REJECTED' %}red{% endif %}">{{ p.get_status_display }}</span></td>
+          <td>{{ p.image_count }}</td>
+          <td class="text-end text-nowrap"><a class="btn btn-sm btn-soft btn-icon" href="{% url 'dashboard:property_edit' p.pk %}" aria-label="แก้ไข" title="แก้ไข"><i class="fa-regular fa-pen-to-square"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-house" text="ยังไม่มีประกาศ กดเพิ่มใหม่เพื่อเริ่มลงทรัพย์" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

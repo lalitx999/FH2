@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}ไม่พบหน้านี้ | Finding House{% endblock %}
+{% block content %}
+<div class="container py-5">
+  {% include "partials/empty_state.html" with icon="fa-compass" text="ไม่พบหน้าที่คุณต้องการ" %}
+  <div class="text-center"><a class="btn btn-primary" href="{% url 'pages:home' %}">กลับหน้าแรก</a></div>
+</div>
+{% endblock %}

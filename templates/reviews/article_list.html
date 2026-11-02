@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}{{ title }} | Finding House{% endblock %}
+{% block description %}บทความความรู้เรื่องโฉนด ค่าโอน ภาษี และการซื้อขายอสังหาริมทรัพย์จากทีม Finding House{% endblock %}
+{% block meta %}<meta property="og:title" content="บทความ | Finding House">{% page_schema "page" "บทความ" %}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading=title %}
+<div class="container py-4">
+  {% if page.object_list %}
+  <div class="row g-3">
+    {% for article in page.object_list %}<div class="col-sm-6 col-lg-4">{% include "reviews/_article_card.html" %}</div>{% endfor %}
+  </div>
+  {% include "partials/pagination.html" %}
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-newspaper" text="ยังไม่มีบทความ" %}
+  {% endif %}
+</div>
+{% endblock %}

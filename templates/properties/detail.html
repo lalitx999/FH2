@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load static l10n %}
+{% block title %}{{ property.seo_title }} | Finding House{% endblock %}
+{% block description %}{{ summary|truncatechars:155 }}{% endblock %}
+{% block og_image %}{% with cover=property.cover %}{% if cover %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ cover.image.url }}">{% else %}{{ block.super }}{% endif %}{% endwith %}{% endblock %}
+{% block meta %}
+<meta property="og:title" content="{{ property.seo_title }}">
+<meta property="og:description" content="{{ summary|truncatechars:155 }}">
+<meta property="og:type" content="website">
+{{ schema }}
+{% endblock %}
+{% block content %}
+<div class="fh-detail-head">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+      <a class="btn btn-sm btn-white" href="{% url 'properties:list' %}"><i class="fa-solid fa-arrow-left me-1"></i>กลับหน้ารวมอสังหาฯ</a>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <span class="fh-badge gold">รหัสทรัพย์: {{ property.property_code }}</span>
+        <span class="fh-badge {% if property.status == 'PUBLISHED' %}{% else %}blue{% endif %}">{{ property.get_status_display }}</span>
+        {% if property.is_sample %}<span class="fh-badge blue">ข้อมูลตัวอย่าง</span>{% endif %}
+        <a class="fh-badge fb text-decoration-none" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook me-1"></i>แชร์ Facebook</a>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mb-2">
+      <span class="fh-chip strong">{{ property.get_property_type_display }}</span>
+      <span class="fh-chip">{{ property.category.name }}</span>
+    </div>
+    <h1 class="fh-detail-title">{{ property.title }}</h1>
+    <p class="mb-0 mt-2"><i class="fa-solid fa-location-dot me-2"></i>{{ property.location.name }}</p>
+  </div>
+</div>
+
+<div class="container py-4">
+  {% if property.status != 'PUBLISHED' %}
+  <div class="alert alert-warning"><i class="fa-solid fa-eye me-2"></i>ตัวอย่างประกาศ สถานะ: {{ property.get_status_display }} (คนทั่วไปยังไม่เห็น)</div>
+  {% endif %}
+  {% if property.is_sample %}
+  <div class="alert alert-info"><i class="fa-solid fa-circle-info me-2"></i>นี่คือข้อมูลตัวอย่างสำหรับดูการแสดงผล ไม่ใช่ทรัพย์ที่เปิดขายจริง</div>
+  {% endif %}
+
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-8 d-grid gap-4">
+      {% with images=property.images.all %}
+      <div class="fh-panel p-3">
+        <div class="fh-gallery">
+          <div class="fh-gallery-badges">
+            <span class="fh-badge {% if property.property_type == 'RENT' %}rent{% else %}sale{% endif %}">สำหรับ{{ property.get_property_type_display }}</span>
+          </div>
+          {% if images %}
+          <div id="gallery" class="carousel slide">
+            <div class="carousel-inner">
+              {% for img in images %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ img.image.url }}" alt="{{ property.title }} รูปที่ {{ forloop.counter }}" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+              </div>
+              {% endfor %}
+            </div>
+            {% if images|length > 1 %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#gallery" data-bs-slide="prev" aria-label="รูปก่อนหน้า"><span class="fh-carousel-btn"><i class="fa-solid fa-chevron-left"></i></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#gallery" data-bs-slide="next" aria-label="รูปถัดไป"><span class="fh-carousel-btn"><i class="fa-solid fa-chevron-right"></i></span></button>
+            {% endif %}
+          </div>
+          <div class="fh-gallery-count"><i class="fa-solid fa-camera me-1"></i><span data-gallery-current>1</span> / {{ images|length }}</div>
+          {% else %}
+          <div class="fh-gallery-empty"><i class="fa-solid {{ property.category.icon }}" aria-hidden="true"></i><span>ยังไม่มีรูปภาพทรัพย์</span></div>
+          {% endif %}
+        </div>
+        {% if images|length > 1 %}
+        <div class="fh-thumbs mt-3">
+          {% for img in images %}<button type="button" class="{% if forloop.first %}active{% endif %}" data-bs-target="#gallery" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="ดูรูปที่ {{ forloop.counter }}"><img src="{{ img.image.url }}" alt="" loading="lazy"><span>{{ forloop.counter }}</span></button>{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endwith %}
+
+      <section class="fh-money">
+        <h2 class="fh-panel-title"><i class="fa-solid fa-calculator"></i>ตัวเลขด้านราคา</h2>
+        <div class="row g-3 row-cols-2 row-cols-md-4">
+          <div class="col"><div class="fh-money-tile"><span>ราคา{{ property.get_property_type_display }}</span><strong class="big">฿{{ property.price|floatformat:"0g" }}</strong></div></div>
+          {% if property.price_per_sqm %}<div class="col"><div class="fh-money-tile"><span>เฉลี่ยต่อ ตร.ม.</span><strong>฿{{ property.price_per_sqm|floatformat:"0g" }}</strong></div></div>{% endif %}
+          {% if property.price_per_sqwah and property.property_type == 'SALE' %}<div class="col"><div class="fh-money-tile"><span>เฉลี่ยต่อ ตร.ว.</span><strong>฿{{ property.price_per_sqwah|floatformat:"0g" }}</strong></div></div>{% endif %}
+          {% if property.price_per_rai and property.property_type == 'SALE' %}<div class="col"><div class="fh-money-tile"><span>เฉลี่ยต่อไร่</span><strong>฿{{ property.price_per_rai|floatformat:"0g" }}</strong></div></div>{% endif %}
+          {% if property.common_fee %}<div class="col"><div class="fh-money-tile"><span>ค่าส่วนกลาง</span><strong>฿{{ property.common_fee|floatformat:"0g" }} <small>/ด.</small></strong></div></div>{% endif %}
+          {% if property.deposit %}<div class="col"><div class="fh-money-tile"><span>เงินประกัน</span><strong>฿{{ property.deposit|floatformat:"0g" }}</strong></div></div>{% endif %}
+        </div>
+      </section>
+
+      <section class="fh-panel p-4">
+        <h2 class="fh-panel-title"><i class="fa-regular fa-file-lines"></i>รายละเอียดและจุดเด่นของทรัพย์</h2>
+        <p class="fh-answer">{{ summary }}</p>
+        <div>{{ property.description|linebreaks }}</div>
+        <p class="small text-body-secondary mb-0"><i class="fa-regular fa-calendar me-1"></i>อัปเดตล่าสุด <time datetime="{{ property.updated_at|date:'Y-m-d' }}">{{ property.updated_at|date:"j F Y" }}</time></p>
+        {% if property.feature_list %}
+        <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-xl-3 mt-1">
+          {% for feature in property.feature_list %}
+          <div class="col"><div class="fh-feature"><span class="fh-icon-circle"><i class="fa-solid {{ feature.icon }}"></i></span>{{ feature.label }}</div></div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </section>
+
+      <section class="fh-panel p-4">
+        <h2 class="fh-panel-title"><i class="fa-solid fa-file-circle-check"></i>ข้อมูลและเงื่อนไขของทรัพย์</h2>
+        <div class="row g-3 row-cols-1 row-cols-sm-2">
+          {% for row in property.info_rows %}
+          <div class="col"><div class="fh-info-row"><span><i class="fa-solid {{ row.icon }}"></i>{{ row.label }}</span><strong>{{ row.value }}</strong></div></div>
+          {% endfor %}
+        </div>
+      </section>
+
+      {% if property.has_coordinates or property.landmarks %}
+      <section class="fh-panel p-4" id="location">
+        <div class="fh-panel-title justify-content-between flex-wrap">
+          <h2 class="h5 mb-0"><i class="fa-solid fa-location-dot me-2"></i>แผนที่ตั้งและพิกัดทรัพย์</h2>
+          {% if property.google_maps_link %}<a class="btn btn-sm btn-primary" href="{{ property.google_maps_link }}" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right me-1"></i>เปิด Google Maps (นำทาง)</a>{% endif %}
+        </div>
+        {% if property.has_coordinates %}
+        <div id="detail-map" class="fh-map fh-map-sm" data-leaflet-css="{% static 'vendor/leaflet/leaflet.css' %}" data-leaflet-js="{% static 'vendor/leaflet/leaflet.js' %}" data-lat="{{ property.latitude|unlocalize }}" data-lng="{{ property.longitude|unlocalize }}" data-label="{{ property.property_code }}" role="application" aria-label="แผนที่ตำแหน่งทรัพย์"></div>
+        <p class="small text-body-secondary mt-2 mb-0"><i class="fa-solid fa-location-dot me-1"></i>ที่ตั้ง: {{ property.location.name }}{% if property.is_sample %} (ตำแหน่งโดยประมาณจากข้อมูลตัวอย่าง){% endif %}</p>
+        {% endif %}
+        {% if property.landmarks %}
+        <h3 class="h6 mt-4">สถานที่สำคัญในบริเวณใกล้เคียง</h3>
+        <div class="row g-2 row-cols-1 row-cols-sm-2">
+          {% for place in property.landmarks %}
+          <div class="col"><div class="fh-landmark"><span><i class="fa-solid fa-location-dot me-2"></i>{{ place.name }}</span>{% if place.distance %}<span class="fh-badge">{{ place.distance }}</span>{% endif %}</div></div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </section>
+      {% endif %}
+    </div>
+
+    <aside class="col-lg-4">
+      <div class="fh-sticky d-grid gap-4">
+        <div class="fh-panel p-4 fh-shadow">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <span class="small fw-bold text-body-secondary">ราคาเสนอ{{ property.get_property_type_display }}</span>
+              <div class="fh-side-price">฿{{ property.price|floatformat:"0g" }}</div>
+            </div>
+            {% if property.id in bookmarked %}{% include "properties/_bookmark_button.html" with is_bookmarked=True %}{% else %}{% include "properties/_bookmark_button.html" with is_bookmarked=False %}{% endif %}
+          </div>
+          {% if property.property_type == 'SALE' %}<p class="small text-body-secondary mt-1 mb-0">เงื่อนไข: <strong>{{ property.get_sale_condition_display }}</strong></p>{% endif %}
+
+          <div class="d-grid gap-2 mt-3 pt-3 border-top">
+            {% if property.is_direct_seller and property.seller_phone %}<a class="btn btn-primary" href="tel:{{ property.seller_phone }}"><i class="fa-solid fa-phone me-2"></i>โทรติดต่อ: {{ property.seller_phone }}</a>
+            {% elif site.phone %}<a class="btn btn-primary" href="tel:{{ site.phone }}"><i class="fa-solid fa-phone me-2"></i>โทรติดต่อ: {{ site.phone }}</a>{% endif %}
+            {% if site.line_url %}<a class="btn btn-line" href="{{ site.line_url }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-line me-2"></i>ทัก LINE: {{ site.line_id }}</a>{% endif %}
+            <a class="btn btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook me-2"></i>แชร์โพสต์นี้ไปที่ Facebook</a>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-sm btn-outline flex-fill" data-copy-link><i class="fa-solid fa-share-nodes me-1"></i>คัดลอกลิงก์</button>
+              <button type="button" class="btn btn-sm btn-outline flex-fill" data-compare-id="{{ property.id }}"><i class="fa-solid fa-code-compare me-1"></i>เปรียบเทียบ</button>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 mt-3 pt-3 border-top">
+            <span class="fh-agent {% if property.is_direct_seller %}gold{% endif %}"><i class="fa-solid {% if property.is_direct_seller %}fa-user{% else %}fa-house-chimney{% endif %}"></i></span>
+            <div style="min-width: 0">
+              <div class="small text-body-secondary">{% if property.is_direct_seller %}ประกาศจากผู้ขายตรง{% else %}ผู้ดูแลทรัพย์{% endif %}</div>
+              <div class="fw-bold text-truncate">{% if property.is_direct_seller %}{{ property.seller_name }}{% elif property.agent %}{{ property.agent.display_name }}{% else %}ทีมงาน Finding House{% endif %}</div>
+              {% if property.is_direct_seller and property.seller_line_id %}<div class="small">LINE: {{ property.seller_line_id }}</div>{% endif %}
+              <div class="small fh-count fw-semibold">รหัสทรัพย์: {{ property.property_code }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fh-panel p-4 fh-side-form">
+          <h2 class="fh-panel-title"><i class="fa-regular fa-calendar"></i>สนใจนัดชม / ขอข้อมูลเพิ่ม</h2>
+          {% include "inquiries/_form.html" with form=inquiry_form %}
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  {% if related %}
+  <section class="mt-5 pt-4 border-top">
+    <div class="d-flex justify-content-between align-items-center gap-2 mb-4">
+      <div>
+        <h2 class="h4 mb-1">ทรัพย์อื่นๆ ที่ใกล้เคียง</h2>
+        <p class="small text-body-secondary mb-0">ทำเล {{ property.location.name }} และหมวด {{ property.category.name }}</p>
+      </div>
+      <a class="fh-more" href="{% url 'properties:list' %}?category={{ property.category.slug }}">ดูทั้งหมด<i class="fa-solid fa-chevron-right ms-2"></i></a>
+    </div>
+    <div class="fh-lgrid">
+      {% for p in related %}{% include "properties/_listing_card.html" %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}
+{% block extra_js %}
+{% if property.has_coordinates %}
+<script defer src="{% static 'js/map.js' %}"></script>
+{% endif %}
+{% endblock %}

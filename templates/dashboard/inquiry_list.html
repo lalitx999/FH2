@@ -1,0 +1,27 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading="ข้อความติดต่อ" %}
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+      <thead><tr><th>ผู้ติดต่อ</th><th>ข้อความ</th><th>ทรัพย์</th><th>เมื่อ</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td class="text-nowrap">{{ item.name }}<div class="small"><a href="tel:{{ item.phone }}">{{ item.phone }}</a></div><div class="small"><a href="mailto:{{ item.email }}">{{ item.email }}</a></div></td>
+          <td style="min-width: 16rem">{{ item.message|linebreaksbr }}</td>
+          <td class="text-nowrap">{% if item.property %}<a href="{{ item.property.get_absolute_url }}">{{ item.property.property_code }}</a>{% else %}ทั่วไป{% endif %}</td>
+          <td class="text-nowrap small">{{ item.created_at|date:"j M Y H:i" }}</td>
+          <td class="text-nowrap">{% include "dashboard/_inquiry_status.html" %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-envelope" text="ยังไม่มีข้อความ" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

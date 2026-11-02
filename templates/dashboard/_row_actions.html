@@ -1,0 +1,2 @@
+<a class="btn btn-sm btn-soft btn-icon" href="{% url edit_url item.pk %}" aria-label="แก้ไข" title="แก้ไข"><i class="fa-regular fa-pen-to-square"></i></a>
+<form class="d-inline" method="post" action="{% url delete_url item.pk %}">{% csrf_token %}<button class="btn btn-sm btn-danger-soft btn-icon" type="submit" data-confirm="ยืนยันการลบรายการนี้" aria-label="ลบ" title="ลบ"><i class="fa-regular fa-trash-can"></i></button></form>

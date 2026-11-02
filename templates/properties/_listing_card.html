@@ -1,0 +1,25 @@
+{% with cover=p.cover %}
+<article class="fh-lcard h-100">
+  <div class="fh-lcard-media">
+    <a href="{{ p.get_absolute_url }}" class="d-block" aria-label="{{ p.title }}">
+      {% if cover %}<img src="{{ cover.card_url }}" width="640" height="480" alt="{{ p.title }}" loading="lazy" decoding="async">
+      {% else %}<span class="fh-lcard-empty"><i class="fa-solid {{ p.category.icon }}" aria-hidden="true"></i></span>{% endif %}
+    </a>
+    <div class="fh-lcard-badges">
+      <span class="fh-badge {% if p.property_type == 'RENT' %}rent{% else %}sale{% endif %}">{{ p.get_property_type_display }}{% if p.posted_ago %} · {{ p.posted_ago }}{% endif %}</span>
+      {% if p.is_sample %}<span class="fh-badge gold">ตัวอย่าง</span>{% endif %}
+    </div>
+    <div class="fh-lcard-fav">{% if p.id in bookmarked %}{% include "properties/_bookmark_button.html" with property=p is_bookmarked=True %}{% else %}{% include "properties/_bookmark_button.html" with property=p is_bookmarked=False %}{% endif %}</div>
+  </div>
+  <div class="fh-lcard-body">
+    <div>
+      <div class="fh-lcard-price">฿{{ p.price|floatformat:"0g" }}{% if p.property_type == 'RENT' %}<small> /เดือน</small>{% endif %}</div>
+      <h3 class="fh-lcard-title"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h3>
+    </div>
+    <div class="fh-lcard-foot">
+      <span class="text-truncate"><i class="fa-solid fa-location-dot me-1"></i>{{ p.location.name }}</span>
+      <button type="button" class="fh-lcard-compare" data-compare-id="{{ p.id }}" aria-label="เปรียบเทียบ" title="เปรียบเทียบทรัพย์นี้"><i class="fa-solid fa-code-compare"></i></button>
+    </div>
+  </div>
+</article>
+{% endwith %}

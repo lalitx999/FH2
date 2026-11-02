@@ -1,0 +1,32 @@
+{% load static seo_tags %}<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>{% block title %}Finding House{% endblock %}</title>
+  <meta name="description" content="{% block description %}Finding House ซื้อ ขาย เช่า ฝากขายอสังหาริมทรัพย์{% endblock %}">
+  <meta name="robots" content="{% robots_content %}">
+  <link rel="canonical" href="{% canonical_url %}">
+  <link rel="alternate" type="text/plain" title="llms.txt" href="{% url 'pages:llms' %}">
+  <meta name="theme-color" content="#2F7D62">
+  <meta property="og:site_name" content="Finding House">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:url" content="{% canonical_url %}">
+  <meta name="twitter:card" content="summary_large_image">
+  {% block og_image %}<meta property="og:image" content="{% absolute_static 'images/cover.jpg' %}">{% endblock %}
+  {% block meta %}{% endblock %}
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="{% static 'fonts/noto-sans-thai-thai-wght-normal.woff2' %}">
+  <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="{% block body_class %}{% endblock %}" data-max-compare="{{ max_compare_items }}">
+  <div id="toasts" class="fh-toasts" aria-live="polite"></div>
+  {% block body %}{% endblock %}
+  <script defer src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script defer src="{% static 'js/app.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

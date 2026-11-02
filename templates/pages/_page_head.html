@@ -1,0 +1,12 @@
+{% load static %}
+<div class="fh-page-head">
+  <img class="fh-page-photo" src="{% static 'images/cover-1200.webp' %}" srcset="{% static 'images/cover-800.webp' %} 800w, {% static 'images/cover-1200.webp' %} 1200w" sizes="(max-width: 991.98px) 100vw, 42vw" width="1200" height="800" alt="" fetchpriority="high">
+  <div class="container fh-page-inner">
+    <div class="fh-page-text">
+      <span class="fh-accent-bar"></span>
+      {% if eyebrow %}<p class="fh-eyebrow">{{ eyebrow }}</p>{% endif %}
+      <h1>{{ heading }}</h1>
+      {% if sub %}<p class="mb-0 mt-2">{{ sub }}</p>{% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}ค่าโอนบ้านและคอนโด ภาษี และมาตรการลดค่าโอน 0.01% | Finding House{% endblock %}
+{% block description %}{{ summary|truncatechars:155 }}{% endblock %}
+{% block meta %}<meta property="og:title" content="คู่มือค่าโอนและภาษี | Finding House"><meta property="og:type" content="article">{{ schema }}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="GUIDE" heading="คู่มือค่าโอนและภาษีเมื่อซื้อขายบ้านและคอนโด" %}
+<article class="container py-5" style="max-width: 52rem">
+  <p class="fh-answer">{{ summary }}</p>
+  <p class="small text-body-secondary"><i class="fa-regular fa-calendar me-1"></i>ตรวจทานล่าสุด <time datetime="{{ reviewed|date:'Y-m-d' }}">{{ reviewed|date:"j F Y" }}</time> โดยทีม Finding House · ข้อมูลทั่วไป ไม่ใช่คำแนะนำทางกฎหมายหรือภาษี</p>
+
+  <h2 class="h4 mt-4">ค่าใช้จ่ายมีอะไรบ้าง</h2>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead><tr><th scope="col">รายการ</th><th scope="col">อัตราปกติ</th><th scope="col">คิดจาก</th><th scope="col">ผู้รับผิดชอบโดยทั่วไป</th></tr></thead>
+      <tbody>{% for row in rows %}<tr><th scope="row" class="fw-semibold">{{ row.name }}</th><td class="text-nowrap">{{ row.rate }}</td><td>{{ row.base }}</td><td>{{ row.payer }}</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+
+  <h2 class="h4 mt-4">มาตรการลดค่าโอนและค่าจดจำนองเหลือ 0.01%</h2>
+  <ul>{% for row in measure %}<li>{{ row }}</li>{% endfor %}</ul>
+  <p>ควรยืนยันเงื่อนไขล่าสุดกับสำนักงานที่ดินก่อนวันโอน เพราะมาตรการของรัฐอาจเปลี่ยนแปลงได้</p>
+
+  <h2 class="h4 mt-4">ตัวอย่างคำนวณ บ้านราคา 5 ล้านบาท</h2>
+  <p>สมมติให้ราคาขายเท่ากับราคาประเมินที่ 5,000,000 บาท และเข้าเงื่อนไขมาตรการ</p>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead><tr><th scope="col">รายการ</th><th scope="col" class="text-end">อัตราปกติ (บาท)</th><th scope="col" class="text-end">ตามมาตรการ (บาท)</th></tr></thead>
+      <tbody>{% for row in example %}<tr><th scope="row" class="fw-semibold">{{ row.name }}</th><td class="text-end">{{ row.normal }}</td><td class="text-end">{{ row.measure }}</td></tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  <p class="small text-body-secondary">ภาษีธุรกิจเฉพาะกับอากรแสตมป์เสียอย่างใดอย่างหนึ่ง ตัวอย่างนี้ยังไม่รวมภาษีเงินได้ของผู้ขาย</p>
+
+  <h2 class="h4 mt-4">แหล่งอ้างอิง</h2>
+  <ul>{% for source in sources %}<li><a href="{{ source.url }}" rel="noopener" target="_blank">{{ source.label }}</a></li>{% endfor %}</ul>
+  <a class="btn btn-soft mt-2" href="{% url 'pages:faq' %}"><i class="fa-regular fa-circle-question me-1"></i>คำถามที่พบบ่อย</a>
+</article>
+{% endblock %}

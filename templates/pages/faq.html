@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}คำถามที่พบบ่อยเรื่องซื้อ ขาย เช่า ฝากขายอสังหาฯ | Finding House{% endblock %}
+{% block description %}คำตอบเรื่องบริการ Finding House การซื้อและเช่า การฝากขาย ค่าโอน ภาษี และการตรวจสอบโฉนด ตรวจทานล่าสุด {{ reviewed|date:"j F Y" }}{% endblock %}
+{% block meta %}<meta property="og:title" content="คำถามที่พบบ่อย | Finding House">{{ schema }}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="FAQ" heading="คำถามที่พบบ่อย" %}
+<div class="container py-5" style="max-width: 52rem">
+  <p class="fh-answer">{{ summary }}</p>
+  <p class="small text-body-secondary"><i class="fa-regular fa-calendar me-1"></i>ตรวจทานล่าสุด <time datetime="{{ reviewed|date:'Y-m-d' }}">{{ reviewed|date:"j F Y" }}</time></p>
+  {% for section in sections %}
+  <section class="mt-4">
+    <h2 class="h4">{{ section.title }}</h2>
+    {% for item in section.items %}
+    <div class="fh-faq">
+      <h3 class="h6">{{ item.q }}</h3>
+      <p class="mb-0">{{ item.a }}</p>
+    </div>
+    {% endfor %}
+  </section>
+  {% endfor %}
+  <div class="d-flex flex-wrap gap-2 mt-4">
+    <a class="btn btn-primary" href="{% url 'pages:fee_guide' %}"><i class="fa-solid fa-calculator me-1"></i>คู่มือค่าโอนและภาษี</a>
+    <a class="btn btn-soft" href="{% url 'pages:contact' %}"><i class="fa-regular fa-envelope me-1"></i>ถามทีมงาน</a>
+  </div>
+</div>
+{% endblock %}

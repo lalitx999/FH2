@@ -1,0 +1,8 @@
+<div class="col-6 col-md-4 col-lg-3" data-tile>
+  <div class="fh-tile">
+    <img src="{{ image.image.url }}" alt="รูปทรัพย์" loading="lazy">
+    <div class="fh-tile-actions">
+      <button class="btn btn-sm btn-danger-soft btn-icon" type="button" data-ajax-post="{% url 'properties:consignment_image_delete' image.pk %}" data-target="closest:[data-tile]" aria-label="ลบรูป" title="ลบรูป"><i class="fa-regular fa-trash-can"></i></button>
+    </div>
+  </div>
+</div>

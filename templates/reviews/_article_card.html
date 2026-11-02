@@ -1,0 +1,10 @@
+<a class="card fh-card fh-article h-100 text-decoration-none" href="{{ article.get_absolute_url }}">
+  {% if article.cover_image %}<img class="fh-article-img" src="{{ article.cover_image.url }}" alt="{{ article.title }}" loading="lazy">
+  {% else %}<div class="fh-article-img fh-img-empty"><i class="fa-regular fa-newspaper" aria-hidden="true"></i></div>{% endif %}
+  <div class="card-body p-4">
+    <p class="small fw-bold mb-2 fh-article-cat">{{ article.category }}</p>
+    <h3 class="h5 fh-card-title">{{ article.title }}</h3>
+    {% if article.excerpt %}<p class="small text-body-secondary fh-clamp">{{ article.excerpt }}</p>{% endif %}
+    <span class="fw-bold small fh-more">อ่านต่อ<i class="fa-solid fa-chevron-right ms-2"></i></span>
+  </div>
+</a>

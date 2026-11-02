@@ -1,0 +1,54 @@
+{% extends "root.html" %}
+{% load dashboard_tags %}
+{% block title %}Dashboard | Finding House{% endblock %}
+{% block body %}
+<div class="d-lg-flex fh-dash">
+  <aside class="fh-dash-sidebar p-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <a class="fh-brand" href="{% url 'dashboard:home' %}"><i class="fa-solid fa-house-chimney"></i>FINDING <span>HOUSE</span></a>
+      <button class="btn btn-sm btn-white btn-icon d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#dashNav" aria-controls="dashNav" aria-expanded="false" aria-label="เปิดเมนู"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div class="collapse d-lg-block mt-2" id="dashNav">
+      {% dashboard_counts as counts %}
+      {% with p=request.path %}
+      <nav class="nav flex-column gap-1">
+        <a class="nav-link {% if p == '/dashboard/' %}active{% endif %}" href="{% url 'dashboard:home' %}"><i class="fa-solid fa-gauge"></i>ภาพรวม</a>
+        <div class="fh-dash-label">ทรัพย์</div>
+        <a class="nav-link {% if '/dashboard/properties/' in p %}active{% endif %}" href="{% url 'dashboard:properties' %}"><i class="fa-solid fa-house"></i>ประกาศ{% if counts.listings %}<span class="fh-dash-count">{{ counts.listings }}</span>{% endif %}</a>
+        <a class="nav-link {% if '/dashboard/consignments/' in p %}active{% endif %}" href="{% url 'dashboard:consignments' %}"><i class="fa-solid fa-file-signature"></i>ฝากขาย{% if counts.consignments %}<span class="fh-dash-count">{{ counts.consignments }}</span>{% endif %}</a>
+        <a class="nav-link {% if '/dashboard/categories/' in p %}active{% endif %}" href="{% url 'dashboard:categories' %}"><i class="fa-solid fa-tags"></i>หมวดหมู่</a>
+        <a class="nav-link {% if '/dashboard/locations/' in p %}active{% endif %}" href="{% url 'dashboard:locations' %}"><i class="fa-solid fa-location-dot"></i>ทำเล</a>
+        <div class="fh-dash-label">ลูกค้า</div>
+        <a class="nav-link {% if '/dashboard/inquiries/' in p %}active{% endif %}" href="{% url 'dashboard:inquiries' %}"><i class="fa-regular fa-envelope"></i>ข้อความติดต่อ{% if counts.inquiries %}<span class="fh-dash-count">{{ counts.inquiries }}</span>{% endif %}</a>
+        <a class="nav-link {% if '/dashboard/customer-reviews/' in p %}active{% endif %}" href="{% url 'dashboard:customer_reviews' %}"><i class="fa-regular fa-star"></i>รีวิวลูกค้า{% if counts.reviews %}<span class="fh-dash-count">{{ counts.reviews }}</span>{% endif %}</a>
+        <a class="nav-link {% if '/dashboard/chats/' in p %}active{% endif %}" href="{% url 'dashboard:chats' %}"><i class="fa-regular fa-comments"></i>แชทบอท</a>
+        <div class="fh-dash-label">เนื้อหา</div>
+        <a class="nav-link {% if '/dashboard/articles/' in p %}active{% endif %}" href="{% url 'dashboard:articles' %}"><i class="fa-regular fa-newspaper"></i>บทความ</a>
+        {% if user.is_site_admin %}
+        <div class="fh-dash-label">ระบบ</div>
+        <a class="nav-link {% if '/dashboard/users/' in p %}active{% endif %}" href="{% url 'dashboard:users' %}"><i class="fa-solid fa-users"></i>ผู้ใช้งาน</a>
+        {% endif %}
+      </nav>
+      {% endwith %}
+    </div>
+  </aside>
+  <div class="flex-grow-1" style="min-width: 0">
+    <header class="fh-dash-top">
+      <span class="small text-body-secondary d-none d-sm-inline">ระบบหลังบ้าน Finding House</span>
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <a class="btn btn-sm btn-soft" href="{% url 'pages:home' %}"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i>ดูหน้าเว็บ</a>
+        <span class="fh-dash-user"><i class="fa-regular fa-circle-user"></i><span class="text-truncate">{{ user.display_name }}</span></span>
+        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}
+          <button class="btn btn-sm btn-danger-soft btn-icon" type="submit" aria-label="ออกจากระบบ" title="ออกจากระบบ"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </form>
+      </div>
+    </header>
+    <main class="p-3 p-lg-4">
+      {% for message in messages %}
+      <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags|default:'info' }}{% endif %} mb-3" role="alert">{{ message }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+<form method="post" action="{% url 'reviews:submit' %}" data-ajax-form>
+  {% csrf_token %}
+  {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+  <div class="row g-3">{% for field in form.visible_fields %}{% include "partials/field.html" with wide=True %}{% endfor %}</div>
+  <button class="btn btn-primary mt-3" type="submit"><i class="fa-regular fa-paper-plane me-1"></i>ส่งรีวิว</button>
+</form>

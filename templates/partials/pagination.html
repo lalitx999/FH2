@@ -1,0 +1,12 @@
+{% if page.paginator.num_pages > 1 %}
+<nav aria-label="แบ่งหน้า" class="mt-5">
+  <ul class="pagination justify-content-center flex-wrap">
+    {% if page.has_previous %}<li class="page-item"><a class="page-link" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page.previous_page_number }}"><i class="fa-solid fa-chevron-left me-1"></i>ก่อนหน้า</a></li>{% endif %}
+    {% for number in page.paginator.page_range %}
+      {% if number == page.number %}<li class="page-item active" aria-current="page"><span class="page-link">{{ number }}</span></li>
+      {% elif number >= page.number|add:"-2" and number <= page.number|add:"2" %}<li class="page-item"><a class="page-link" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ number }}">{{ number }}</a></li>{% endif %}
+    {% endfor %}
+    {% if page.has_next %}<li class="page-item"><a class="page-link" href="?{% if querystring %}{{ querystring }}&amp;{% endif %}page={{ page.next_page_number }}">ถัดไป<i class="fa-solid fa-chevron-right ms-1"></i></a></li>{% endif %}
+  </ul>
+</nav>
+{% endif %}

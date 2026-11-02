@@ -1,0 +1,39 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading="แชทบอท" %}
+<div class="card p-3 mb-3">
+  <h2 class="h6 mb-3"><i class="fa-solid fa-microchip me-2"></i>สถานะผู้ให้บริการ AI</h2>
+  <div class="d-flex flex-wrap gap-2">
+    {% for provider in providers %}
+    <span class="fh-badge {% if provider.enabled and provider.configured %}{% elif provider.enabled %}red{% else %}gray{% endif %}">
+      {{ provider.name }}:
+      {% if provider.enabled and provider.configured %}พร้อมใช้{% elif provider.enabled %}ตั้งค่าไม่ครบ{% elif provider.configured %}ตั้งค่าแล้วแต่ปิดอยู่{% else %}ยังไม่ตั้งค่า{% endif %}
+    </span>
+    {% endfor %}
+  </div>
+  <p class="small text-body-secondary mt-2 mb-0">ถ้าไม่มีรายการที่พร้อมใช้ แชทบอทจะตอบด้วยกฎพื้นฐานและค้นทรัพย์จากฐานข้อมูล ตั้งค่าผ่าน LLM_PROVIDERS และ API key ในไฟล์ .env</p>
+</div>
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead><tr><th>คำถามแรก</th><th>ผู้ใช้</th><th>ข้อความ</th><th>ล่าสุด</th><th></th></tr></thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td style="min-width: 16rem">{{ item.first_question|default:"-"|truncatechars:70 }}</td>
+          <td class="text-nowrap">{{ item.user.email|default:"ผู้เยี่ยมชม" }}</td>
+          <td>{{ item.message_count }}</td>
+          <td class="text-nowrap small text-body-secondary">{{ item.updated_at|date:"j M Y H:i" }}</td>
+          <td class="text-end"><a class="btn btn-sm btn-soft btn-icon" href="{% url 'dashboard:chat_detail' item.pk %}" aria-label="ดูบทสนทนา" title="ดูบทสนทนา"><i class="fa-regular fa-eye"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-comments" text="ยังไม่มีบทสนทนา" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

@@ -1,0 +1,13 @@
+<div class="{% if field.widget_type == 'textarea' or field.widget_type == 'clearablefile' or field.widget_type == 'checkboxselectmultiple' or wide %}col-12{% else %}col-md-6{% endif %}"{% if show_for %} data-show-for="{{ show_for }}"{% endif %}>
+  {% if field.widget_type == 'checkbox' %}
+  <div class="form-check mt-md-4">
+    {{ field }}
+    <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  </div>
+  {% else %}
+  <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="text-danger" aria-hidden="true">*</span>{% endif %}</label>
+  {% if field.widget_type == 'checkboxselectmultiple' %}<div class="fh-check-grid">{{ field }}</div>{% else %}{{ field }}{% endif %}
+  {% endif %}
+  {% if field.help_text %}<div class="form-text">{{ field.help_text|safe }}</div>{% endif %}
+  {% for err in field.errors %}<div class="invalid-feedback d-block">{{ err }}</div>{% endfor %}
+</div>

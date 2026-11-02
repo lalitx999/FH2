@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static seo_tags %}
+{% block title %}เกี่ยวกับเรา | Finding House{% endblock %}
+{% block description %}Finding House คือแพลตฟอร์มและทีมบริการอสังหาริมทรัพย์ในไทย ให้บริการซื้อ ขาย เช่า ฝากขาย และดูแลเอกสารจนถึงวันโอน{% endblock %}
+{% block meta %}<meta property="og:title" content="เกี่ยวกับเรา | Finding House">{% page_schema "about" "เกี่ยวกับเรา" %}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="ABOUT FINDING HOUSE" heading="เกี่ยวกับเรา" %}
+<div class="container py-5">
+  <div class="row g-4 align-items-center">
+    <div class="col-lg-6"><img class="img-fluid rounded-4 fh-shadow" src="{% static 'images/cover-1200.webp' %}" srcset="{% static 'images/cover-800.webp' %} 800w, {% static 'images/cover-1200.webp' %} 1200w" sizes="(max-width: 991.98px) 100vw, 50vw" width="1200" height="800" alt="บ้านพร้อมสระว่ายน้ำ" loading="lazy"></div>
+    <div class="col-lg-6">
+      <span class="fh-accent-bar"></span>
+      <h2>มากกว่าการหาบ้าน คือการสร้างอนาคตที่ดีกว่า</h2>
+      <p class="lead">More Than a Property, A Better Tomorrow</p>
+      <p class="fh-answer">{{ about_summary }}</p>
+      <p>Finding House คือทีมที่เชื่อว่าการเลือกอสังหาริมทรัพย์ที่เหมาะสม คือจุดเริ่มต้นของชีวิตและการลงทุนที่มั่นคง</p>
+      <ul class="list-unstyled d-grid gap-2 mb-4">
+        <li class="fh-feature"><span class="fh-icon-circle"><i class="fa-solid fa-house-circle-check"></i></span>คัดสรรทรัพย์คุณภาพ</li>
+        <li class="fh-feature"><span class="fh-icon-circle gold"><i class="fa-solid fa-comments"></i></span>เข้าใจทุกความต้องการ</li>
+        <li class="fh-feature"><span class="fh-icon-circle blue"><i class="fa-solid fa-shield-halved"></i></span>ดูแลด้วยความโปร่งใส</li>
+      </ul>
+      <div class="d-flex gap-2 flex-wrap">
+        <a class="btn btn-primary" href="{% url 'properties:list' %}"><i class="fa-solid fa-magnifying-glass me-1"></i>ดูทรัพย์</a>
+        <a class="btn btn-outline" href="{% url 'pages:services' %}">รู้จักบริการของเรา</a>
+        <a class="btn btn-outline" href="{% url 'pages:namecard' %}"><i class="fa-regular fa-id-card me-1"></i>นามบัตรออนไลน์</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

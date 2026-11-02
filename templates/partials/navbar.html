@@ -1,0 +1,62 @@
+{% with path=request.path %}
+<nav class="navbar navbar-expand-xl fh-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand fh-brand" href="{% url 'pages:home' %}">FINDING <span>HOUSE</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="เปิดเมนู">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link {% if path == '/' %}active{% endif %}" href="{% url 'pages:home' %}">หน้าแรก</a></li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle {% if '/properties/' in path %}active{% endif %}" type="button" data-bs-toggle="dropdown" aria-expanded="false">รายการทรัพย์</button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'properties:list' %}"><i class="fa-solid fa-magnifying-glass"></i>ค้นหาทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:list' %}?category=house"><i class="fa-solid fa-house-chimney"></i>บ้านเดี่ยว / พูลวิลล่า</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:list' %}?category=condo"><i class="fa-solid fa-building"></i>คอนโดมิเนียม</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:list' %}?category=warehouse"><i class="fa-solid fa-warehouse"></i>โกดัง / โรงงาน</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:list' %}?category=land"><i class="fa-solid fa-tree"></i>ที่ดิน</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link {% if '/projects/' in path %}active{% endif %}" href="{% url 'pages:projects' %}">โครงการใหม่</a></li>
+        <li class="nav-item"><a class="nav-link {% if '/articles/' in path %}active{% endif %}" href="{% url 'reviews:article_list' %}"><i class="fa-solid fa-book-open fh-nav-icon"></i>บทความ</a></li>
+        <li class="nav-item"><a class="nav-link {% if '/reviews/' in path %}active{% endif %}" href="{% url 'reviews:review_list' %}"><i class="fa-solid fa-star fh-nav-icon"></i>รีวิว</a></li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle {% if '/services/' in path %}active{% endif %}" type="button" data-bs-toggle="dropdown" aria-expanded="false">บริการ</button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'pages:services' %}"><i class="fa-solid fa-list"></i>บริการของเรา</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:sell' %}"><i class="fa-solid fa-plus"></i>ลงขายทรัพย์ตรง</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:consignment' %}"><i class="fa-solid fa-file-signature"></i>ฝากขายทรัพย์</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:compare' %}"><i class="fa-solid fa-code-compare"></i>เปรียบเทียบทรัพย์</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:favorites' %}"><i class="fa-solid fa-heart"></i>รายการโปรด</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link {% if '/about/' in path %}active{% endif %}" href="{% url 'pages:about' %}">เกี่ยวกับเรา</a></li>
+        <li class="nav-item"><a class="nav-link {% if '/contact/' in path %}active{% endif %}" href="{% url 'pages:contact' %}">ติดต่อเรา</a></li>
+      </ul>
+      <div class="d-flex flex-column flex-xl-row gap-2 align-items-xl-center py-2 py-xl-0">
+        {% if site.phone %}<a class="btn btn-sm btn-primary" href="tel:{{ site.phone }}"><i class="fa-solid fa-phone me-1"></i>{{ site.phone }}</a>{% endif %}
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-regular fa-circle-user me-1"></i>{{ user.first_name|default:"บัญชีของฉัน" }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            {% if user.is_staff %}<li><a class="dropdown-item" href="{% url 'dashboard:home' %}"><i class="fa-solid fa-gauge"></i>Dashboard</a></li>{% endif %}
+            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fa-regular fa-user"></i>โปรไฟล์</a></li>
+            <li><a class="dropdown-item" href="{% url 'properties:my_listings' %}"><i class="fa-solid fa-list"></i>ประกาศของฉัน</a></li>
+            <li>
+              <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}
+                <button class="dropdown-item" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i>ออกจากระบบ</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+        {% else %}
+        <a class="fh-more" href="{% url 'accounts:login' %}">เข้าสู่ระบบ</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+{% endwith %}

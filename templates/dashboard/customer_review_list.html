@@ -1,0 +1,27 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading="รีวิวลูกค้า" %}
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+      <thead><tr><th>ผู้รีวิว</th><th>คะแนน</th><th>ความคิดเห็น</th><th>สถานะ</th><th></th></tr></thead>
+      <tbody>
+        {% for item in items %}
+        <tr data-row>
+          <td class="text-nowrap">{{ item.reviewer_name }}</td>
+          <td class="text-nowrap fh-stars" aria-label="{{ item.rating }} ดาว">{% for star in item.stars %}<i class="fa-solid fa-star"></i>{% endfor %}</td>
+          <td style="min-width: 16rem">{{ item.comment|linebreaksbr }}</td>
+          <td class="text-nowrap">{% include "dashboard/_review_status.html" %}</td>
+          <td class="text-end"><button class="btn btn-sm btn-danger-soft btn-icon" type="button" data-ajax-post="{% url 'dashboard:customer_review_delete' item.pk %}" data-target="closest:[data-row]" data-confirm="ยืนยันการลบรีวิวนี้" aria-label="ลบ" title="ลบ"><i class="fa-regular fa-trash-can"></i></button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-star" text="ยังไม่มีรีวิว" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

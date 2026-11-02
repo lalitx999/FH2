@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}รายการอสังหาริมทรัพย์ทั้งหมด | Finding House{% endblock %}
+{% block description %}ค้นหาบ้าน คอนโด ที่ดิน ทาวน์โฮม อาคารพาณิชย์ โกดังโรงงาน และโรงแรม ทั้งซื้อและเช่า กรองตามทำเล ราคา และจำนวนห้องนอนได้ที่ Finding House{% endblock %}
+{% block meta %}<meta property="og:title" content="รายการอสังหาริมทรัพย์ทั้งหมด | Finding House">{{ schema }}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="FIND YOUR PLACE" heading="ค้นหาบ้าน คอนโด ที่ดิน ทั่วไทย" sub="คัดสรรทรัพย์ทำเลดี มีข้อมูลราคาและเงื่อนไขชัดเจน" %}
+<div class="container pb-5">
+  <form id="search-form" class="fh-filter" action="{% url 'properties:list' %}" method="get">
+    <div class="fh-type-row" role="radiogroup" aria-label="ประเภทประกาศ">
+      <span class="small fw-bold text-body-secondary d-none d-sm-inline me-1">ประเภท:</span>
+      <input class="visually-hidden" type="radio" name="type" id="f-all" value="" {% if not form.type.value %}checked{% endif %}>
+      <label for="f-all">ทั้งหมด</label>
+      <input class="visually-hidden" type="radio" name="type" id="f-sale" value="SALE" {% if form.type.value == 'SALE' %}checked{% endif %}>
+      <label for="f-sale">ซื้อ</label>
+      <input class="visually-hidden" type="radio" name="type" id="f-rent" value="RENT" {% if form.type.value == 'RENT' %}checked{% endif %}>
+      <label for="f-rent">เช่า</label>
+    </div>
+
+    <div class="fh-search-line">
+      <div class="fh-input-icon flex-grow-1"><i class="fa-solid fa-magnifying-glass"></i>{{ form.q }}</div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-filters" aria-expanded="{{ has_filters|yesno:'true,false' }}" aria-controls="advanced-filters">
+          <i class="fa-solid fa-sliders me-1"></i>ตัวกรอง{% if has_filters %}<span class="fh-filter-dot" aria-label="มีตัวกรองที่ใช้อยู่"><i class="fa-solid fa-check"></i></span>{% endif %}<i class="fa-solid fa-chevron-down ms-2 small"></i>
+        </button>
+        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>ค้นหา</button>
+      </div>
+    </div>
+
+    <div class="collapse {% if has_filters %}show{% endif %}" id="advanced-filters">
+      <div class="row g-3 pt-3 mt-3 border-top align-items-end">
+        <div class="col-sm-6 col-lg-3"><label class="form-label small" for="{{ form.category.id_for_label }}"><i class="fa-solid fa-house-chimney me-1"></i>หมวดหมู่ทรัพย์</label>{{ form.category }}</div>
+        <div class="col-sm-6 col-lg-3"><label class="form-label small" for="{{ form.location.id_for_label }}"><i class="fa-solid fa-location-dot me-1"></i>ทำเล</label>{{ form.location }}</div>
+        <div class="col-sm-6 col-lg-3">
+          <label class="form-label small" for="{{ form.price_min.id_for_label }}"><i class="fa-solid fa-coins me-1"></i>ช่วงราคา (บาท)</label>
+          <div class="d-flex gap-2">{{ form.price_min }}{{ form.price_max }}</div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <label class="form-label small" for="{{ form.sort.id_for_label }}"><i class="fa-solid fa-arrow-down-wide-short me-1"></i>จัดเรียงตาม</label>
+          <div class="d-flex gap-2">
+            {{ form.sort }}
+            <a class="btn btn-outline btn-icon flex-shrink-0 d-inline-flex align-items-center" href="{% url 'properties:list' %}" aria-label="ล้างตัวกรองทั้งหมด" title="ล้างตัวกรองทั้งหมด"><i class="fa-solid fa-rotate-left"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="results">{% include "properties/_results.html" %}</div>
+</div>
+{% endblock %}

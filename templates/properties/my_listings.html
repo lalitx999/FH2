@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}ประกาศของฉัน | Finding House{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="ประกาศของฉัน" %}
+<div class="container py-4">
+  <div class="d-flex gap-2 flex-wrap mb-4">
+    <a class="btn btn-primary" href="{% url 'properties:sell' %}"><i class="fa-solid fa-plus me-1"></i>ลงประกาศ</a>
+    <a class="btn btn-accent" href="{% url 'properties:consignment' %}"><i class="fa-solid fa-file-signature me-1"></i>ฝากขาย</a>
+  </div>
+
+  <h2 class="h5">ประกาศ</h2>
+  {% if listings %}
+  <div class="table-responsive mb-4">
+    <table class="table align-middle">
+      <thead><tr><th>รหัส</th><th>หัวข้อ</th><th>สถานะ</th><th></th></tr></thead>
+      <tbody>
+        {% for p in listings %}
+        <tr>
+          <td>{{ p.property_code }}</td>
+          <td>{{ p.title }}</td>
+          <td><span class="fh-badge">{{ p.get_status_display }}</span></td>
+          <td class="text-end">
+            {% if p.status == 'DRAFT' %}<a class="btn btn-sm btn-soft" href="{% url 'properties:sell_images' p.property_code %}"><i class="fa-regular fa-image me-1"></i>เพิ่มรูปและส่ง</a>
+            {% else %}<a class="btn btn-sm btn-outline" href="{{ p.get_absolute_url }}"><i class="fa-regular fa-eye me-1"></i>ดู</a>{% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-bullhorn" text="ยังไม่มีประกาศ" %}
+  {% endif %}
+
+  <h2 class="h5">คำขอฝากขาย</h2>
+  {% if consignments %}
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead><tr><th>ประเภท</th><th>ทำเล</th><th>สถานะ</th><th></th></tr></thead>
+      <tbody>
+        {% for c in consignments %}
+        <tr>
+          <td>{{ c.get_property_type_display }}</td>
+          <td>{{ c.district }} {{ c.province }}</td>
+          <td><span class="fh-badge">{{ c.get_status_display }}</span></td>
+          <td class="text-end">{% if c.status == 'DRAFT' %}<a class="btn btn-sm btn-soft" href="{% url 'properties:consignment_files' c.pk %}"><i class="fa-regular fa-image me-1"></i>แนบไฟล์และส่ง</a>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-file-signature" text="ยังไม่มีคำขอฝากขาย" %}
+  {% endif %}
+</div>
+{% endblock %}

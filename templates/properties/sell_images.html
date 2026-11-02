@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}เพิ่มรูปภาพ | Finding House{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="เพิ่มรูปภาพ" sub="ขั้นที่ 2 จาก 2" %}
+<div class="container py-4" style="max-width: 62rem">
+  <div class="card p-4">
+    <p class="fw-medium mb-3">{{ property.title }} <span class="fh-badge ms-1">{{ property.property_code }}</span></p>
+    {% url 'properties:sell_image_upload' property.property_code as upload_url %}
+    {% include "properties/_uploader.html" with label="เลือกรูปภาพ" hint="JPG, PNG, WEBP ไฟล์ละไม่เกิน 15 MB ระบบจะใส่ลายน้ำให้อัตโนมัติ" accept="image/jpeg,image/png,image/webp" url=upload_url grid="images" %}
+    <p>มีแล้ว <strong data-count-of="#images" data-min="{{ min_images }}" data-enables="#submit-listing">{{ images|length }}</strong> รูป (ต้องมี {{ min_images }}-{{ max_images }} รูป)</p>
+    <div class="row g-3 mb-4" id="images">
+      {% for image in images %}{% include "properties/_image_tile.html" with delete_url_name="properties:sell_image_delete" %}{% endfor %}
+    </div>
+    <form method="post" action="{% url 'properties:sell_submit' property.property_code %}" class="text-end">
+      {% csrf_token %}
+      <button class="btn btn-primary" id="submit-listing" type="submit" disabled><i class="fa-regular fa-paper-plane me-1"></i>ส่งให้เจ้าหน้าที่ตรวจสอบ</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static seo_tags %}
+{% block title %}Finding House บ้านที่ใช่ เริ่มได้ที่นี่ | ซื้อ ขาย เช่า อสังหาริมทรัพย์{% endblock %}
+{% block description %}Finding House แพลตฟอร์มซื้อ ขาย เช่า และฝากขายบ้าน คอนโด ที่ดิน ทาวน์โฮม อาคารพาณิชย์ โกดังโรงงาน พร้อมค้นหาบนแผนที่และดูแลเอกสารจนถึงวันโอน{% endblock %}
+{% block meta %}
+<meta property="og:title" content="Finding House บ้านที่ใช่ เริ่มได้ที่นี่">
+{% page_schema "home" %}
+<link rel="preload" as="image" imagesrcset="{% static 'images/cover-800.webp' %} 800w, {% static 'images/cover-1200.webp' %} 1200w" imagesizes="(max-width: 991.98px) 100vw, 58vw" fetchpriority="high">
+{% endblock %}
+{% block content %}
+<section class="fh-hero">
+  <img class="fh-hero-photo" src="{% static 'images/cover-1200.webp' %}" srcset="{% static 'images/cover-800.webp' %} 800w, {% static 'images/cover-1200.webp' %} 1200w" sizes="(max-width: 991.98px) 100vw, 58vw" width="1200" height="800" fetchpriority="high" alt="บ้านพร้อมสระว่ายน้ำ แสงแดดสดใส" fetchpriority="high">
+  <div class="container fh-hero-inner">
+    <div class="fh-hero-text">
+      <span class="fh-accent-bar"></span>
+      <h1>บ้านที่ใช่,<br>เริ่มได้ที่นี่</h1>
+      <p class="fw-medium fs-5 mb-1">มากกว่าการหาบ้าน คือการสร้างอนาคตที่ดีกว่า</p>
+      <p class="small text-body-secondary mb-0">More Than a Property · A Better Tomorrow</p>
+    </div>
+  </div>
+  <div class="container fh-search-wrap">
+    <form class="fh-search" action="{% url 'properties:list' %}" method="get">
+      <div class="fh-tabs" role="radiogroup" aria-label="ประเภทประกาศ">
+        <input class="visually-hidden" type="radio" name="type" id="tab-sale" value="SALE" checked>
+        <label for="tab-sale"><i class="fa-solid fa-house me-1"></i>ซื้อ</label>
+        <input class="visually-hidden" type="radio" name="type" id="tab-rent" value="RENT">
+        <label for="tab-rent">เช่า</label>
+      </div>
+      <div class="fh-search-row">
+        <div class="fh-input-icon"><i class="fa-solid fa-magnifying-glass"></i><input class="form-control" type="search" name="q" placeholder="ค้นหาทรัพย์... เช่น บ้านเดี่ยว พระราม 2, คอนโด สุขุมวิท" aria-label="คำค้นหา"></div>
+        <div class="fh-input-icon"><i class="fa-solid fa-house-chimney"></i><select class="form-select" name="category" aria-label="ประเภททรัพย์"><option value="">ประเภททรัพย์</option>{% for c in categories %}<option value="{{ c.slug }}">{{ c.name }}</option>{% endfor %}</select></div>
+        <div class="fh-input-icon"><i class="fa-solid fa-location-dot"></i><select class="form-select" name="location" aria-label="จังหวัด / พื้นที่"><option value="">จังหวัด / พื้นที่</option>{% for l in locations %}<option value="{{ l.slug }}">{{ l.name }}</option>{% endfor %}</select></div>
+        <button class="btn btn-accent" type="submit"><i class="fa-solid fa-magnifying-glass me-1"></i>ค้นหา</button>
+        <a class="btn btn-outline" href="#map-search"><i class="fa-solid fa-location-dot me-1"></i>ค้นหาแผนที่<i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="container fh-after-hero pb-5" data-reveal>
+  {% url 'properties:list' as properties_url %}
+  {% include "pages/_section_head.html" with title="ทรัพย์เด่นวันนี้" sub="คัดสรรทรัพย์คุณภาพ ทำเลดี ราคาโดนใจ เพื่อคุณ" href=properties_url link="ดูทรัพย์ทั้งหมด" %}
+  {% if latest %}
+  <div class="row g-4">
+    {% for p in latest %}<div class="col-sm-6 col-lg-3">{% include "properties/_card.html" %}</div>{% endfor %}
+  </div>
+  {% else %}
+  <div class="fh-empty-panel">กำลังเตรียมทรัพย์เด่นสำหรับคุณ กรุณาลองใหม่อีกครั้งในภายหลัง</div>
+  {% endif %}
+</section>
+
+<section class="container pb-5" id="map-search" data-reveal>
+  <div class="fh-map-grid">
+    <div class="fh-map-card">
+      <div class="p-4 pb-0">
+        <h2 class="mb-1">ค้นหาทรัพย์บนแผนที่</h2>
+        <p class="text-body-secondary">เห็นภาพรวมทำเล ค้นหาง่าย ใกล้สิ่งอำนวยความสะดวก</p>
+      </div>
+      <div class="fh-map-wrap">
+        <div id="home-map" class="fh-map" data-leaflet-css="{% static 'vendor/leaflet/leaflet.css' %}" data-leaflet-js="{% static 'vendor/leaflet/leaflet.js' %}" role="application" aria-label="แผนที่ค้นหาทรัพย์"></div>
+        <div id="map-preview" class="fh-map-preview d-none" aria-live="polite"></div>
+      </div>
+    </div>
+    <aside class="fh-consign">
+      <span class="fh-badge gold">บริการสำหรับเจ้าของทรัพย์</span>
+      <h2 class="mt-4">ฝากขายทรัพย์<br>กับ FINDING HOUSE</h2>
+      <ul class="list-unstyled d-grid gap-3 mt-4">
+        <li><i class="fa-solid fa-shield-halved me-3"></i>ประเมินราคาทรัพย์ฟรี</li>
+        <li><i class="fa-solid fa-building me-3"></i>ทำการตลาดครบทุกช่องทาง</li>
+        <li><i class="fa-solid fa-bed me-3"></i>ดูแลตั้งแต่วันแรกจนถึงโอน</li>
+      </ul>
+      <a class="btn btn-accent w-100 mt-4 fh-pulse" href="{% url 'properties:consignment' %}">ฝากขายทรัพย์<i class="fa-solid fa-arrow-right ms-2"></i></a>
+    </aside>
+  </div>
+  <template id="map-card">
+    <button type="button" class="fh-map-close" data-close aria-label="ปิดรายละเอียดทรัพย์"><i class="fa-solid fa-xmark"></i></button>
+    <div class="d-flex gap-3 p-3">
+      <div class="fh-map-thumb"><i class="fa-solid" data-icon aria-hidden="true"></i></div>
+      <div class="flex-grow-1 pe-4" style="min-width: 0">
+        <div class="fh-price" data-price></div>
+        <h3 class="h6 mb-1 text-truncate" data-title></h3>
+        <p class="small text-body-secondary text-truncate mb-0"><i class="fa-solid fa-location-dot me-1"></i><span data-location></span></p>
+      </div>
+    </div>
+    <div class="fh-map-foot"><span data-specs></span><a href="#">ดูรายละเอียด<i class="fa-solid fa-arrow-right ms-1"></i></a></div>
+  </template>
+  {{ map_points|json_script:"map-data" }}
+</section>
+
+<section class="fh-services py-5" data-reveal>
+  <div class="container">
+    {% url 'pages:services' as services_url %}
+    {% include "pages/_section_head.html" with title="บริการของเรา" sub="ครบทุกเรื่องอสังหาฯ ในที่เดียว" href=services_url link="ดูบริการทั้งหมด" %}
+    <div class="fh-service-grid">
+      {% for group in property_groups %}
+      <a class="fh-service" href="{% url 'properties:list' %}?category={{ group.slug }}">
+        <span class="fh-service-icon"><i class="fa-solid {{ group.icon }}"></i></span>
+        <strong>{{ group.label }}</strong>
+        <small>{{ group.detail }}</small>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container py-5" data-reveal>
+  {% url 'reviews:article_list' as articles_url %}
+  {% include "pages/_section_head.html" with title="บทความ &amp; ความรู้เรื่องบ้าน" sub="อัปเดตเทรนด์ ความรู้ และไอเดีย เพื่อการอยู่อาศัยและการลงทุนที่ดีกว่า" href=articles_url link="ดูบทความทั้งหมด" %}
+  {% if articles %}
+  <div class="row g-4">
+    {% for article in articles %}<div class="col-md-4">{% include "reviews/_article_card.html" %}</div>{% endfor %}
+  </div>
+  {% else %}
+  <div class="fh-empty-panel">บทความและความรู้เรื่องบ้านจะกลับมาให้บริการเร็ว ๆ นี้</div>
+  {% endif %}
+</section>
+{% include "chatbot/_widget.html" %}
+{% endblock %}
+{% block extra_js %}
+<script defer src="{% static 'js/map.js' %}"></script>
+<script defer src="{% static 'js/chatbot.js' %}"></script>
+{% endblock %}

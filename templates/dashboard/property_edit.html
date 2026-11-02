@@ -1,0 +1,47 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+<div class="mb-3"><a class="btn btn-sm btn-soft" href="{% url 'dashboard:properties' %}"><i class="fa-solid fa-arrow-left me-1"></i>กลับ</a></div>
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+  <h1 class="h3 mb-0">{{ property.property_code }} <span class="fh-badge align-middle">{{ property.get_status_display }}</span></h1>
+  <div class="d-flex gap-2 flex-wrap">
+    <a class="btn btn-outline" href="{{ property.get_absolute_url }}" target="_blank" rel="noopener"><i class="fa-regular fa-eye me-1"></i>ดูตัวอย่าง</a>
+    {% if property.status != 'PUBLISHED' %}
+    <form method="post" action="{% url 'dashboard:property_status' property.pk %}">{% csrf_token %}<input type="hidden" name="status" value="PUBLISHED"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-check me-1"></i>เผยแพร่</button></form>
+    {% endif %}
+    {% if property.status == 'REVIEW' %}
+    <form method="post" action="{% url 'dashboard:property_status' property.pk %}">{% csrf_token %}<input type="hidden" name="status" value="REJECTED"><button class="btn btn-danger-soft" type="submit"><i class="fa-solid fa-xmark me-1"></i>ไม่ผ่าน</button></form>
+    {% endif %}
+  </div>
+</div>
+<div class="row g-3">
+  <div class="col-xl-8">
+    <form method="post" class="card p-4 mb-3">
+      {% csrf_token %}
+      {% include "partials/form_fields.html" %}
+      <div class="mt-4"><button class="btn btn-primary" type="submit"><i class="fa-regular fa-floppy-disk me-1"></i>บันทึก</button></div>
+    </form>
+    <div class="card p-4">
+      <h2 class="h5">รูปภาพ <span class="small text-body-secondary fw-normal">(<span data-count-of="#images">{{ images|length }}</span> รูป)</span></h2>
+      {% url 'dashboard:property_image_upload' property.pk as upload_url %}
+      {% include "properties/_uploader.html" with label="เลือกรูปภาพ" hint="JPG, PNG, WEBP ไฟล์ละไม่เกิน 15 MB ใส่ลายน้ำอัตโนมัติ" accept="image/jpeg,image/png,image/webp" url=upload_url grid="images" %}
+      <div class="row g-3" id="images">
+        {% for image in images %}{% include "properties/_image_tile.html" with delete_url_name="dashboard:property_image_delete" cover_url_name="dashboard:property_image_cover" %}{% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card p-4 mb-3">
+      <h2 class="h5">ความครบถ้วน</h2>
+      <div class="progress mb-2" role="progressbar" aria-label="คะแนนความครบถ้วน" aria-valuenow="{{ completeness.score }}" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: {{ completeness.score }}%">{{ completeness.score }}%</div></div>
+      {% if completeness.missing %}
+      <ul class="small ps-3 mb-0">{% for item in completeness.missing %}<li>{{ item }}</li>{% endfor %}</ul>
+      {% else %}<p class="small mb-0">ข้อมูลครบถ้วนแล้ว</p>{% endif %}
+    </div>
+    <div class="card p-4">
+      <h2 class="h5">ผู้ลงประกาศ</h2>
+      <p class="small mb-3">{% if property.owner %}{{ property.owner.display_name }}{% else %}เจ้าหน้าที่{% endif %}</p>
+      <form method="post" action="{% url 'dashboard:property_delete' property.pk %}">{% csrf_token %}<button class="btn btn-danger-soft" type="submit" data-confirm="ยืนยันการลบประกาศนี้ ลบแล้วกู้คืนไม่ได้"><i class="fa-regular fa-trash-can me-1"></i>ลบประกาศ</button></form>
+    </div>
+  </div>
+</div>
+{% endblock %}

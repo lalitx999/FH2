@@ -1,0 +1,26 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading=title %}
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item }}</td>
+          <td class="text-end text-nowrap">
+            <a class="btn btn-sm btn-soft btn-icon" href="{% url edit_url item.pk %}" aria-label="แก้ไข" title="แก้ไข"><i class="fa-regular fa-pen-to-square"></i></a>
+            <form class="d-inline" method="post" action="{% url delete_url item.pk %}">{% csrf_token %}<button class="btn btn-sm btn-danger-soft btn-icon" type="submit" data-confirm="ยืนยันการลบรายการนี้" aria-label="ลบ" title="ลบ"><i class="fa-regular fa-trash-can"></i></button></form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with text="ยังไม่มีรายการ" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

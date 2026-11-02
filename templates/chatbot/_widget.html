@@ -1,0 +1,25 @@
+<div class="fh-chat" data-chat data-history-url="{% url 'chatbot:history' %}">
+  <section class="fh-chat-panel" id="fhChatPanel" role="dialog" aria-label="ผู้ช่วย Finding House" hidden>
+    <header class="fh-chat-head">
+      <i class="fa-solid fa-headset"></i>
+      <div><strong>ผู้ช่วย Finding House</strong><small>ถามเรื่องทรัพย์ ทำเล หรืองบประมาณได้เลย</small></div>
+      <button class="btn-close btn-close-white ms-auto" type="button" data-chat-close aria-label="ปิดแชท"></button>
+    </header>
+    <div class="fh-chat-body" data-chat-body aria-live="polite">
+      <div class="fh-chat-msg bot">สวัสดีครับ อยากหาทรัพย์แบบไหน บอกได้เลย</div>
+      <div class="fh-chat-chips">
+        <button class="fh-chat-chip" type="button" data-chat-chip="หาคอนโดให้เช่า">หาคอนโด</button>
+        <button class="fh-chat-chip" type="button" data-chat-chip="หาบ้านเช่า">บ้านเช่า</button>
+        <button class="fh-chat-chip" type="button" data-chat-chip="อยากฝากขายทรัพย์">ฝากขาย</button>
+      </div>
+      <div data-chat-log></div>
+    </div>
+    <form class="fh-chat-form" method="post" action="{% url 'chatbot:send' %}" data-chat-form>
+      {% csrf_token %}
+      <input class="form-control" type="text" name="message" maxlength="500" autocomplete="off" placeholder="พิมพ์ข้อความ" aria-label="ข้อความ" required>
+      <button class="btn btn-primary btn-icon" type="submit" aria-label="ส่งข้อความ"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+    <p class="fh-chat-note">กรุณาอย่าส่งข้อมูลส่วนตัว บทสนทนาถูกเก็บเพื่อปรับปรุงบริการ และคำตอบอาจคลาดเคลื่อน ควรยืนยันกับเจ้าหน้าที่</p>
+  </section>
+  <button class="fh-chat-fab" type="button" data-chat-open aria-controls="fhChatPanel" aria-expanded="false" aria-label="เปิดแชทผู้ช่วย"><i class="fa-solid fa-comments"></i></button>
+</div>

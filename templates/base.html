@@ -1,0 +1,14 @@
+{% extends "root.html" %}
+{% block body %}
+{% include "partials/navbar.html" %}
+<main>
+  {% include "partials/messages.html" %}
+  {% block content %}{% endblock %}
+</main>
+{% include "partials/footer.html" %}
+<div id="compare-bar" class="fh-compare-bar d-none" data-url="{% url 'properties:compare' %}">
+  <span><i class="fa-solid fa-code-compare me-1"></i>เลือก <strong data-compare-count>0</strong> รายการ</span>
+  <button type="button" class="btn btn-sm btn-soft" data-compare-clear aria-label="ล้างรายการเปรียบเทียบ"><i class="fa-solid fa-xmark"></i></button>
+  <a class="btn btn-sm btn-primary" href="{% url 'properties:compare' %}">เปรียบเทียบ</a>
+</div>
+{% endblock %}

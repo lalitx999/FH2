@@ -1,0 +1,1 @@
+<button class="btn btn-sm {% if item.is_approved %}btn-soft{% else %}btn-accent{% endif %}" type="button" data-ajax-post="{% url 'dashboard:customer_review_toggle' item.pk %}"><i class="fa-solid {% if item.is_approved %}fa-check{% else %}fa-clock{% endif %} me-1"></i>{% if item.is_approved %}แสดงอยู่{% else %}รออนุมัติ{% endif %}</button>

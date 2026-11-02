@@ -1,0 +1,723 @@
+{
+  "properties": [
+    {
+      "property_code": "B0001",
+      "title": "ให้เช่า อาคารพาณิชย์ 4 ชั้น ติดถนนใหญ่ เอกมัย ทำเลทองเหมาะทำหน้าร้าน หรือ คาเฟ่",
+      "description": "ให้เช่าอาคารพาณิชย์ 4 ชั้น หน้ากว้าง 4.5 เมตร ติดถนนเอกมัย ปรับปรุงระบบไฟฟ้าและประปาใหม่หมด เหมาะทำโชว์รูม สถาบันความงาม คาเฟ่ ร้านอาหาร หรือออฟฟิศสำนักงาน ทำเลมีทราฟฟิกตลอดวัน",
+      "price": 85000.0,
+      "property_type": "RENT",
+      "category": "commercial",
+      "location": "ekkamai-phra-khanong",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 2,
+      "bathrooms": 4,
+      "floors": 4,
+      "parking_spaces": 2,
+      "size_land": 22.0,
+      "size_usable": 320.0,
+      "direction": "ทิศตะวันตก",
+      "furniture": null,
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": "สัญญา 3 ปี",
+      "deposit": 255000.0,
+      "advance_payment": 8500.0,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "parking": true,
+        "renovated": true,
+        "street_front": true
+      },
+      "landmarks": [
+        {
+          "name": "BTS เอกมัย",
+          "distance": "900 เมตร"
+        },
+        {
+          "name": "Big C เอกมัย",
+          "distance": "300 เมตร"
+        },
+        {
+          "name": "Donki Mall Thonglor",
+          "distance": "500 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7310,100.5880"
+    },
+    {
+      "property_code": "B0002",
+      "title": "อาคารพาณิชย์ 3.5 ชั้น ตลิ่งชัน-พุทธมณฑล สาย 1 ทำเลริมถนนใหญ่ เหมาะเปิดคลินิก/โชว์รูม",
+      "description": "ขายตึกแถว/อาคารพาณิชย์ 3 ชั้นครึ่ง มีชั้นลอย ตึกสภาพดี โครงสร้างอิฐมอญแข็งแรง ติดถนนพุทธมณฑลสาย 1 ย่านตลิ่งชัน ทำเลค้าขายดีเยี่ยม ที่จอดรถหน้าตึกสะดวกสบาย",
+      "price": 7800000.0,
+      "property_type": "SALE",
+      "category": "commercial",
+      "location": "talingchan-phutthamonthon",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 3,
+      "bathrooms": 3,
+      "floors": 4,
+      "parking_spaces": 2,
+      "size_land": 24.0,
+      "size_usable": 210.0,
+      "direction": "ทิศตะวันออก",
+      "furniture": "เปล่า (Unfurnished)",
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "mezzanine": true,
+        "brick_structure": true,
+        "main_road_front": true
+      },
+      "landmarks": [
+        {
+          "name": "สถานีรถไฟฟ้าสายสีแดง ตลิ่งชัน",
+          "distance": "1.5 กม."
+        },
+        {
+          "name": "ตลาดน้ำตลิ่งชัน",
+          "distance": "2.0 กม."
+        },
+        {
+          "name": "โรงพยาบาลธนบุรี 2",
+          "distance": "3.5 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7710,100.4180"
+    },
+    {
+      "property_code": "C0001",
+      "title": "คอนโดหรู High-Rise สุขุมวิท 55 (ทองหล่อ) 2 ห้องนอน แต่งครบพร้อมสระว่ายน้ำลอยฟ้า",
+      "description": "ขายคอนโดระดับ Luxury ใจกลางทองหล่อ ห้องตกแต่งครบสไตล์ Modern Luxury วิวเมืองพาโนรามา เดินทางสะดวกใกล้ BTS ทองหล่อ สิ่งอำนวยความสะดวกครบครัน สระว่ายน้ำ Rooftop infinity pool, ฟิตเนส และ EV Charger",
+      "price": 12500000.0,
+      "property_type": "SALE",
+      "category": "condo",
+      "location": "sukhumvit-thonglor",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "floors": 32,
+      "parking_spaces": 1,
+      "size_land": null,
+      "size_usable": 68.5,
+      "direction": "ทิศตะวันออก",
+      "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "pet_friendly": true,
+      "common_fee": 4800.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "gym": true,
+        "pool": true,
+        "wifi": true,
+        "ev_charger": true,
+        "security_24h": true
+      },
+      "landmarks": [
+        {
+          "name": "BTS ทองหล่อ",
+          "distance": "450 เมตร"
+        },
+        {
+          "name": "J Avenue Thonglor",
+          "distance": "300 เมตร"
+        },
+        {
+          "name": "โรงพยาบาลสมิติเวช สุขุมวิท",
+          "distance": "800 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7324,100.5812"
+    },
+    {
+      "property_code": "C0002",
+      "title": "ให้เช่า คอนโด อารีย์-พญาไท 1 ห้องนอน ห้องสวย ชั้นสูง วิวสระ พร้อมเข้าอยู่",
+      "description": "ให้เช่าคอนโดอารีย์ 1 ห้องนอน ขนาด 38 ตร.ม. ตกแต่งครบ พร้อมเครื่องใช้ไฟฟ้าครบชุด (ทีวี ตู้เย็น ไมโครเวฟ เครื่องซักผ้า) ส่วนกลางมีสระว่ายน้ำ Co-Working Space ใกล้ BTS อารีย์",
+      "price": 22000.0,
+      "property_type": "RENT",
+      "category": "condo",
+      "location": "aree-phayathai",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "floors": 18,
+      "parking_spaces": 1,
+      "size_land": null,
+      "size_usable": 38.0,
+      "direction": "ทิศเหนือ",
+      "furniture": "เฟอร์นิเจอร์ครบ (Fully Furnished)",
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": "สัญญา 1 ปี",
+      "deposit": 44000.0,
+      "advance_payment": 22000.0,
+      "move_in_date": "พร้อมเข้าอยู่ได้ทันที",
+      "availability": true,
+      "features": {
+        "gym": true,
+        "pool": true,
+        "wifi": true,
+        "coworking": true
+      },
+      "landmarks": [
+        {
+          "name": "BTS อารีย์",
+          "distance": "350 เมตร"
+        },
+        {
+          "name": "La Villa Ari",
+          "distance": "300 เมตร"
+        },
+        {
+          "name": "โรงพยาบาลพญาไท 2",
+          "distance": "900 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7790,100.5440"
+    },
+    {
+      "property_code": "C0003",
+      "title": "คอนโดระดับ Super Luxury ปทุมวัน-สยาม 3 ห้องนอน เพ้นท์เฮาส์ชั้นสูงสุด วิวราชกรีฑาสโมสร",
+      "description": "ขายห้อง Penthouse สุดหรู คอนโดระดับ Ultimate Luxury ย่านปทุมวัน เพดานสูง 3.2 เมตร วิวพื้นที่สีเขียวราชกรีฑาสโมสร และวิวเมืองสยามสแควร์ ลิฟต์ส่วนตัวส่งถึงหน้าห้อง จอดรถ Fixed 3 คัน",
+      "price": 45000000.0,
+      "property_type": "SALE",
+      "category": "condo",
+      "location": "pathumwan-siam",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 3,
+      "bathrooms": 4,
+      "floors": 45,
+      "parking_spaces": 3,
+      "size_land": null,
+      "size_usable": 185.0,
+      "direction": "ทิศใต้",
+      "furniture": "เฟอร์นิเจอร์แบรนด์เนมนำเข้า",
+      "pet_friendly": false,
+      "common_fee": 15000.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "concierge": true,
+        "golf_view": true,
+        "penthouse": true,
+        "private_lift": true
+      },
+      "landmarks": [
+        {
+          "name": "BTS สยาม",
+          "distance": "500 เมตร"
+        },
+        {
+          "name": "Siam Paragon",
+          "distance": "400 เมตร"
+        },
+        {
+          "name": "จุฬาลงกรณ์มหาวิทยาลัย",
+          "distance": "800 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7430,100.5340"
+    },
+    {
+      "property_code": "C0004",
+      "title": "คอนโด High-Rise ติดสถานีรถไฟฟ้า บางซื่อ-เตาปูน 1 ห้องนอน 32 ตร.ม. ชั้น 15 วิวแม่น้ำเจ้าพระยา",
+      "description": "ขายคอนโดติด MRT เตาปูน อินเตอร์เชนจ์ เชื่อมต่อสถานีกลางบางซื่อ ห้องแต่งสวย ครบครัน ทิศตะวันตกรับลมเห็นวิวแม่น้ำเจ้าพระยาไกลๆ เหมาะสำหรับอยู่อาศัยเอง หรือปล่อยเช่าให้พนักงานและข้าราชการ",
+      "price": 3100000.0,
+      "property_type": "SALE",
+      "category": "condo",
+      "location": "bangsue-taopoon",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "floors": 15,
+      "parking_spaces": 1,
+      "size_land": null,
+      "size_usable": 32.0,
+      "direction": "ทิศตะวันตก",
+      "furniture": "เฟอร์นิเจอร์ครบ + เครื่องใช้ไฟฟ้า",
+      "pet_friendly": false,
+      "common_fee": 1600.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "gym": true,
+        "pool": true,
+        "river_view": true,
+        "mrt_connected": true
+      },
+      "landmarks": [
+        {
+          "name": "MRT สถานีเตาปูน Interchange",
+          "distance": "100 เมตร"
+        },
+        {
+          "name": "สถานีกลางกรุงเทพอภิวัฒน์ (บางซื่อ)",
+          "distance": "1.5 กม."
+        },
+        {
+          "name": "Gateway บางซื่อ",
+          "distance": "700 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.8060,100.5310"
+    },
+    {
+      "property_code": "H0001",
+      "title": "คฤหาสน์หรู 3 ชั้น ปลูกสร้างเอง ย่านสาทร-สีลม สระว่ายน้ำส่วนตัว จอดรถได้ 6 คัน",
+      "description": "ขายบ้านเดี่ยวหรูย่านสาทร สไตล์ Modern Classic โครงสร้างแข็งแรง ใช้วัสดุนำเข้าเกรด A พร้อมลิฟต์โดยสารในบ้าน สระว่ายน้ำส่วนตัวระบบเกลือ ใกล้สถานทูตและย่านธุรกิจการเงินสาทร-สีลม",
+      "price": 68000000.0,
+      "property_type": "SALE",
+      "category": "house",
+      "location": "sathorn-silom",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 5,
+      "bathrooms": 6,
+      "floors": 3,
+      "parking_spaces": 6,
+      "size_land": 180.0,
+      "size_usable": 650.0,
+      "direction": "ทิศใต้",
+      "furniture": "บิ้วท์อินพรีเมียม (Built-in)",
+      "pet_friendly": true,
+      "common_fee": 0.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "lift": true,
+        "pool": true,
+        "garden": true,
+        "maid_room": true,
+        "security_24h": true
+      },
+      "landmarks": [
+        {
+          "name": "BTS ช่องนนทรี",
+          "distance": "700 เมตร"
+        },
+        {
+          "name": "โรงพยาบาลกรุงเทพคริสเตียน",
+          "distance": "1.2 กม."
+        },
+        {
+          "name": "สวนลุมพินี",
+          "distance": "1.5 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7200,100.5300"
+    },
+    {
+      "property_code": "H0002",
+      "title": "ทาวน์โฮม 3 ชั้น สไตล์โมเดิร์น ย่านพระราม 9 - รัชดา เหมาะทำโฮมออฟฟิศหรืออยู่อาศัย",
+      "description": "ขายทาวน์โฮม 3 ชั้น สภาพใหม่ ดีไซน์โปร่งโล่ง เพดานสูง Double Volume บริเวณห้องรับแขก ต่อเติมครัวหลังบ้านเรียบร้อย ทำเลดีเดินทางสะดวก เข้าออกได้ทั้งถนนพระราม 9 และรัชดาภิเษก",
+      "price": 8900000.0,
+      "property_type": "SALE",
+      "category": "townhome",
+      "location": "rama9-ratchada",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 3,
+      "bathrooms": 4,
+      "floors": 3,
+      "parking_spaces": 2,
+      "size_land": 28.5,
+      "size_usable": 220.0,
+      "direction": "ทิศตะวันตกเฉียงเหนือ",
+      "furniture": "บางส่วน (Partly Furnished)",
+      "pet_friendly": false,
+      "common_fee": 1500.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "aircon": true,
+        "security_24h": true,
+        "kitchen_extension": true
+      },
+      "landmarks": [
+        {
+          "name": "MRT พระราม 9",
+          "distance": "1.1 กม."
+        },
+        {
+          "name": "Central Rama 9",
+          "distance": "1.2 กม."
+        },
+        {
+          "name": "Fortune Town",
+          "distance": "1.0 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7580,100.5690"
+    },
+    {
+      "property_code": "H0003",
+      "title": "บ้านเดี่ยว 2 ชั้น โครงการแบรนด์ดัง บางนา-ตราด กม. 7 ใกล้ เมกาบางนา และ สนามกอล์ฟ",
+      "description": "ขายบ้านเดี่ยวโครงการหรู บางนา กม. 7 สังคมคุณภาพ สงบร่มรื่น ฟังก์ชัน 4 ห้องนอน 5 ห้องน้ำ พร้อมห้องแม่บ้าน บ้านตำแหน่งดีหน้าสวนส่วนกลาง ระบบรักษาความปลอดภัยเข้มงวด 24 ชม.",
+      "price": 15800000.0,
+      "property_type": "SALE",
+      "category": "house",
+      "location": "bangna-srinakarin",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 4,
+      "bathrooms": 5,
+      "floors": 2,
+      "parking_spaces": 3,
+      "size_land": 72.0,
+      "size_usable": 280.0,
+      "direction": "ทิศเหนือ",
+      "furniture": "เฟอร์นิเจอร์บิ้วท์อิน",
+      "pet_friendly": false,
+      "common_fee": 2500.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "gym": true,
+        "pool": true,
+        "garden": true,
+        "clubhouse": true,
+        "security_24h": true
+      },
+      "landmarks": [
+        {
+          "name": "Mega Bangna",
+          "distance": "1.5 กม."
+        },
+        {
+          "name": "โรงเรียนนานาชาติคอนคอร์เดียน",
+          "distance": "800 เมตร"
+        },
+        {
+          "name": "สนามกอล์ฟเมืองแก้ว",
+          "distance": "500 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.6550,100.6720"
+    },
+    {
+      "property_code": "H0004",
+      "title": "บ้านเดี่ยวหรู 2 ชั้น สไตล์นอร์ดิก ราชพฤกษ์-ปิ่นเกล้า แปลงมุม ที่ดินใหญ่ 95 ตร.วา",
+      "description": "ขายบ้านเดี่ยวแปลงมุม โครงการติดถนนราชพฤกษ์ ดีไซน์ Nordic หลังคาทรงจั่วสูง เพดานห้องนอนใหญ่สูง 3.5 เมตร สวนกว้างขวางรอบบ้าน เดินทางเข้าเมืองสะดวกใกล้ทางด่วนศรีรัช",
+      "price": 14900000.0,
+      "property_type": "SALE",
+      "category": "house",
+      "location": "ratchapruek-pinklao",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 4,
+      "bathrooms": 4,
+      "floors": 2,
+      "parking_spaces": 3,
+      "size_land": 95.0,
+      "size_usable": 310.0,
+      "direction": "ทิศใต้",
+      "furniture": "แต่งครบสไตล์ Minimal Nordic",
+      "pet_friendly": false,
+      "common_fee": 3000.0,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "garden": true,
+        "clubhouse": true,
+        "corner_plot": true,
+        "security_24h": true
+      },
+      "landmarks": [
+        {
+          "name": "The Crystal SB Ratchapruek",
+          "distance": "1.2 กม."
+        },
+        {
+          "name": "HomePro ราชพฤกษ์",
+          "distance": "1.0 กม."
+        },
+        {
+          "name": "ทางด่วนศรีรัช-วงแหวนรอบนอก",
+          "distance": "2.0 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7880,100.4450"
+    },
+    {
+      "property_code": "H0005",
+      "title": "ทาวน์โฮม 2 ชั้น รีโนเวทใหม่ทั้งหลัง ลาดพร้าว - โชคชัย 4 พร้อมอยู่ ทำเลดีใกล้รถไฟฟ้าสายสีโกลด์/เหลือง",
+      "description": "ขายทาวน์โฮม 2 ชั้น รีโนเวทใหม่สไตล์มินิมอล ทำระบบน้ำ-ไฟฟ้าใหม่ทั้งหมด เปลี่ยนกระเบื้อง สุขภัณฑ์ใหม่หมด ต่อเติมโรงจอดรถและครัวหลังบ้าน ทำเลดีมาก อยู่ซอยโชคชัย 4 เดินทางสะดวก",
+      "price": 3950000.0,
+      "property_type": "SALE",
+      "category": "townhome",
+      "location": "ladprao-chokchai4",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "floors": 2,
+      "parking_spaces": 1,
+      "size_land": 20.0,
+      "size_usable": 130.0,
+      "direction": "ทิศตะวันออก",
+      "furniture": "ตกแต่งใหม่พร้อมเคาน์เตอร์ครัว",
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "renovated": true,
+        "ready_to_move": true,
+        "kitchen_extension": true
+      },
+      "landmarks": [
+        {
+          "name": "รถไฟฟ้าสายสีเหลือง สถานีโชคชัย 4",
+          "distance": "800 เมตร"
+        },
+        {
+          "name": "ตลาดโชคชัย 4",
+          "distance": "900 เมตร"
+        },
+        {
+          "name": "โรงพยาบาลเปาโล โชคชัย 4",
+          "distance": "600 เมตร"
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7950,100.5920"
+    },
+    {
+      "property_code": "H0006",
+      "title": "ให้เช่า บ้านเดี่ยว 2 ชั้น หลังใหญ่ หัวหมาก-รามคำแหง เหมาะทำออฟฟิศ หรือ สถาบันกวดวิชา",
+      "description": "ให้เช่าบ้านเดี่ยว 2 ชั้น พื้นที่กว้างขวาง จอดรถได้ถึง 4 คัน ใกล้มหาวิทยาลัยรามคำแหง และ ABAC หัวหมาก ทำเลเข้าออกสะดวกได้ทั้งซอยรามคำแหง 24 และถนนหัวหมาก อนุญาตให้จดทะเบียนบริษัทได้",
+      "price": 45000.0,
+      "property_type": "RENT",
+      "category": "house",
+      "location": "huamark-ramkhamhaeng",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "floors": 2,
+      "parking_spaces": 4,
+      "size_land": 85.0,
+      "size_usable": 260.0,
+      "direction": "ทิศตะวันออกเฉียงเหนือ",
+      "furniture": null,
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": "สัญญา 1 ปี",
+      "deposit": 90000.0,
+      "advance_payment": 45000.0,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "aircon": true,
+        "spacious_parking": true,
+        "company_registration_allowed": true
+      },
+      "landmarks": [
+        {
+          "name": "มหาวิทยาลัยอัสสัมชัญ (ABAC หัวหมาก)",
+          "distance": "600 เมตร"
+        },
+        {
+          "name": "สนามราชมังคลากีฬาสถาน",
+          "distance": "800 เมตร"
+        },
+        {
+          "name": "Airport Rail Link หัวหมาก",
+          "distance": "2.2 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.7540,100.6220"
+    },
+    {
+      "property_code": "L0001",
+      "title": "ที่ดินผืนงาม 2 ไร่ ติดถนนแจ้งวัฒนะ เหมาะพัฒนาคอนโด หรือ อาคารสำนักงาน",
+      "description": "ขายที่ดินสวยผังสีแดง (พ.๕) ขนาด 2 ไร่ (800 ตร.วา) หน้ากว้างติดถนนแจ้งวัฒนะ 40 เมตร ลึก 80 เมตร ทำเลใกล้สถานีรถไฟฟ้าสายสีชมพู และศูนย์ราชการแจ้งวัฒนะ เหมาะสำหรับพัฒนารายโครงการหรือสร้างตึกสูง",
+      "price": 160000000.0,
+      "property_type": "SALE",
+      "category": "land",
+      "location": "chaengwattana-pakkret",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": null,
+      "bathrooms": null,
+      "floors": null,
+      "parking_spaces": null,
+      "size_land": 800.0,
+      "size_usable": null,
+      "direction": "ทิศตะวันออก",
+      "furniture": null,
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "red_zone": true,
+        "main_road_front": true,
+        "train_station_near": true
+      },
+      "landmarks": [
+        {
+          "name": "รถไฟฟ้าสายสีชมพู สถานีแจ้งวัฒนะ 14",
+          "distance": "150 เมตร"
+        },
+        {
+          "name": "ศูนย์ราชการแจ้งวัฒนะ",
+          "distance": "1.5 กม."
+        },
+        {
+          "name": "Central Chaengwattana",
+          "distance": "2.0 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.8900,100.5280"
+    },
+    {
+      "property_code": "L0002",
+      "title": "ที่ดินถมแล้ว 1 ไร่ พระราม 2 ซอย 50 ใกล้เซ็นทรัลพระราม 2 เข้าซอยเพียง 300 เมตร",
+      "description": "ขายที่ดินสวย ถมแล้วเรียบร้อยระดับเดียวกับถนน เนื้อที่ 1 ไร่ (400 ตร.วา) ซอยพระราม 2 ซอย 50 ถนนกว้าง 8 เมตร รถสวนสะดวก ผังสีส้ม (ย.๖) เหมาะปลูกบ้านพักอาศัย สร้างสำนักงาน หรืออพาร์ตเมนต์",
+      "price": 28000000.0,
+      "property_type": "SALE",
+      "category": "land",
+      "location": "rama2-saemdam",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": null,
+      "bathrooms": null,
+      "floors": null,
+      "parking_spaces": null,
+      "size_land": 400.0,
+      "size_usable": null,
+      "direction": "ทิศเหนือ",
+      "furniture": null,
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": null,
+      "deposit": null,
+      "advance_payment": null,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "filled_land": true,
+        "orange_zone": true,
+        "wide_street": true
+      },
+      "landmarks": [
+        {
+          "name": "Central พระราม 2",
+          "distance": "1.0 กม."
+        },
+        {
+          "name": "โรงพยาบาลนครธน",
+          "distance": "1.2 กม."
+        },
+        {
+          "name": "ทางด่วนพระราม 2",
+          "distance": "2.5 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.6680,100.4380"
+    },
+    {
+      "property_code": "W0001",
+      "title": "ให้เช่า โกดัง/โรงงาน พร้อมออฟฟิศ 2 ชั้น ย่านรามอินทรา รถใหญ่คอนเทนเนอร์เข้า-ออกสะดวก",
+      "description": "ให้เช่าโกดังคลังสินค้าพร้อมสำนักงานปรับอากาศ 2 ชั้น พื้นรับน้ำหนักได้ 3 ตัน/ตร.ม. หลังคาเมทัลชีทพร้อมบุฉนวนกันความร้อน ระบบไฟฟ้า 3 เฟส 100A รถเทรลเลอร์และคอนเทนเนอร์ 40 ฟุต เข้า-ออกได้สะดวก",
+      "price": 120000.0,
+      "property_type": "RENT",
+      "category": "warehouse",
+      "location": "ramintra-praditmanutham",
+      "source": "FINDING_HOUSE",
+      "sale_condition": "SALE_ONLY",
+      "bedrooms": null,
+      "bathrooms": 4,
+      "floors": 2,
+      "parking_spaces": 10,
+      "size_land": 350.0,
+      "size_usable": 850.0,
+      "direction": "ทิศเหนือ",
+      "furniture": null,
+      "pet_friendly": false,
+      "common_fee": null,
+      "minimum_lease": "สัญญา 2 ปี",
+      "deposit": 360000.0,
+      "advance_payment": 120000.0,
+      "move_in_date": null,
+      "availability": true,
+      "features": {
+        "office_attached": true,
+        "container_accessible": true,
+        "three_phase_electric": true
+      },
+      "landmarks": [
+        {
+          "name": "ทางด่วนฉลองรัช (รามอินทรา-อาจณรงค์)",
+          "distance": "1.8 กม."
+        },
+        {
+          "name": "Fashion Island",
+          "distance": "3.5 กม."
+        }
+      ],
+      "google_maps_link": "https://maps.google.com/?q=13.8400,100.6400"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "land-title-deed-types-guide",
+      "title": "รู้จักประเภทโฉนดที่ดิน ตราครุฑแต่ละสีต่างกันอย่างไรก่อนตัดสินใจซื้อ?",
+      "category": "ความรู้จากกรมที่ดิน",
+      "excerpt": "สรุปความแตกต่างโฉนดที่ดินตราครุฑแดง ครุฑเขียว และครุฑดำ สิทธิครอบครองและขั้นตอนการโอนกรรมสิทธิ์ที่ผู้ซื้อบ้านและที่ดินต้องรู้",
+      "content": "ในการเลือกซื้อบ้านและที่ดิน สิ่งสำคัญที่สุดอันดับแรกคือการตรวจสอบเอกสารสิทธิ์โฉนดที่ดิน เพื่อป้องกันความผิดพลาดและปัญหากรรมสิทธิ์ซ้อนในอนาคต กรมที่ดินได้แบ่งประเภทเอกสารสิทธิ์หลักๆ ดังนี้:\n\n1. ครุฑแดง (น.ส. 4 / น.ส. 4 จ.) - โฉนดที่ดินกรรมสิทธิ์สมบูรณ์ 100%\n- เป็นหนังสือแสดงกรรมสิทธิ์ที่ดินที่สมบูรณ์ที่สุด\n- เจ้าของมีกรรมสิทธิ์เต็มตัว สามารถ ซื้อ ขาย โอน จำนอง หรือจำนองค้ำประกันได้ถูกต้องตามกฎหมาย\n- มีการรังวัดระวางภาพถ่ายทางอากาศและกำหนดพิกัดแน่นอน\n- แนะนำสำหรับผู้ซื้อ: เป็นประเภทโฉนดที่ปลอดภัยที่สุดสำหรับการลงทุนและอยู่อาศัย\n\n2. ครุฑเขียว (น.ส. 3 ก.) - หนังสือรับรองการทำประโยชน์ที่มีระวางภาพถ่ายทางอากาศ\n- ผู้ถือครองมีเพียง \"สิทธิครอบครอง\" ทำประโยชน์ แต่ยังไม่ใช่กรรมสิทธิ์สมบูรณ์\n- มีระวางภาพถ่ายทางอากาศระบุตำแหน่งชัดเจน สามารถซื้อขาย โอน จำนองกับธนาคารได้\n- สามารถนำไปยื่นคำร้องขอเปลี่ยนเป็นโฉนดตราครุฑแดง ณ สำนักงานที่ดินได้ในอนาคต\n\n3. ครุฑดำ (น.ส. 3 / น.ส. 3 ข.) - หนังสือรับรองการทำประโยชน์แบบไม่มีระวางภาพถ่าย\n- ไม่มีระวางภาพถ่ายทางอากาศชัดเจน การโอนกรรมสิทธิ์หรือยื่นขอเปลี่ยนโฉนดจะต้องมีการประกาศ ณ สำนักงานที่ดินล่วงหน้าเป็นเวลา 30 วัน เพื่อเช็กว่าไม่มีผู้คัดค้าน\n\nข้อแนะนำจาก Finding House:\nก่อนทำสัญญาซื้อขายและวางเงินมัดจำ ควรขอถ่ายสำเนาโฉนดทั้งหน้าและตารางสลักหลัง นำไปตรวจสอบระวางพิกัด ณ สำนักงานที่ดินพื้นที่เพื่อความมั่นใจ 100%"
+    },
+    {
+      "slug": "real-estate-transfer-fee-taxes-summary",
+      "title": "สรุปค่าธรรมเนียมและภาษี ณ กรมที่ดิน เมื่อซื้อขายบ้านและคอนโด",
+      "category": "กฎหมายและภาษีอสังหาฯ",
+      "excerpt": "เจาะลึก 4 ค่าใช้จ่ายหลัก ณ วันโอนกรรมสิทธิ์กรมที่ดิน ค่าธรรมเนียมโอน ภาษีธุรกิจเฉพาะ อากรแสตมป์ และภาษีเงินได้หัก ณ ที่จ่าย",
+      "content": "เมื่อถึงวันทำเรื่องโอนกรรมสิทธิ์ ณ สำนักงานกรมที่ดิน ผู้ซื้อและผู้ขายจะต้องตระเตรียมงบประมาณสำหรับค่าธรรมเนียมและภาษี 4 ส่วนหลักๆ ดังต่อไปนี้:\n\n1. ค่าธรรมเนียมการโอน (Transfer Fee) - 2%\n- คิดคำนวณจากราคาประเมินทุนทรัพย์ของกรมที่ดิน\n- โดยทั่วไปตามมาตรฐานสัญญาซื้อขาย มักตกลงแบ่งจ่ายคนละครึ่งระหว่างผู้ซื้อ (1%) และผู้ขาย (1%)\n\n2. ภาษีธุรกิจเฉพาะ (Specific Business Tax) - 3.3%\n- คิดคำนวณ 3.3% จากราคาประเมินหรือราคาซื้อขายจริง (ใช้ราคาที่สูงกว่า)\n- จะต้องจ่ายในกรณีที่ผู้ขายถือครองอสังหาริมทรัพย์นั้นๆ ไม่เกิน 5 ปี (เว้นแต่ย้ายชื่อเข้าทะเบียนบ้านเกิน 1 ปีขึ้นไป)\n\n3. อากรแสตมป์ (Stamp Duty) - 0.5%\n- คิดคำนวณ 0.5% จากราคาประเมินหรือราคาซื้อขายจริง (ใช้ราคาที่สูงกว่า)\n- ได้รับการยกเว้นไม่ต้องจ่าย หากผู้ขายเสียภาษีธุรกิจเฉพาะในข้อ 2 ไปแล้ว\n\n4. ภาษีเงินได้หัก ณ ที่จ่าย (Withholding Tax)\n- คิดคำนวณแบบอัตราก้าวหน้าจากราคาประเมินกรมที่ดิน โดยหักค่าใช้จ่ายตามจำนวนปีที่ถือครองอสังหาริมทรัพย์ของผู้ขาย\n\n5. มาตรการลดค่าโอนและค่าจดจำนอง\n- คณะรัฐมนตรีเห็นชอบเมื่อ 30 มิถุนายน 2569 ให้ลดค่าโอนและค่าจดจำนองเหลืออย่างละ 0.01% ถึง 30 มิถุนายน 2570\n- ใช้กับที่อยู่อาศัยที่เข้าเงื่อนไข ราคาซื้อขายและราคาประเมินไม่เกิน 7 ล้านบาท และวงเงินจำนองไม่เกิน 7 ล้านบาทต่อสัญญา\n- ดูเงื่อนไขและตัวอย่างคำนวณได้ที่คู่มือค่าโอนและภาษีของ Finding House\n\nข้อแนะนำจาก Finding House:\nควรคำนวณยอดค่าธรรมเนียมล่วงหน้าและระบุในสัญญาจะซื้อจะขายให้ชัดเจนว่า ฝ่ายใดเป็นผู้รับผิดชอบค่าใช้จ่ายส่วนใด เพื่อป้องกันข้อขัดแย้งในวันโอนกรรมสิทธิ์จริง"
+    },
+    {
+      "slug": "check-title-deed-landsmaps-guide",
+      "title": "วิธีตรวจสอบโฉนดสลักหลัง และการใช้แอปพลิเคชัน LandsMaps เช็กพิกัดดินด้วยตนเอง",
+      "category": "คู่มือผู้ซื้อบ้าน",
+      "excerpt": "คู่มือเช็กสารบัญสลักหลังโฉนด ป้องกันโดนหลอกโฉนดติดจำนอง พร้อมวิธีใช้แอป LandsMaps เช็กพิกัดแปลงที่ดินและราคาประเมินล่วงหน้า",
+      "content": "ก่อนตกลงใจซื้อขายอสังหาริมทรัพย์ ผู้ซื้อสามารถตรวจสอบความถูกต้องของโฉนดที่ดินและสิทธิครอบครองได้ด้วยตนเองอย่างง่ายดายผ่าน 2 ขั้นตอนดังนี้:\n\n1. การอ่านสารบัญจดทะเบียน (สลักหลังโฉนดที่ดิน)\n- สลักหลังโฉนดเปรียบเสมือนสมุดประวัติอสังหาริมทรัพย์\n- ให้ตรวจเช็กตารางสลักหลังบรรทัดล่างสุดว่า มีการระบุว่า \"จำนองเป็นประกัน\" หรือ \"ขายฝาก\" กับบุคคลหรือธนาคารใดอยู่หรือไม่\n- หากติดจำนอง ณ วันโอน ผู้ขายจะต้องนำเงินมัดจำ/ชำระยอดไปไถ่ถอนออกจากธนาคารให้เรียบร้อยก่อนโอนกรรมสิทธิ์ให้ผู้ซื้อ\n\n2. การใช้งานแอปพลิเคชัน \"LandsMaps\" ของกรมที่ดิน\n- กรมที่ดินได้เปิดให้บริการระบบค้นหารูปแปลงที่ดินฟรีผ่านแอปพลิเคชัน LandsMaps บน iOS และ Android\n- ผู้ใช้เพียงกรอก \"จังหวัด / อำเภอ / เลขที่โฉนด\" ระบบจะแสดง:\n  * รูปแปลงที่ดินและอาณาเขตโดยรอบ\n  * พิกัดตำแหน่งดาวเทียม Google Maps นำทางไปยังแปลงที่ดิน\n  * ราคาประเมินทุนทรัพย์ของกรมที่ดิน\n  * ชื่อและเบอร์โทรศัพท์ของสำนักงานที่ดินรับผิดชอบ\n\nข้อแนะนำจาก Finding House:\nทาง Finding House มีบริการนำพิกัดโฉนดเข้าสู่ระบบแมตช์และตรวจสอบประวัติสลักหลังให้แก่ผู้ซื้อทุกรายการโดยไม่มีค่าใช้จ่ายเพิ่มเติม"
+    }
+  ]
+}

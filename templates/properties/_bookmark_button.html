@@ -1,0 +1,1 @@
+<button type="button" class="fh-round-btn {% if is_bookmarked %}is-fav{% endif %}" data-ajax-post="{% url 'properties:bookmark' property.id %}" aria-pressed="{{ is_bookmarked|yesno:'true,false' }}" aria-label="รายการโปรด" title="รายการโปรด"><i class="{% if is_bookmarked %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i></button>

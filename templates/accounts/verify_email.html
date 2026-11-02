@@ -1,0 +1,14 @@
+{% extends "accounts/_auth_shell.html" %}
+{% block title %}ยืนยันอีเมล | Finding House{% endblock %}
+{% block auth %}
+{% include "accounts/_auth_card.html" with icon="fa-envelope-circle-check" heading="ยืนยันอีเมล" %}
+<p>เราส่งรหัส 6 หลักไปที่ <strong>{{ email }}</strong> รหัสมีอายุ 10 นาที</p>
+<form method="post">
+  {% csrf_token %}
+  <div class="row g-3">{% for field in form.visible_fields %}{% include "partials/field.html" with wide=True %}{% endfor %}</div>
+  <button class="btn btn-primary btn-lg w-100 mt-4" type="submit">ยืนยัน</button>
+</form>
+<div class="text-center mt-3">
+  <button class="btn btn-sm btn-soft" type="button" data-ajax-post="{% url 'accounts:resend_otp' %}"><i class="fa-solid fa-rotate-right me-1"></i>ส่งรหัสอีกครั้ง</button>
+</div>
+{% endblock %}

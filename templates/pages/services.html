@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}บริการ | Finding House{% endblock %}
+{% block description %}บริการของ Finding House ได้แก่ การซื้อและเช่าทรัพย์ การฝากขายและประเมินราคา และการดูแลเอกสารจนถึงวันโอน{% endblock %}
+{% block meta %}<meta property="og:title" content="บริการ | Finding House">{% page_schema "services" "บริการ" %}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="OUR SERVICES" heading="บริการอสังหาฯ ที่ดูแลคุณครบทุกขั้นตอน" sub="ตั้งแต่ค้นหาทรัพย์ ฝากขาย ประเมินราคา ไปจนถึงการดูแลเอกสาร ทีม Finding House พร้อมช่วยให้ทุกการตัดสินใจเป็นเรื่องง่าย" %}
+<div class="container py-5">
+  <div class="row g-3">
+    <div class="col-md-4"><div class="card fh-card p-4 h-100"><span class="fh-icon-circle mb-3"><i class="fa-solid fa-house"></i></span><h2 class="h5">ซื้อและเช่าทรัพย์</h2><p>ค้นหาและเปรียบเทียบทรัพย์ แล้วส่งข้อความถึงเราได้ทันที</p><a class="btn btn-soft align-self-start mt-auto" href="{% url 'properties:list' %}">ดูทรัพย์</a></div></div>
+    <div class="col-md-4"><div class="card fh-card p-4 h-100"><span class="fh-icon-circle gold mb-3"><i class="fa-solid fa-file-signature"></i></span><h2 class="h5">ฝากขายและประเมินราคา</h2><p>ส่งข้อมูลทรัพย์ให้เจ้าหน้าที่ดูแลการขายแทนคุณ</p><a class="btn btn-accent align-self-start mt-auto" href="{% url 'properties:consignment' %}">ฝากขาย</a></div></div>
+    <div class="col-md-4"><div class="card fh-card p-4 h-100"><span class="fh-icon-circle blue mb-3"><i class="fa-solid fa-file-contract"></i></span><h2 class="h5">ดูแลเอกสารและการโอน</h2><p>ช่วยดูแลเอกสารและประสานงานจนถึงวันโอน สอบถามรายละเอียดกับทีมงานได้เลย</p><a class="btn btn-soft align-self-start mt-auto" href="{% url 'pages:contact' %}">ติดต่อเรา</a></div></div>
+  </div>
+</div>
+{% endblock %}

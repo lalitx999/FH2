@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}นามบัตรออนไลน์ | Finding House{% endblock %}
+{% block description %}นามบัตรออนไลน์ของคุณภัคภพ แก้วเกตุ CEO Finding House ที่ปรึกษาการลงทุนอสังหาริมทรัพย์ การตรวจประเมินโฉนด และการประสานงานสินเชื่อ{% endblock %}
+{% block meta %}<meta property="og:title" content="นามบัตรออนไลน์ | Finding House">{% page_schema "namecard" "นามบัตรออนไลน์" %}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="นามบัตรออนไลน์" %}
+<div class="container py-5" style="max-width: 30rem">
+  <div class="card p-4 fh-shadow text-center">
+    <div class="fh-avatar mx-auto mb-3">ณ</div>
+    <h2 class="h4 mb-1">คุณภัคภพ แก้วเกตุ (ณัฐ)</h2>
+    <p class="mb-3"><span class="fh-badge gold">CEO FINDING HOUSE</span></p>
+    <p>"เรื่องบ้านไว้ใจเรา" ยินดีให้คำแนะนำการตลาด ประเมินราคาทรัพย์ และจัดหาสินเชื่อบ้าน-คอนโดให้ผ่านเกณฑ์ได้ง่ายขึ้น</p>
+    <ul class="list-unstyled text-start d-grid gap-2 mb-4">
+      <li class="fh-feature"><span class="fh-icon-circle"><i class="fa-solid fa-chart-line"></i></span>ที่ปรึกษาการลงทุนอสังหาริมทรัพย์</li>
+      <li class="fh-feature"><span class="fh-icon-circle gold"><i class="fa-solid fa-file-contract"></i></span>ผู้เชี่ยวชาญการตรวจประเมินโฉนดที่ดิน</li>
+      <li class="fh-feature"><span class="fh-icon-circle blue"><i class="fa-solid fa-landmark"></i></span>ให้คำปรึกษาประสานงานสินเชื่อครบวงจร</li>
+    </ul>
+    <div class="d-grid gap-2">
+      {% if site.line_url %}<a class="btn btn-primary btn-lg" href="{{ site.line_url }}" rel="noopener"><i class="fa-brands fa-line me-2"></i>แอด LINE {{ site.line_id }}</a>{% endif %}
+      {% if site.phone %}<a class="btn btn-outline" href="tel:{{ site.phone }}"><i class="fa-solid fa-phone me-2"></i>โทร {{ site.phone }}</a>{% endif %}
+      {% if site.email %}<a class="btn btn-outline" href="mailto:{{ site.email }}"><i class="fa-regular fa-envelope me-2"></i>{{ site.email }}</a>{% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

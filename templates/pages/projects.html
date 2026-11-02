@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}โครงการ | Finding House{% endblock %}
+{% block description %}โครงการอสังหาริมทรัพย์ที่ทีม Finding House กำลังรวบรวม ระหว่างนี้ค้นหาทรัพย์ทั้งหมดหรือสอบถามทีมงานได้{% endblock %}
+{% block meta %}<meta property="og:title" content="โครงการ | Finding House">{% page_schema "page" "โครงการ" %}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="NEW PROJECTS" heading="โครงการใหม่ที่น่าจับตา" sub="คัดสรรโครงการคุณภาพและทำเลศักยภาพสำหรับการอยู่อาศัยและการลงทุน" %}
+<div class="container py-5">
+  <div class="fh-empty-panel">
+    <span class="fh-icon-circle mb-3"><i class="fa-solid fa-city"></i></span>
+    <h2 class="h5">กำลังรวบรวมโครงการที่น่าสนใจ</h2>
+    <p class="text-body-secondary">ระหว่างนี้ดูทรัพย์ทั้งหมดหรือสอบถามเราได้เลย</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a class="btn btn-primary" href="{% url 'properties:list' %}"><i class="fa-solid fa-magnifying-glass me-1"></i>ดูทรัพย์</a>
+      <a class="btn btn-outline" href="{% url 'pages:contact' %}"><i class="fa-regular fa-paper-plane me-1"></i>ติดต่อเรา</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

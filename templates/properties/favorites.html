@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}รายการโปรด | Finding House{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="รายการโปรด" %}
+<div class="container py-4">
+  {% if items %}
+  <div class="fh-lgrid">
+    {% for p in items %}{% include "properties/_listing_card.html" %}{% endfor %}
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with icon="fa-heart" text="ยังไม่มีรายการโปรด กดรูปหัวใจบนการ์ดทรัพย์เพื่อบันทึกไว้" %}
+  {% endif %}
+</div>
+{% endblock %}

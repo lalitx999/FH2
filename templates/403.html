@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}ไม่มีสิทธิ์เข้าถึง | Finding House{% endblock %}
+{% block content %}
+<div class="container py-5">
+  {% include "partials/empty_state.html" with icon="fa-lock" text="คุณไม่มีสิทธิ์เข้าถึงหน้านี้" %}
+  <div class="text-center"><a class="btn btn-primary" href="{% url 'pages:home' %}">กลับหน้าแรก</a></div>
+</div>
+{% endblock %}

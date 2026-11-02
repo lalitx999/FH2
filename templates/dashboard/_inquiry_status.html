@@ -1,0 +1,1 @@
+<button class="btn btn-sm {% if item.is_handled %}btn-soft{% else %}btn-accent{% endif %}" type="button" data-ajax-post="{% url 'dashboard:inquiry_toggle' item.pk %}"><i class="fa-solid {% if item.is_handled %}fa-check{% else %}fa-clock{% endif %} me-1"></i>{% if item.is_handled %}ติดต่อแล้ว{% else %}รอติดต่อ{% endif %}</button>

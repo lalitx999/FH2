@@ -1,0 +1,27 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading=title %}
+<div class="card p-3">
+  {% if items %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead><tr><th>หมวดหมู่</th><th>อักษรนำรหัส</th><th>ลำดับ</th><th>จำนวนประกาศ</th><th></th></tr></thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td><i class="fa-solid {{ item.icon }} me-2 text-success"></i>{{ item.name }}</td>
+          <td>{{ item.code_prefix }}</td>
+          <td>{{ item.sort_order }}</td>
+          <td>{{ item.property_count }}</td>
+          <td class="text-end text-nowrap">{% include "dashboard/_row_actions.html" %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  {% include "partials/empty_state.html" with text="ยังไม่มีหมวดหมู่" %}
+  {% endif %}
+</div>
+{% include "dashboard/_pagination.html" %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}แนบรูปและเอกสาร | Finding House{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="แนบรูปและเอกสาร" sub="ขั้นสุดท้ายของการฝากขาย" %}
+<div class="container py-4" style="max-width: 62rem">
+  <div class="card p-4 mb-3">
+    <h2 class="h5">รูปภาพทรัพย์</h2>
+    {% url 'properties:consignment_upload' consignment.pk 'image' as image_url %}
+    {% include "properties/_uploader.html" with label="เลือกรูปภาพ" hint="JPG, PNG, WEBP ไฟล์ละไม่เกิน 15 MB" accept="image/jpeg,image/png,image/webp" url=image_url grid="images" %}
+    <p>มีแล้ว <strong data-count-of="#images" data-min="{{ min_images }}" data-enables="#submit-consignment">{{ images|length }}</strong> รูป (ต้องมี {{ min_images }}-{{ max_images }} รูป)</p>
+    <div class="row g-3" id="images">
+      {% for image in images %}{% include "properties/_consignment_image_tile.html" %}{% endfor %}
+    </div>
+  </div>
+  <div class="card p-4 mb-3">
+    <h2 class="h5"><i class="fa-solid fa-lock me-2"></i>เอกสารโฉนด</h2>
+    <p class="small text-body-secondary">ไม่บังคับ เอกสารเก็บเป็นความลับ เจ้าหน้าที่เท่านั้นที่เปิดได้ แนบได้สูงสุด {{ max_deeds }} ไฟล์</p>
+    {% url 'properties:consignment_upload' consignment.pk 'deed' as deed_url %}
+    {% include "properties/_uploader.html" with label="เลือกไฟล์เอกสาร" hint="JPG, PNG, WEBP หรือ PDF ไฟล์ละไม่เกิน 15 MB" accept="image/jpeg,image/png,image/webp,application/pdf" url=deed_url grid="deeds" %}
+    <ul class="list-group" id="deeds">
+      {% for deed in deeds %}{% include "properties/_deed_row.html" %}{% endfor %}
+    </ul>
+  </div>
+  <form method="post" action="{% url 'properties:consignment_submit' consignment.pk %}" class="text-end">
+    {% csrf_token %}
+    <button class="btn btn-primary" id="submit-consignment" type="submit" disabled><i class="fa-regular fa-paper-plane me-1"></i>ส่งเรื่องฝากขาย</button>
+  </form>
+</div>
+{% endblock %}

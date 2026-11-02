@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load seo_tags %}
+{% block title %}ติดต่อเรา | Finding House{% endblock %}
+{% block description %}ติดต่อทีม Finding House เรื่องซื้อ ขาย เช่า และฝากขายอสังหาริมทรัพย์ ผ่านแบบฟอร์ม อีเมล หรือ LINE Official{% endblock %}
+{% block meta %}<meta property="og:title" content="ติดต่อเรา | Finding House">{% page_schema "contact" "ติดต่อเรา" %}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="CONTACT US" heading="พูดคุยกับทีม Finding House" sub="สอบถามเรื่องซื้อ ขาย เช่า หรือฝากขายทรัพย์ได้ทุกช่องทาง ทีมงานจะติดต่อกลับเพื่อดูแลคุณอย่างเหมาะสม" %}
+<div class="container py-5">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card p-4 fh-shadow">{% include "inquiries/_form.html" with form=inquiry_form %}</div>
+    </div>
+    <div class="col-lg-5 d-grid gap-3 align-content-start">
+      {% if site.phone %}<a class="card fh-card text-decoration-none p-3 d-flex flex-row gap-3 align-items-center" href="tel:{{ site.phone }}"><span class="fh-icon-circle"><i class="fa-solid fa-phone"></i></span><span>{{ site.phone }}</span></a>{% endif %}
+      {% if site.email %}<a class="card fh-card text-decoration-none p-3 d-flex flex-row gap-3 align-items-center" href="mailto:{{ site.email }}"><span class="fh-icon-circle"><i class="fa-regular fa-envelope"></i></span><span>{{ site.email }}</span></a>{% endif %}
+      {% if site.line_url %}<a class="card fh-card text-decoration-none p-3 d-flex flex-row gap-3 align-items-center" href="{{ site.line_url }}" rel="noopener"><span class="fh-icon-circle"><i class="fa-brands fa-line"></i></span><span>{{ site.line_id|default:"LINE" }}</span></a>{% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

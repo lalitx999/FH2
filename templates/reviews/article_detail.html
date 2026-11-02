@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load article_tags %}
+{% block title %}{{ article.title }} | Finding House{% endblock %}
+{% block description %}{{ article.excerpt|default:article.content|truncatechars:155 }}{% endblock %}
+{% block og_image %}{% if article.cover_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ article.cover_image.url }}">{% else %}{{ block.super }}{% endif %}{% endblock %}
+{% block meta %}<meta property="og:title" content="{{ article.title }}"><meta property="og:type" content="article">{{ schema }}{% endblock %}
+{% block content %}
+<article class="container py-4" style="max-width: 48rem">
+  <p class="small fw-semibold mb-1 fh-article-cat">{{ article.category }}</p>
+  <h1 class="h3">{{ article.title }}</h1>
+  <p class="small text-body-secondary"><i class="fa-regular fa-calendar me-1"></i>เผยแพร่ <time datetime="{{ article.created_at|date:'Y-m-d' }}">{{ article.created_at|date:"j F Y" }}</time> · ปรับปรุง <time datetime="{{ article.updated_at|date:'Y-m-d' }}">{{ article.updated_at|date:"j F Y" }}</time> · โดยทีม Finding House</p>
+  {% if article.excerpt %}<p class="fh-answer">{{ article.excerpt }}</p>{% endif %}
+  {% if article.cover_image %}<img class="img-fluid rounded-4 mb-4" src="{{ article.cover_image.url }}" alt="{{ article.title }}" fetchpriority="high">{% endif %}
+  {{ article.content|article_body }}
+  {% if article.property %}<a class="btn btn-soft mt-3" href="{{ article.property.get_absolute_url }}"><i class="fa-solid fa-house me-1"></i>ดูทรัพย์ที่เกี่ยวข้อง</a>{% endif %}
+</article>
+{% endblock %}

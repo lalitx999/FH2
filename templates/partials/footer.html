@@ -1,0 +1,44 @@
+<footer class="fh-footer py-5">
+  <div class="container pt-3">
+    <div class="row g-4 g-lg-5">
+      <div class="col-md-4">
+        <h2 class="h5"><i class="fa-solid fa-location-dot me-2"></i>Finding House Headquarters</h2>
+        <p class="small text-body-secondary">กรุงเทพมหานคร &amp; ทำเลทองทั่วประเทศไทย</p>
+        <ul class="list-unstyled d-grid gap-2 small fw-medium mb-0">
+          {% if site.phone %}<li><a href="tel:{{ site.phone }}"><i class="fa-solid fa-phone me-2"></i>{{ site.phone }} (Hotline)</a></li>{% endif %}
+          {% if site.email %}<li><a href="mailto:{{ site.email }}"><i class="fa-regular fa-envelope me-2"></i>{{ site.email }}</a></li>{% endif %}
+          {% if site.line_url %}<li><a href="{{ site.line_url }}" rel="noopener"><i class="fa-regular fa-comment-dots me-2"></i>LINE OA: {{ site.line_id }}</a></li>{% endif %}
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h2 class="h5">บริการ</h2>
+        <div class="row small fw-medium">
+          <div class="col-6 d-grid gap-2">
+            <a href="{% url 'pages:home' %}">หน้าแรก</a>
+            <a href="{% url 'properties:list' %}">รายการทรัพย์</a>
+            <a href="{% url 'pages:projects' %}">โครงการใหม่</a>
+            <a href="{% url 'pages:services' %}">บริการของเรา</a>
+            <a href="{% url 'reviews:article_list' %}"><i class="fa-solid fa-book-open me-1"></i>บทความ</a>
+            <a href="{% url 'reviews:review_list' %}"><i class="fa-solid fa-star me-1"></i>รีวิว</a>
+          </div>
+          <div class="col-6 d-grid gap-2 align-content-start">
+            <a class="fh-footer-accent" href="{% url 'properties:consignment' %}">ฝากขายทรัพย์</a>
+            <a href="{% url 'properties:compare' %}">เปรียบเทียบทรัพย์</a>
+            <a href="{% url 'properties:favorites' %}">รายการโปรด</a>
+            <a href="{% url 'pages:namecard' %}">นามบัตรออนไลน์</a>
+            <a href="{% url 'pages:about' %}">เกี่ยวกับเรา</a>
+            <a href="{% url 'pages:contact' %}">ติดต่อเรา</a>
+            <a href="{% url 'pages:faq' %}">คำถามที่พบบ่อย</a>
+            <a href="{% url 'pages:fee_guide' %}">คู่มือค่าโอนและภาษี</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h2 class="h5">FINDING HOUSE</h2>
+        <p class="small text-body-secondary">Finding House แพลตฟอร์มซื้อ ขาย เช่า อสังหาริมทรัพย์ และบริการดูแลการขายแบบครบวงจร</p>
+        <div class="fh-footer-note"><i class="fa-solid fa-house-chimney me-2"></i>เรื่องบ้านไว้ใจเรา - Finding House</div>
+      </div>
+    </div>
+    <p class="fh-footer-copy">สงวนลิขสิทธิ์ © 2026 Finding House. All rights reserved.</p>
+  </div>
+</footer>

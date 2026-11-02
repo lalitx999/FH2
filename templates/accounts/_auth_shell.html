@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container py-4 py-lg-5" style="max-width: 68rem">
+  <div class="fh-auth">
+    <div class="fh-auth-photo">{% block auth_photo %}<img src="{% static 'images/auth-login-800.webp' %}" width="800" height="533" fetchpriority="high" alt="ห้องครัวสว่างในบ้านที่ตกแต่งพร้อมอยู่">{% endblock %}</div>
+    <div class="fh-auth-form">{% block auth %}{% endblock %}</div>
+  </div>
+</div>
+{% endblock %}

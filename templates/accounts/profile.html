@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}โปรไฟล์ | Finding House{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with heading="โปรไฟล์" %}
+<div class="container py-4" style="max-width: 44rem">
+  <div class="card p-4">
+    <p class="mb-3"><i class="fa-regular fa-envelope me-2"></i>{{ user.email }} <span class="fh-badge ms-1">{{ user.get_role_display }}</span></p>
+    <form method="post">
+      {% csrf_token %}
+      {% include "partials/form_fields.html" %}
+      <div class="d-flex gap-2 flex-wrap mt-3">
+        <button class="btn btn-primary" type="submit">บันทึก</button>
+        <a class="btn btn-outline" href="{% url 'accounts:password_change' %}"><i class="fa-solid fa-key me-1"></i>เปลี่ยนรหัสผ่าน</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
