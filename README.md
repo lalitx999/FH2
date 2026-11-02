@@ -1,6 +1,6 @@
 # Finding House
 
-Django + Bootstrap 5 + Ajax + PostgreSQL แพลนและเหตุผลการออกแบบอยู่ใน [PLAN.md](PLAN.md)
+Django + Bootstrap 5 + Ajax + PostgreSQL
 
 ## เริ่มใช้งานในเครื่อง
 
