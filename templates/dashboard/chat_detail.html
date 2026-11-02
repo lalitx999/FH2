@@ -1,14 +1,19 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
-<a class="btn btn-sm btn-soft mb-3" href="{% url 'dashboard:chats' %}"><i class="fa-solid fa-arrow-left me-1"></i>กลับ</a>
-<h1 class="h3 mb-1">บทสนทนา</h1>
-<p class="small text-body-secondary mb-4">{{ session.user.email|default:"ผู้เยี่ยมชม" }} · เริ่ม {{ session.created_at|date:"j M Y H:i" }}</p>
-<div class="card p-3 fh-chat-log">
-  {% for item in chat_messages %}
-  <div class="fh-chat-msg {% if item.role == 'user' %}user{% else %}bot{% endif %}">
-    {{ item.content|default:"(กำลังตอบ)"|linebreaksbr }}
-    {% if item.role == 'assistant' %}<small class="d-block mt-1 text-body-secondary">ตอบโดย {{ item.provider|default:"-" }}{% for prop in item.suggestions.all %} · {{ prop.property_code }}{% endfor %}</small>{% endif %}
+<div class="fh-page-head">
+  <div>
+    <h1>บทสนทนา</h1>
+    <ol class="breadcrumb"><li class="breadcrumb-item"><a href="{% url 'dashboard:chats' %}">แชทบอท</a></li><li class="breadcrumb-item active" aria-current="page">{{ session.user.email|default:"ผู้เยี่ยมชม" }} · {{ session.created_at|date:"j M Y H:i" }}</li></ol>
   </div>
-  {% endfor %}
+</div>
+<div class="card fh-chat-log">
+  <div class="card-body">
+    {% for item in chat_messages %}
+    <div class="fh-chat-msg {% if item.role == 'user' %}user{% else %}bot{% endif %}">
+      {{ item.content|default:"(กำลังตอบ)"|linebreaksbr }}
+      {% if item.role == 'assistant' %}<small class="d-block mt-1 text-body-secondary">ตอบโดย {{ item.provider|default:"-" }}{% for prop in item.suggestions.all %} · {{ prop.property_code }}{% endfor %}</small>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

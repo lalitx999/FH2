@@ -1,10 +1,14 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
-<div class="mb-3"><a class="btn btn-sm btn-soft" href="{% url back %}"><i class="fa-solid fa-arrow-left me-1"></i>กลับ</a></div>
-<h1 class="h3 mb-4">{{ title }}</h1>
-<form method="post" class="card p-4" style="max-width: 56rem" {% if multipart %}enctype="multipart/form-data"{% endif %}>
-  {% csrf_token %}
-  {% include "partials/form_fields.html" %}
-  <div class="mt-4"><button class="btn btn-primary" type="submit"><i class="fa-regular fa-floppy-disk me-1"></i>บันทึก</button></div>
+{% include "dashboard/_head.html" with heading=title %}
+<form method="post" class="card fh-form-card" {% if multipart %}enctype="multipart/form-data"{% endif %}>
+  <div class="card-body">
+    {% csrf_token %}
+    {% include "partials/form_fields.html" %}
+  </div>
+  <div class="card-footer d-flex gap-2">
+    <button class="btn btn-primary" type="submit"><i class="fa-regular fa-floppy-disk me-1"></i>บันทึก</button>
+    <a class="btn btn-soft" href="{% url back %}">ยกเลิก</a>
+  </div>
 </form>
 {% endblock %}

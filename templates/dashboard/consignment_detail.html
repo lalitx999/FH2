@@ -1,58 +1,70 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
-<div class="mb-3"><a class="btn btn-sm btn-soft" href="{% url 'dashboard:consignments' %}"><i class="fa-solid fa-arrow-left me-1"></i>กลับ</a></div>
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-  <h1 class="h3 mb-0">{{ c.owner_name }} <span class="fh-badge align-middle">{{ c.get_status_display }}</span></h1>
+<div class="fh-page-head">
+  <div>
+    <h1>{{ c.owner_name }} <span class="fh-badge align-middle">{{ c.get_status_display }}</span></h1>
+    <ol class="breadcrumb"><li class="breadcrumb-item"><a href="{% url 'dashboard:consignments' %}">ฝากขาย</a></li><li class="breadcrumb-item active" aria-current="page">{{ c.owner_name }}</li></ol>
+  </div>
   {% if c.converted_property %}
   <a class="btn btn-soft" href="{% url 'dashboard:property_edit' c.converted_property.pk %}"><i class="fa-solid fa-house me-1"></i>ดูประกาศ {{ c.converted_property.property_code }}</a>
   {% else %}
   <form method="post" action="{% url 'dashboard:consignment_convert' c.pk %}">{% csrf_token %}<button class="btn btn-primary" type="submit" data-confirm="สร้างประกาศฉบับร่างจากคำขอนี้"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>แปลงเป็นประกาศ</button></form>
   {% endif %}
 </div>
-<div class="row g-3">
+<div class="row">
   <div class="col-xl-8">
-    <div class="card p-4 mb-3">
-      <h2 class="h5">ข้อมูลทรัพย์</h2>
-      <dl class="row mb-0">
-        <dt class="col-sm-4 fw-medium">ประเภท</dt><dd class="col-sm-8">{{ c.get_property_type_display }}</dd>
-        <dt class="col-sm-4 fw-medium">ราคาที่ต้องการ</dt><dd class="col-sm-8">{{ c.target_price|floatformat:"0g" }} บาท</dd>
-        <dt class="col-sm-4 fw-medium">ที่ตั้ง</dt><dd class="col-sm-8">{{ c.subdistrict }} {{ c.district }} {{ c.province }}</dd>
-        {% for label, value in c.spec_rows %}<dt class="col-sm-4 fw-medium">{{ label }}</dt><dd class="col-sm-8">{{ value }}</dd>{% endfor %}
-        {% if c.highlights %}<dt class="col-sm-4 fw-medium">จุดเด่น</dt><dd class="col-sm-8">{{ c.highlights|linebreaksbr }}</dd>{% endif %}
-        {% if c.notes %}<dt class="col-sm-4 fw-medium">หมายเหตุ</dt><dd class="col-sm-8">{{ c.notes|linebreaksbr }}</dd>{% endif %}
-      </dl>
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">ข้อมูลทรัพย์</h2></div>
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-4 fw-medium">ประเภท</dt><dd class="col-sm-8">{{ c.get_property_type_display }}</dd>
+          <dt class="col-sm-4 fw-medium">ราคาที่ต้องการ</dt><dd class="col-sm-8">{{ c.target_price|floatformat:"0g" }} บาท</dd>
+          <dt class="col-sm-4 fw-medium">ที่ตั้ง</dt><dd class="col-sm-8">{{ c.subdistrict }} {{ c.district }} {{ c.province }}</dd>
+          {% for label, value in c.spec_rows %}<dt class="col-sm-4 fw-medium">{{ label }}</dt><dd class="col-sm-8">{{ value }}</dd>{% endfor %}
+          {% if c.highlights %}<dt class="col-sm-4 fw-medium">จุดเด่น</dt><dd class="col-sm-8">{{ c.highlights|linebreaksbr }}</dd>{% endif %}
+          {% if c.notes %}<dt class="col-sm-4 fw-medium">หมายเหตุ</dt><dd class="col-sm-8">{{ c.notes|linebreaksbr }}</dd>{% endif %}
+        </dl>
+      </div>
     </div>
-    <div class="card p-4">
-      <h2 class="h5">รูปภาพ ({{ c.images.all|length }} รูป)</h2>
-      <div class="row g-3">
-        {% for image in c.images.all %}<div class="col-6 col-md-4 col-lg-3"><div class="fh-tile"><img src="{{ image.image.url }}" alt="รูปทรัพย์" loading="lazy"></div></div>
-        {% empty %}<p class="mb-0 small">ไม่มีรูปภาพ</p>{% endfor %}
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">รูปภาพ ({{ c.images.all|length }} รูป)</h2></div>
+      <div class="card-body">
+        <div class="row g-3">
+          {% for image in c.images.all %}<div class="col-6 col-md-4 col-lg-3"><div class="fh-tile"><img src="{{ image.image.url }}" alt="รูปทรัพย์" loading="lazy"></div></div>
+          {% empty %}<p class="mb-0 small px-2">ไม่มีรูปภาพ</p>{% endfor %}
+        </div>
       </div>
     </div>
   </div>
   <div class="col-xl-4">
-    <div class="card p-4 mb-3">
-      <h2 class="h5">ผู้ฝากขาย</h2>
-      <p class="mb-1"><a href="tel:{{ c.owner_phone }}"><i class="fa-solid fa-phone me-2"></i>{{ c.owner_phone }}</a></p>
-      {% if c.owner_line_id %}<p class="mb-1"><i class="fa-brands fa-line me-2"></i>{{ c.owner_line_id }}</p>{% endif %}
-      {% if c.owner_email or c.owner %}<p class="mb-0"><i class="fa-regular fa-envelope me-2"></i>{{ c.owner_email|default:c.owner.email }}</p>{% endif %}
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">ผู้ฝากขาย</h2></div>
+      <div class="card-body">
+        <p class="mb-1"><a href="tel:{{ c.owner_phone }}"><i class="fa-solid fa-phone me-2"></i>{{ c.owner_phone }}</a></p>
+        {% if c.owner_line_id %}<p class="mb-1"><i class="fa-brands fa-line me-2"></i>{{ c.owner_line_id }}</p>{% endif %}
+        {% if c.owner_email or c.owner %}<p class="mb-0"><i class="fa-regular fa-envelope me-2"></i>{{ c.owner_email|default:c.owner.email }}</p>{% endif %}
+      </div>
     </div>
-    <div class="card p-4 mb-3">
-      <h2 class="h5"><i class="fa-solid fa-lock me-2"></i>เอกสารโฉนด</h2>
-      <ul class="list-unstyled mb-0 d-grid gap-1">
-        {% for deed in c.deeds.all %}<li class="text-truncate"><a href="{% url 'dashboard:deed_file' deed.pk %}" target="_blank" rel="noopener"><i class="fa-regular fa-file-lines me-2"></i>{{ deed.original_name }}</a></li>
-        {% empty %}<li class="small">ไม่มีเอกสาร</li>{% endfor %}
-      </ul>
+    <div class="card">
+      <div class="card-header"><h2 class="card-title"><i class="fa-solid fa-lock me-2"></i>เอกสารโฉนด</h2></div>
+      <div class="card-body">
+        <ul class="list-unstyled mb-0 d-grid gap-1">
+          {% for deed in c.deeds.all %}<li class="text-truncate"><a href="{% url 'dashboard:deed_file' deed.pk %}" target="_blank" rel="noopener"><i class="fa-regular fa-file-lines me-2"></i>{{ deed.original_name }}</a></li>
+          {% empty %}<li class="small">ไม่มีเอกสาร</li>{% endfor %}
+        </ul>
+      </div>
     </div>
-    <div class="card p-4">
-      <h2 class="h5">เปลี่ยนสถานะ</h2>
-      <form method="post" action="{% url 'dashboard:consignment_status' c.pk %}" class="d-grid gap-2">
-        {% csrf_token %}
-        <select class="form-select" name="status" aria-label="สถานะ">
-          {% for value, label in statuses %}<option value="{{ value }}" {% if value == c.status %}selected{% endif %}>{{ label }}</option>{% endfor %}
-        </select>
-        <button class="btn btn-soft" type="submit">บันทึกสถานะ</button>
-      </form>
+    <div class="card">
+      <div class="card-header"><h2 class="card-title">เปลี่ยนสถานะ</h2></div>
+      <div class="card-body">
+        <form method="post" action="{% url 'dashboard:consignment_status' c.pk %}" class="d-grid gap-2">
+          {% csrf_token %}
+          <select class="form-select" name="status" aria-label="สถานะ">
+            {% for value, label in statuses %}<option value="{{ value }}" {% if value == c.status %}selected{% endif %}>{{ label }}</option>{% endfor %}
+          </select>
+          <button class="btn btn-soft" type="submit">บันทึกสถานะ</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

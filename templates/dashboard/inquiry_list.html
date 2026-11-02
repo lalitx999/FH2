@@ -1,9 +1,9 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
 {% include "dashboard/_head.html" with heading="ข้อความติดต่อ" %}
-<div class="card p-3">
+<div class="card">
   {% if items %}
-  <div class="table-responsive">
+  <div class="card-body table-responsive p-0">
     <table class="table align-middle mb-0">
       <thead><tr><th>ผู้ติดต่อ</th><th>ข้อความ</th><th>ทรัพย์</th><th>เมื่อ</th><th>สถานะ</th></tr></thead>
       <tbody>

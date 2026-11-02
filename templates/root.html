@@ -18,14 +18,16 @@
   {% block meta %}{% endblock %}
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{% static 'fonts/noto-sans-thai-thai-wght-normal.woff2' %}">
   <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+  {% block stylesheets %}
   <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/icons.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}" data-max-compare="{{ max_compare_items }}">
   <div id="toasts" class="fh-toasts" aria-live="polite"></div>
   {% block body %}{% endblock %}
-  <script defer src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  {% block vendor_js %}<script defer src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>{% endblock %}
   <script defer src="{% static 'js/app.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>

@@ -1,47 +1,52 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
-<div class="fh-dash-hello mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
-  <div><h1 class="h3 mb-1">สวัสดีครับ คุณ{{ user.first_name|default:user.email }}</h1><p class="mb-0">{% now "j F Y" %} · ดูงานที่รอคุณวันนี้ได้เลย</p></div>
-  <div class="d-flex gap-2 flex-wrap">
-    <a class="btn btn-accent" href="{% url 'dashboard:property_new' %}"><i class="fa-solid fa-plus me-1"></i>เพิ่มประกาศ</a>
-    <a class="btn btn-white" href="{% url 'pages:home' %}"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i>ดูหน้าเว็บ</a>
+<div class="fh-page-head">
+  <div>
+    <h1>ภาพรวม</h1>
+    <p class="text-muted mb-0">สวัสดีครับ คุณ{{ user.first_name|default:user.email }} · {% now "j F Y" %}</p>
   </div>
+  <a class="btn btn-primary" href="{% url 'dashboard:property_new' %}"><i class="fa-solid fa-plus me-1"></i>เพิ่มประกาศ</a>
 </div>
-<div class="row g-3 mb-4">
+<div class="row">
   {% for stat in stats %}
   <div class="col-6 col-xl-3">
-    <a class="card fh-stat fh-tone-{{ stat.tone }} p-3 h-100" href="{% url stat.url %}">
-      <div class="d-flex justify-content-between align-items-start">
-        <div><div class="value">{{ stat.value }}</div><div class="small text-body-secondary mt-1">{{ stat.label }}</div></div>
-        <span class="fh-icon-circle"><i class="fa-solid {{ stat.icon }}"></i></span>
-      </div>
-    </a>
+    <div class="small-box fh-box-{{ stat.tone }}">
+      <div class="inner"><h3>{{ stat.value }}</h3><p>{{ stat.label }}</p></div>
+      <div class="icon"><i class="fa-solid {{ stat.icon }}"></i></div>
+      <a class="small-box-footer" href="{% url stat.url %}">ดูทั้งหมด<i class="fa-solid fa-arrow-right ms-1"></i></a>
+    </div>
   </div>
   {% endfor %}
 </div>
-<div class="row g-3">
+<div class="row">
   <div class="col-xl-6">
-    <div class="card p-3 h-100">
-      <h2 class="h6 mb-3"><i class="fa-solid fa-hourglass-half me-2"></i>ประกาศรอตรวจ</h2>
-      {% for p in pending_listings %}
-      <a class="d-flex justify-content-between py-2 border-bottom text-decoration-none" href="{% url 'dashboard:property_edit' p.pk %}"><span class="text-truncate me-2">{{ p.title }}</span><span class="fh-badge">{{ p.property_code }}</span></a>
-      {% empty %}{% include "partials/empty_state.html" with icon="fa-circle-check" text="ไม่มีประกาศรอตรวจ" %}{% endfor %}
+    <div class="card">
+      <div class="card-header"><h2 class="card-title"><i class="fa-solid fa-hourglass-half me-2"></i>ประกาศรอตรวจ</h2></div>
+      <div class="card-body p-0">
+        {% for p in pending_listings %}
+        <a class="fh-list-row" href="{% url 'dashboard:property_edit' p.pk %}"><span class="text-truncate me-2">{{ p.title }}</span><span class="fh-badge">{{ p.property_code }}</span></a>
+        {% empty %}{% include "partials/empty_state.html" with icon="fa-circle-check" text="ไม่มีประกาศรอตรวจ" %}{% endfor %}
+      </div>
     </div>
   </div>
   <div class="col-xl-6">
-    <div class="card p-3 h-100">
-      <h2 class="h6 mb-3"><i class="fa-solid fa-file-signature me-2"></i>ฝากขายรอตรวจ</h2>
-      {% for c in pending_consignments %}
-      <a class="d-flex justify-content-between py-2 border-bottom text-decoration-none" href="{% url 'dashboard:consignment_detail' c.pk %}"><span class="text-truncate me-2">{{ c.owner_name }} · {{ c.district }}</span><span class="fh-badge gold">{{ c.get_property_type_display }}</span></a>
-      {% empty %}{% include "partials/empty_state.html" with icon="fa-circle-check" text="ไม่มีคำขอรอตรวจ" %}{% endfor %}
+    <div class="card">
+      <div class="card-header"><h2 class="card-title"><i class="fa-solid fa-file-signature me-2"></i>ฝากขายรอตรวจ</h2></div>
+      <div class="card-body p-0">
+        {% for c in pending_consignments %}
+        <a class="fh-list-row" href="{% url 'dashboard:consignment_detail' c.pk %}"><span class="text-truncate me-2">{{ c.owner_name }} · {{ c.district }}</span><span class="fh-badge gold">{{ c.get_property_type_display }}</span></a>
+        {% empty %}{% include "partials/empty_state.html" with icon="fa-circle-check" text="ไม่มีคำขอรอตรวจ" %}{% endfor %}
+      </div>
     </div>
   </div>
   <div class="col-12">
-    <div class="card p-3">
-      <h2 class="h6 mb-3"><i class="fa-regular fa-envelope me-2"></i>ข้อความใหม่</h2>
-      {% for item in new_inquiries %}
-      <div class="d-flex justify-content-between py-2 border-bottom"><span class="text-truncate me-2">{{ item.name }} · {{ item.message|truncatechars:60 }}</span><a href="tel:{{ item.phone }}">{{ item.phone }}</a></div>
-      {% empty %}{% include "partials/empty_state.html" with icon="fa-circle-check" text="ไม่มีข้อความใหม่" %}{% endfor %}
+    <div class="card">
+      <div class="card-header"><h2 class="card-title"><i class="fa-regular fa-envelope me-2"></i>ข้อความใหม่</h2></div>
+      <div class="card-body p-0">
+        {% for item in new_inquiries %}
+        <div class="fh-list-row"><span class="text-truncate me-2">{{ item.name }} · {{ item.message|truncatechars:60 }}</span><a class="text-nowrap" href="tel:{{ item.phone }}">{{ item.phone }}</a></div>
+        {% empty %}{% include "partials/empty_state.html" with icon="fa-circle-check" text="ไม่มีข้อความใหม่" %}{% endfor %}
+      </div>
     </div>
   </div>
 </div>

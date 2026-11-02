@@ -1,9 +1,9 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
 {% include "dashboard/_head.html" with heading="รีวิวลูกค้า" %}
-<div class="card p-3">
+<div class="card">
   {% if items %}
-  <div class="table-responsive">
+  <div class="card-body table-responsive p-0">
     <table class="table align-middle mb-0">
       <thead><tr><th>ผู้รีวิว</th><th>คะแนน</th><th>ความคิดเห็น</th><th>สถานะ</th><th></th></tr></thead>
       <tbody>

@@ -8,3 +8,4 @@ private_media/
 *.log
 .DS_Store
 .test-admin-password
+/AdminLTE-3.1.0/
