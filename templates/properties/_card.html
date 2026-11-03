@@ -15,7 +15,7 @@
     <div class="fh-price mb-1">฿{{ p.price|floatformat:"0g" }}</div>
     <p class="small text-body-secondary mb-2 d-flex justify-content-between gap-2">
       <span class="text-truncate"><i class="fa-solid fa-location-dot me-1"></i>{{ p.location.name }}</span>
-      <span class="fw-semibold flex-shrink-0">#{{ p.property_code }}</span>
+      <span class="fw-semibold flex-shrink-0">#{{ p.display_code }}</span>
     </p>
     <h3 class="h6 fh-card-title mb-3"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h3>
     <div class="fh-specs mt-auto">

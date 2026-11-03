@@ -18,5 +18,5 @@ def summary(prop):
     ]
     spec_text = " ".join(spec for spec in specs if spec)
     place = prop.address_text or prop.location.name
-    text = f"ทรัพย์รหัส {prop.property_code} เป็น{prop.category.name}{action} ทำเล{place} ราคา {price_text(prop)}"
+    text = f"ทรัพย์รหัส {prop.display_code} เป็น{prop.category.name}{action} ทำเล{place} ราคา {price_text(prop)}"
     return f"{text} {spec_text}".strip()

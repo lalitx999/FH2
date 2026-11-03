@@ -105,7 +105,7 @@ def map_points(limit=300):
         _published().filter(latitude__isnull=False, longitude__isnull=False)
         .select_related("location", "category")
         .only(
-            "title", "slug", "property_code", "price", "property_type", "latitude", "longitude",
+            "title", "slug", "property_code", "reference_code", "price", "property_type", "latitude", "longitude",
             "bedrooms", "bathrooms", "size_usable", "size_land", "location__name", "category__slug",
         )[:limit]
     )
@@ -124,7 +124,7 @@ def _map_point(p):
         "type": p.property_type,
         "type_text": p.get_property_type_display(),
         "title": p.title,
-        "code": p.property_code,
+        "code": p.display_code,
         "location": p.location.name,
         "icon": p.category.icon,
         "specs": " · ".join(s for s in specs if s),

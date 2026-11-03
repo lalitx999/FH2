@@ -2,7 +2,10 @@ import shutil
 from datetime import timedelta
 import tempfile
 from io import BytesIO
+from types import SimpleNamespace
+from unittest.mock import patch
 
+import requests
 from django.core import mail
 from django.core.cache import cache
 from django.core.management import call_command
@@ -19,7 +22,7 @@ from properties.services.consignment_service import convert_to_property
 from properties.constants import FEATURES
 from dashboard.forms import PropertyForm
 from properties.forms import LandmarksField, ListingForm
-from properties.services import loan_service
+from properties.services import loan_service, map_service
 from properties.models import Bookmark, Category, Consignment, ConsignmentDeed, Location, Property, coords_from_maps_link, land_text, split_sqw, thai_slugify, total_sqw
 
 MEDIA = tempfile.mkdtemp()
@@ -648,3 +651,77 @@ class LoanCalculatorTests(Base):
 
     def test_page_is_in_sitemap(self):
         self.assertContains(self.client.get("/sitemap.xml"), "/tools/loan-calculator/")
+
+
+class DisplayCodeTests(Base):
+    def test_reference_code_replaces_system_code_for_customers(self):
+        prop = self.make_property(reference_code="FH040")
+        response = self.client.get(prop.get_absolute_url())
+        self.assertEqual(prop.display_code, "FH040")
+        self.assertContains(response, "รหัสทรัพย์: FH040")
+        self.assertContains(response, "ทรัพย์รหัส FH040")
+        self.assertNotContains(response, prop.property_code)
+        self.assertEqual(list(self.client.get("/properties/?q=FH040").context["page"].object_list), [prop])
+
+    def test_system_code_is_used_without_reference_code(self):
+        prop = self.make_property()
+        self.assertEqual(prop.display_code, prop.property_code)
+        self.assertContains(self.client.get(prop.get_absolute_url()), f"รหัสทรัพย์: {prop.property_code}")
+
+
+class ShortMapsLinkTests(Base):
+    SHORT = "https://maps.app.goo.gl/abc"
+    TARGET = "https://www.google.com/maps/place/x/@13.7951689,99.9193522,986m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d13.7951689!4d99.9219271?entry=tts"
+
+    def response(self, location=None):
+        return SimpleNamespace(is_redirect=bool(location), headers={"Location": location} if location else {})
+
+    def test_pin_wins_over_viewport_center(self):
+        self.assertEqual(coords_from_maps_link(self.TARGET), (13.7951689, 99.9219271))
+
+    @patch("properties.services.map_service.requests.get")
+    def test_short_link_follows_redirect_to_coordinates(self, get):
+        get.return_value = self.response(self.TARGET)
+        self.assertEqual(map_service.coordinates_from_short_link(self.SHORT), (13.7951689, 99.9219271))
+        self.assertFalse(get.call_args.kwargs["allow_redirects"])
+
+    @patch("properties.services.map_service.requests.get")
+    def test_only_google_hosts_are_requested(self, get):
+        get.return_value = self.response("http://169.254.169.254/latest/meta-data/")
+        self.assertIsNone(map_service.coordinates_from_short_link(self.SHORT))
+        self.assertEqual(get.call_count, 1)
+        self.assertIsNone(map_service.coordinates_from_short_link("https://evil.example.com/x"))
+        self.assertIsNone(map_service.coordinates_from_short_link("http://maps.app.goo.gl/abc"))
+        self.assertEqual(get.call_count, 1)
+
+    @patch("properties.services.map_service.requests.get")
+    def test_network_failure_returns_nothing(self, get):
+        get.side_effect = requests.ConnectionError
+        self.assertIsNone(map_service.coordinates_from_short_link(self.SHORT))
+
+    @patch("properties.services.map_service.requests.get")
+    def test_redirect_loop_stops(self, get):
+        get.return_value = self.response(self.SHORT)
+        self.assertIsNone(map_service.coordinates_from_short_link(self.SHORT))
+        self.assertEqual(get.call_count, map_service.MAX_REDIRECTS)
+
+    @patch("properties.services.map_service.requests.get")
+    def test_saving_short_link_fills_coordinates_and_shows_map(self, get):
+        get.return_value = self.response(self.TARGET)
+        with self.captureOnCommitCallbacks(execute=True):
+            prop = self.make_property(google_maps_link=self.SHORT)
+        prop.refresh_from_db()
+        self.assertEqual((prop.latitude, prop.longitude), (13.7951689, 99.9219271))
+        self.assertContains(self.client.get(prop.get_absolute_url()), 'id="detail-map"')
+
+    @patch("properties.services.map_service.requests.get")
+    def test_existing_coordinates_are_not_overwritten(self, get):
+        with self.captureOnCommitCallbacks(execute=True):
+            self.make_property(google_maps_link=self.SHORT, latitude=1.0, longitude=2.0)
+        get.assert_not_called()
+
+    def test_unresolved_link_still_offers_google_maps_button(self):
+        prop = self.make_property(google_maps_link=self.SHORT)
+        response = self.client.get(prop.get_absolute_url())
+        self.assertContains(response, "เปิด Google Maps")
+        self.assertNotContains(response, 'id="detail-map"')

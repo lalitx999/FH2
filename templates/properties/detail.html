@@ -15,7 +15,7 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
       <a class="btn btn-sm btn-white" href="{% url 'properties:list' %}"><i class="fa-solid fa-arrow-left me-1"></i>กลับหน้ารวมอสังหาฯ</a>
       <div class="d-flex flex-wrap align-items-center gap-2">
-        <span class="fh-badge gold">รหัสทรัพย์: {{ property.property_code }}</span>
+        <span class="fh-badge gold">รหัสทรัพย์: {{ property.display_code }}</span>
         <span class="fh-badge {% if property.status == 'PUBLISHED' %}{% else %}blue{% endif %}">{{ property.get_status_display }}</span>
         {% if property.is_sample %}<span class="fh-badge blue">ข้อมูลตัวอย่าง</span>{% endif %}
         <a class="fh-badge fb text-decoration-none" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook me-1"></i>แชร์ Facebook</a>
@@ -39,7 +39,7 @@
   {% endif %}
 
   <div class="row g-4 align-items-start">
-    <div class="col-lg-8 d-grid gap-4">
+    <div class="col-lg-8 d-grid gap-4 fh-detail-main">
       {% with images=property.images.all %}
       <div class="fh-panel p-3">
         <div class="fh-gallery">
@@ -111,15 +111,18 @@
         </div>
       </section>
 
-      {% if property.has_coordinates or property.landmarks %}
+      {% if property.has_coordinates or property.google_maps_link or property.landmarks %}
       <section class="fh-panel p-4" id="location">
         <div class="fh-panel-title justify-content-between flex-wrap">
           <h2 class="h5 mb-0"><i class="fa-solid fa-location-dot me-2"></i>แผนที่ตั้งและพิกัดทรัพย์</h2>
           {% if property.google_maps_link %}<a class="btn btn-sm btn-primary" href="{{ property.google_maps_link }}" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right me-1"></i>เปิด Google Maps (นำทาง)</a>{% endif %}
         </div>
         {% if property.has_coordinates %}
-        <div id="detail-map" class="fh-map fh-map-sm" data-leaflet-css="{% static 'vendor/leaflet/leaflet.css' %}" data-leaflet-js="{% static 'vendor/leaflet/leaflet.js' %}" data-lat="{{ property.latitude|unlocalize }}" data-lng="{{ property.longitude|unlocalize }}" data-label="{{ property.property_code }}" role="application" aria-label="แผนที่ตำแหน่งทรัพย์"></div>
-        <p class="small text-body-secondary mt-2 mb-0"><i class="fa-solid fa-location-dot me-1"></i>ที่ตั้ง: {{ property.location.name }}{% if property.is_sample %} (ตำแหน่งโดยประมาณจากข้อมูลตัวอย่าง){% endif %}</p>
+        <div id="detail-map" class="fh-map fh-map-sm" data-leaflet-css="{% static 'vendor/leaflet/leaflet.css' %}" data-leaflet-js="{% static 'vendor/leaflet/leaflet.js' %}" data-lat="{{ property.latitude|unlocalize }}" data-lng="{{ property.longitude|unlocalize }}" data-label="{{ property.display_code }}" role="application" aria-label="แผนที่ตำแหน่งทรัพย์"></div>
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 small text-body-secondary mt-2">
+          <p class="mb-0"><i class="fa-solid fa-location-dot me-1"></i>ที่ตั้ง: {{ property.address_text|default:property.location.name }}{% if property.is_sample %} (ตำแหน่งโดยประมาณจากข้อมูลตัวอย่าง){% endif %}</p>
+          {% if property.google_maps_link %}<a class="fw-bold text-nowrap" href="{{ property.google_maps_link }}" target="_blank" rel="noopener">ดูพิกัดจริงบน Google Maps<i class="fa-solid fa-arrow-up-right-from-square ms-1"></i></a>{% endif %}
+        </div>
         {% endif %}
         {% if property.landmarks %}
         <h3 class="h6 mt-4">สถานที่สำคัญในบริเวณใกล้เคียง</h3>
@@ -162,7 +165,7 @@
               <div class="small text-body-secondary">{% if property.is_direct_seller %}ประกาศจากผู้ขายตรง{% else %}ผู้ดูแลทรัพย์{% endif %}</div>
               <div class="fw-bold text-truncate">{% if property.is_direct_seller %}{{ property.seller_name }}{% elif property.agent %}{{ property.agent.display_name }}{% else %}ทีมงาน Finding House{% endif %}</div>
               {% if property.is_direct_seller and property.seller_line_id %}<div class="small">LINE: {{ property.seller_line_id }}</div>{% endif %}
-              <div class="small fh-count fw-semibold">รหัสทรัพย์: {{ property.property_code }}</div>
+              <div class="small fh-count fw-semibold">รหัสทรัพย์: {{ property.display_code }}</div>
             </div>
           </div>
         </div>

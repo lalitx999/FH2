@@ -29,6 +29,12 @@ class ChatTestCase(TestCase):
 
 
 class AnalyzeTests(ChatTestCase):
+    def test_finds_listing_by_reference_code(self):
+        prop = make_property(reference_code="FH040")
+        query = knowledge_service.analyze("ขอรายละเอียด fh040")
+        self.assertEqual(query.code, "FH040")
+        self.assertEqual(knowledge_service.find_properties(query), [prop])
+
     def test_reads_type_category_location_budget_and_bedrooms(self):
         query = knowledge_service.analyze("หาคอนโดให้เช่า แถวอโศก 2 ห้องนอน งบ 2 หมื่น")
         self.assertEqual(query.property_type, Property.Type.RENT)

@@ -223,7 +223,7 @@ def listing(request, prop, summary):
         "@type": "RealEstateListing",
         "name": prop.title,
         "description": summary,
-        "identifier": prop.property_code,
+        "identifier": prop.display_code,
         "url": url,
         "inLanguage": "th-TH",
         "dateModified": prop.updated_at.isoformat(),

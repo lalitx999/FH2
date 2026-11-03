@@ -1,10 +1,11 @@
 import os
 import re
+from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError, models, transaction
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
@@ -14,6 +15,7 @@ from .constants import CATEGORY_FIELDS, FEATURES, SUB_TYPE_CHOICES, TRANSFER_FEE
 
 # slug ที่ชนกับ URL อื่นใน /properties/
 RESERVED_SLUGS = {"compare", "create"}
+SHORT_MAPS_HOSTS = {"maps.app.goo.gl", "goo.gl", "g.co"}
 SQW_PER_RAI = 400
 SQW_PER_NGAN = 100
 
@@ -54,12 +56,22 @@ def unique_slug(model, text, instance_pk=None, max_length=220):
 
 
 def coords_from_maps_link(link):
-    """ดึงพิกัดจากลิงก์ Google Maps เช่น ?q=13.73,100.58 หรือ /@13.73,100.58,15z"""
-    match = re.search(r"(?:[?&](?:q|query|ll)=|@)(-?\d+(?:\.\d+)?)(?:,|%2C)\s*(-?\d+(?:\.\d+)?)", link or "")
+    """ดึงพิกัดจากลิงก์ Google Maps เช่น ?q=13.73,100.58 หรือ /@13.73,100.58,15z
+
+    !3d...!4d... คือตำแหน่งหมุดจริง ส่วน @ เป็นแค่กึ่งกลางหน้าจอ จึงต้องดูหมุดก่อน
+    """
+    match = (
+        re.search(r"!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)", link or "")
+        or re.search(r"(?:[?&](?:q|query|ll)=|@)(-?\d+(?:\.\d+)?)(?:,|%2C)\s*(-?\d+(?:\.\d+)?)", link or "")
+    )
     if not match:
         return None
     lat, lng = float(match[1]), float(match[2])
     return (lat, lng) if -90 <= lat <= 90 and -180 <= lng <= 180 else None
+
+
+def is_short_maps_link(link):
+    return (urlsplit(link or "").hostname or "") in SHORT_MAPS_HOSTS
 
 
 @deconstructible
@@ -286,7 +298,7 @@ class Property(models.Model):
         """ตารางข้อมูลพื้นฐานในหน้ารายละเอียด แสดงเฉพาะค่าที่มี"""
         baht = lambda value: f"{value:,.0f} บาท" if value else ""
         rows = [
-            ("fa-hashtag", "รหัสทรัพย์", self.property_code),
+            ("fa-hashtag", "รหัสทรัพย์", self.display_code),
             ("fa-tag", "ประเภทประกาศ", self.get_property_type_display()),
             ("fa-house", "หมวดหมู่", self.category.name),
             ("fa-location-dot", "ทำเล", self.location.name),
@@ -326,6 +338,11 @@ class Property(models.Model):
         return [{"icon": icon, "label": label, "value": value} for icon, label, value in rows if value not in ("", None)]
 
     @property
+    def display_code(self):
+        """รหัสที่ลูกค้าเห็น ใช้รหัสเดิมถ้ามี ส่วน property_code เป็นรหัสภายในของระบบ"""
+        return self.reference_code or self.property_code
+
+    @property
     def land_display(self):
         return land_text(self.size_land) if self.size_land else ""
 
@@ -347,7 +364,7 @@ class Property(models.Model):
 
     @property
     def seo_title(self):
-        return f"{self.get_property_type_display()}{self.category.name} {self.title} {self.location.name} รหัส {self.property_code}"
+        return f"{self.get_property_type_display()}{self.category.name} {self.title} {self.location.name} รหัส {self.display_code}"
 
     def completeness(self):
         """คะแนนความครบถ้วนของประกาศ เพื่อเตือนแอดมินก่อนเผยแพร่"""
@@ -375,6 +392,16 @@ class Property(models.Model):
             "score": round(earned * 100 / sum(points for points, _, _ in checks)),
             "missing": [label for _, passed, label in checks if not passed],
         }
+
+
+@receiver(post_save, sender=Property)
+def resolve_short_maps_link(sender, instance, raw=False, **kwargs):
+    """ลิงก์แบบย่อไม่มีพิกัดในตัว ต้องถามปลายทางของลิงก์ซึ่งเป็นงานเรียกภายนอก จึงทำเบื้องหลัง"""
+    if raw or instance.has_coordinates or not is_short_maps_link(instance.google_maps_link):
+        return
+    from .tasks import queue_map_coordinates
+
+    transaction.on_commit(lambda: queue_map_coordinates(instance.pk))
 
 
 class PropertyImage(models.Model):

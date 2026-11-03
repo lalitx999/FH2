@@ -17,7 +17,7 @@ def create_inquiry(form):
 def _notify_admin(inquiry):
     if not settings.ADMIN_NOTIFICATION_EMAIL:
         return
-    about = inquiry.property.property_code if inquiry.property else "ทั่วไป"
+    about = inquiry.property.display_code if inquiry.property else "ทั่วไป"
     try:
         send_email.delay(
             f"ข้อความติดต่อใหม่จากคุณ {inquiry.name} ({about})",

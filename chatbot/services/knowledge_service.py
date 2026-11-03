@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from urllib.parse import urlencode
 
+from django.db.models import Q
 from django.urls import reverse
 
 from properties.models import Category, Location, Property
@@ -23,7 +24,7 @@ CATEGORY_KEYWORDS = (
 )
 UNITS = {"ล้าน": 1_000_000, "แสน": 100_000, "หมื่น": 10_000, "พัน": 1_000}
 BUDGET_PATTERN = re.compile(r"(\d{1,6}(?:\.\d+)?)\s*(ล้าน|แสน|หมื่น|พัน)")
-CODE_PATTERN = re.compile(r"(?<![A-Za-z0-9])([A-Za-z]\d{4})(?!\d)")
+CODE_PATTERN = re.compile(r"(?<![A-Za-z0-9])(FH[A-Za-z]*\d+|[A-Za-z]\d{4})(?!\d)", re.I)
 BEDROOM_PATTERN = re.compile(r"(\d{1,2})\s*ห้องนอน")
 
 
@@ -91,13 +92,13 @@ def find_properties(query, limit=CONTEXT_LIMIT):
         Property.objects.filter(status=Property.Status.PUBLISHED)
         .select_related("category", "location")
         .only(
-            "title", "slug", "property_code", "description", "price", "property_type",
+            "title", "slug", "property_code", "reference_code", "description", "price", "property_type",
             "bedrooms", "bathrooms", "size_usable", "size_land",
             "category__name", "category__slug", "location__name", "location__slug",
         )
     )
     if query.code:
-        return list(items.filter(property_code=query.code)[:1])
+        return list(items.filter(Q(property_code=query.code) | Q(reference_code__iexact=query.code))[:1])
     if query.property_type:
         items = items.filter(property_type=query.property_type)
     if query.category:
@@ -135,7 +136,7 @@ def _describe(prop):
         f"ที่ดิน {prop.size_land:,.0f} ตร.ว." if prop.size_land else "",
     ]
     return (
-        f"- รหัส {prop.property_code} | {prop.title} | {prop.get_property_type_display()} "
+        f"- รหัส {prop.display_code} | {prop.title} | {prop.get_property_type_display()} "
         f"{prop.price:,.0f} บาท | {prop.category.name} | {prop.location.name} | "
         f"{' '.join(s for s in specs if s)} | {prop.description[:DESCRIPTION_LIMIT]}"
     )

@@ -63,7 +63,7 @@ def property_detail(request, slug):
         "bookmarked": selector.bookmarked_ids(request.user),
         "inquiry_form": InquiryForm(initial={
             "property": prop.pk,
-            "message": f"สนใจทรัพย์รหัส {prop.property_code} - {prop.title}",
+            "message": f"สนใจทรัพย์รหัส {prop.display_code} - {prop.title}",
         }),
         "related": selector.related(prop),
         "loan": loan_service.for_property(prop),
