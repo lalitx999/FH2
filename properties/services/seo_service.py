@@ -13,8 +13,10 @@ def summary(prop):
         f"{prop.bedrooms} ห้องนอน" if prop.bedrooms else "",
         f"{prop.bathrooms} ห้องน้ำ" if prop.bathrooms else "",
         f"พื้นที่ใช้สอย {prop.size_usable:,.0f} ตร.ม." if prop.size_usable else "",
-        f"ที่ดิน {prop.size_land:,.0f} ตร.ว." if prop.size_land else "",
+        f"ที่ดิน {prop.land_display}" if prop.size_land else "",
+        prop.get_zoning_display(),
     ]
     spec_text = " ".join(spec for spec in specs if spec)
-    text = f"ทรัพย์รหัส {prop.property_code} เป็น{prop.category.name}{action} ทำเล{prop.location.name} ราคา {price_text(prop)}"
+    place = prop.address_text or prop.location.name
+    text = f"ทรัพย์รหัส {prop.property_code} เป็น{prop.category.name}{action} ทำเล{place} ราคา {price_text(prop)}"
     return f"{text} {spec_text}".strip()

@@ -298,16 +298,40 @@
     });
   }
 
-  // ฟอร์มฝากขาย: แสดงเฉพาะช่องของประเภททรัพย์ที่เลือก
+  // แสดงเฉพาะช่องที่เกี่ยวข้อง ฟอร์มฝากขายเลือกตามประเภททรัพย์ ฟอร์มลงประกาศและตัวกรองเลือกตามหมวด
   function initTypeFields() {
-    const select = document.getElementById("id_property_type");
-    if (!select || !document.querySelector("[data-show-for]")) return;
+    const typeSelect = document.getElementById("id_property_type");
+    const switcher = document.querySelector("[data-field-switch]") || typeSelect;
+    const fields = document.querySelectorAll("[data-show-for], [data-show-type]");
+    if (!switcher || !fields.length) return;
+    const showWhenEmpty = switcher.hasAttribute("data-show-empty");
     const apply = () => {
-      document.querySelectorAll("[data-show-for]").forEach((field) => {
-        field.classList.toggle("d-none", !field.dataset.showFor.split(",").includes(select.value));
+      const value = switcher.selectedOptions[0]?.dataset.slug || switcher.value;
+      fields.forEach((field) => {
+        const { showFor, showType } = field.dataset;
+        const matchesSwitch = showFor === undefined || (showWhenEmpty && !value) || showFor.split(",").includes(value);
+        const matchesType = !showType || showType === typeSelect?.value;
+        field.classList.toggle("d-none", !(matchesSwitch && matchesType));
+        // ตัวกรองที่ซ่อนไปแล้วต้องไม่ค้างเงื่อนไข ไม่อย่างนั้นผลค้นหาจะว่างโดยไม่รู้สาเหตุ
+        if (showWhenEmpty && !matchesSwitch) field.querySelectorAll("input, select").forEach((input) => { input.value = ""; });
       });
     };
-    select.addEventListener("change", apply);
+    switcher.addEventListener("change", apply);
+    if (typeSelect && typeSelect !== switcher) typeSelect.addEventListener("change", apply);
+    apply();
+  }
+
+  // รวมเนื้อที่ให้เห็นระหว่างกรอก จะได้จับเลขไร่-งานที่พิมพ์ผิดได้ทันที
+  function initLandTotal() {
+    const output = document.querySelector("[data-land-total]");
+    if (!output) return;
+    const inputs = [["id_land_rai", 400], ["id_land_ngan", 100], ["id_land_sqw", 1]]
+      .map(([id, sqw]) => [document.getElementById(id), sqw]);
+    const apply = () => {
+      const total = inputs.reduce((sum, [input, sqw]) => sum + (Number(input.value) || 0) * sqw, 0);
+      output.textContent = `รวม ${total ? total.toLocaleString("th-TH") : "-"} ตร.ว.`;
+    };
+    inputs.forEach(([input]) => input.addEventListener("input", apply));
     apply();
   }
 
@@ -333,6 +357,7 @@
   renderCompare();
   openStepWithError();
   initTypeFields();
+  initLandTotal();
   initGallery();
   initReveal();
 })();

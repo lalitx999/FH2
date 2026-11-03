@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}คำนวณสินเชื่อบ้านและอสังหาฯ เบื้องต้น | Finding House{% endblock %}
+{% block description %}{{ summary|truncatechars:155 }}{% endblock %}
+{% block content %}
+{% include "pages/_page_head.html" with eyebrow="TOOLS" heading=heading %}
+<article class="container py-5" style="max-width: 52rem">
+  <p class="fh-answer">{{ summary }}</p>
+  <p class="small text-body-secondary"><i class="fa-regular fa-calendar me-1"></i>ตรวจทานล่าสุด <time datetime="{{ reviewed|date:'Y-m-d' }}">{{ reviewed|date:"j F Y" }}</time></p>
+
+  {% include "properties/_loan_calculator.html" %}
+
+  <h2 class="h4 mt-4">ข้อควรรู้</h2>
+  <ul>{% for note in notes %}<li>{{ note }}</li>{% endfor %}</ul>
+
+  <h2 class="h4 mt-4">แหล่งอ้างอิง</h2>
+  <ul>{% for source in sources %}<li><a href="{{ source.url }}" rel="noopener" target="_blank">{{ source.label }}</a></li>{% endfor %}</ul>
+</article>
+{% endblock %}
+{% block extra_js %}
+<script defer src="{% static 'js/loan-calculator.js' %}"></script>
+{% endblock %}

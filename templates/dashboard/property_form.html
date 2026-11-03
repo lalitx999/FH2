@@ -1,0 +1,14 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% include "dashboard/_head.html" with heading=title %}
+<form method="post" class="card fh-form-card">
+  <div class="card-body">
+    {% csrf_token %}
+    {% include "properties/_property_fields.html" %}
+  </div>
+  <div class="card-footer d-flex gap-2">
+    <button class="btn btn-primary" type="submit"><i class="fa-regular fa-floppy-disk me-1"></i>บันทึก</button>
+    <a class="btn btn-soft" href="{% url back %}">ยกเลิก</a>
+  </div>
+</form>
+{% endblock %}

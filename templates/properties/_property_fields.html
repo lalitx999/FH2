@@ -1,0 +1,8 @@
+{% for field in form.hidden_fields %}{{ field }}{% endfor %}
+{% if form.non_field_errors %}<div class="alert alert-danger">{% for err in form.non_field_errors %}{{ err }}{% endfor %}</div>{% endif %}
+{% for section in form.sections %}
+<h2 class="h6 fw-bold mb-3{% if not forloop.first %} mt-4 pt-3 border-top{% endif %}"><i class="fa-solid {{ section.icon }} me-2"></i>{{ section.title }}</h2>
+<div class="row g-3">
+  {% for item in section.fields %}{% include "partials/field.html" with field=item.field show_for=item.show_for show_type=item.show_type %}{% endfor %}
+</div>
+{% endfor %}

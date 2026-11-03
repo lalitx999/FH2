@@ -22,7 +22,7 @@
       <span class="d-flex flex-wrap gap-2">
         {% if p.bedrooms is not None %}<span><i class="fa-solid fa-bed"></i>{{ p.bedrooms }}</span>{% endif %}
         {% if p.bathrooms is not None %}<span><i class="fa-solid fa-bath"></i>{{ p.bathrooms }}</span>{% endif %}
-        {% if p.size_usable %}<span><i class="fa-solid fa-ruler-combined"></i>{{ p.size_usable|floatformat:0 }}</span>{% elif p.size_land %}<span><i class="fa-solid fa-mountain-sun"></i>{{ p.size_land|floatformat:0 }}</span>{% endif %}
+        {% if p.size_usable %}<span><i class="fa-solid fa-ruler-combined"></i>{{ p.size_usable|floatformat:0 }}</span>{% elif p.size_land %}<span><i class="fa-solid fa-mountain-sun"></i>{{ p.land_display }}</span>{% endif %}
       </span>
       <a class="fw-bold text-decoration-none text-nowrap" href="{{ p.get_absolute_url }}">รายละเอียด<i class="fa-solid fa-arrow-right ms-1"></i></a>
     </div>

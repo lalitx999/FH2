@@ -198,8 +198,10 @@ def _place(prop):
     place = {
         "@type": RESIDENCE_TYPES.get(prop.category.slug, "Place"),
         "name": prop.title,
-        "address": {"@type": "PostalAddress", "addressLocality": prop.location.name, "addressCountry": "TH"},
+        "address": {"@type": "PostalAddress", "addressLocality": prop.district or prop.location.name, "addressCountry": "TH"},
     }
+    if prop.province:
+        place["address"]["addressRegion"] = prop.province
     if place["@type"] != "Place":
         if prop.bedrooms:
             place["numberOfBedrooms"] = prop.bedrooms

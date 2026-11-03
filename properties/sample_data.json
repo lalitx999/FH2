@@ -588,7 +588,6 @@
       "move_in_date": null,
       "availability": true,
       "features": {
-        "red_zone": true,
         "main_road_front": true,
         "train_station_near": true
       },
@@ -606,7 +605,8 @@
           "distance": "2.0 กม."
         }
       ],
-      "google_maps_link": "https://maps.google.com/?q=13.8900,100.5280"
+      "google_maps_link": "https://maps.google.com/?q=13.8900,100.5280",
+      "zoning": "RED"
     },
     {
       "property_code": "L0002",
@@ -635,7 +635,6 @@
       "availability": true,
       "features": {
         "filled_land": true,
-        "orange_zone": true,
         "wide_street": true
       },
       "landmarks": [
@@ -652,7 +651,8 @@
           "distance": "2.5 กม."
         }
       ],
-      "google_maps_link": "https://maps.google.com/?q=13.6680,100.4380"
+      "google_maps_link": "https://maps.google.com/?q=13.6680,100.4380",
+      "zoning": "ORANGE"
     },
     {
       "property_code": "W0001",

@@ -29,8 +29,10 @@ FEATURES = {
     "street_front": ("ติดถนน ค้าขายได้", "fa-store"),
     "corner_plot": ("แปลงมุม", "fa-vector-square"),
     "filled_land": ("ถมแล้ว", "fa-mound"),
-    "red_zone": ("ผังสีแดง", "fa-map"),
-    "orange_zone": ("ผังสีส้ม", "fa-map"),
+    "npa": ("ทรัพย์ NPA", "fa-tag"),
+    "first_hand": ("ทรัพย์มือ 1", "fa-award"),
+    "sell_at_cost": ("ขายเท่าทุน", "fa-hand-holding-dollar"),
+    "owner_financing": ("ผ่อนตรงเจ้าของ", "fa-handshake"),
     "office_attached": ("มีออฟฟิศในตัว", "fa-briefcase"),
     "company_registration_allowed": ("จดทะเบียนบริษัทได้", "fa-building-user"),
     "container_accessible": ("รถคอนเทนเนอร์เข้าได้", "fa-truck"),
@@ -39,3 +41,70 @@ FEATURES = {
 }
 
 FEATURE_CHOICES = [(key, label) for key, (label, _) in FEATURES.items()]
+
+ZONING_CHOICES = [
+    ("YELLOW", "ผังสีเหลือง"),
+    ("ORANGE", "ผังสีส้ม"),
+    ("BROWN", "ผังสีน้ำตาล"),
+    ("RED", "ผังสีแดง"),
+    ("PURPLE", "ผังสีม่วง"),
+    ("PINK", "ผังสีชมพู"),
+    ("GREEN", "ผังสีเขียว"),
+    ("BLUE", "ผังสีน้ำเงิน"),
+    ("OTHER", "ผังสีอื่น ๆ"),
+]
+
+SUB_TYPE_CHOICES = [
+    ("SEMI_DETACHED", "บ้านแฝด"),
+    ("POOL_VILLA", "พูลวิลล่า"),
+    ("HOME_OFFICE", "โฮมออฟฟิศ"),
+    ("OFFICE", "สำนักงาน"),
+    ("SHOP", "ร้านค้า"),
+    ("SHOWROOM", "โชว์รูม"),
+    ("WAREHOUSE", "โกดัง"),
+    ("FACTORY", "โรงงาน"),
+    ("APARTMENT", "อพาร์ตเมนต์"),
+    ("DORMITORY", "หอพัก"),
+    ("HOTEL", "โรงแรม"),
+    ("RESORT", "รีสอร์ท"),
+]
+
+TRANSFER_FEE_CHOICES = [
+    ("BUYER", "ผู้ซื้อจ่าย"),
+    ("SELLER", "ผู้ขายจ่าย"),
+    ("SPLIT", "คนละครึ่ง"),
+    ("NEGOTIABLE", "ตามตกลง"),
+]
+
+# หมวดที่เข้าลักษณะสินเชื่อบ้าน หมวดอื่นประเมินแบบค่างวดเบื้องต้นเท่านั้น
+HOME_LOAN_CATEGORIES = ("house", "townhome", "condo")
+
+LAND_INPUTS = ("land_rai", "land_ngan", "land_sqw")
+_HOUSE_FIELDS = (
+    *LAND_INPUTS, "size_usable", "floors", "bedrooms", "bathrooms", "parking_spaces",
+    "project_name", "common_fee", "direction", "furniture",
+)
+_ROAD_FIELDS = ("land_width", "land_depth", "road_name", "road_width", "zoning")
+
+# ช่องเฉพาะของแต่ละหมวด ใช้ทั้งการแสดงฟอร์ม การล้างค่าที่ไม่เกี่ยว และคะแนนความครบถ้วน
+CATEGORY_FIELDS = {
+    "house": (*_HOUSE_FIELDS, "sub_type"),
+    "townhome": _HOUSE_FIELDS,
+    "condo": (
+        "size_usable", "floor_level", "bedrooms", "bathrooms", "parking_spaces",
+        "project_name", "common_fee", "direction", "furniture",
+    ),
+    "land": (*LAND_INPUTS, *_ROAD_FIELDS),
+    "warehouse": (*LAND_INPUTS, "size_usable", "building_count", "sub_type", *_ROAD_FIELDS, "estate_name", "has_license"),
+    "commercial": (
+        *LAND_INPUTS, "size_usable", "floors", "unit_count", "bathrooms", "parking_spaces", "road_name", "sub_type",
+    ),
+    "hotel": (
+        *LAND_INPUTS, "size_usable", "floors", "room_count", "has_license", "sell_with_business",
+        "road_name", "zoning", "sub_type",
+    ),
+}
+
+# ช่องที่ขึ้นกับประเภทประกาศ ไม่ใช่หมวด
+RENT_ONLY_FIELDS = ("deposit", "advance_payment", "minimum_lease", "move_in_date", "pet_friendly")
+SALE_ONLY_FIELDS = ("sale_condition", "rent_price", "transfer_fee")

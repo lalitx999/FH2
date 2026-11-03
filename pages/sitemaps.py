@@ -8,7 +8,7 @@ from reviews.models import Article
 class StaticSitemap(Sitemap):
     def items(self):
         return ["pages:home", "properties:list", "pages:about", "pages:services", "pages:contact",
-                "pages:faq", "pages:fee_guide", "reviews:article_list", "reviews:review_list", "pages:namecard"]
+                "pages:faq", "pages:fee_guide", "pages:loan_calculator", "reviews:article_list", "reviews:review_list", "pages:namecard"]
 
     def location(self, name):
         return reverse(name)

@@ -128,6 +128,21 @@ MAX_DEED_FILES = 10
 MAX_UPLOAD_BYTES = 15 * 1024 * 1024
 MAX_COMPARE_ITEMS = 4
 
+# ค่าเริ่มต้นเครื่องคำนวณสินเชื่อ เป็นค่าตัวอย่าง ไม่ใช่อัตราของธนาคารใด ผู้ใช้แก้เองได้บนหน้าเว็บ
+LOAN_DEFAULTS = {
+    "home": {
+        "rate": float(os.getenv("LOAN_HOME_RATE", "6")),
+        "years": int(os.getenv("LOAN_HOME_YEARS", "30")),
+        "down_percent": float(os.getenv("LOAN_HOME_DOWN_PERCENT", "10")),
+        "income_ratio": float(os.getenv("LOAN_HOME_INCOME_RATIO", "40")),
+    },
+    "business": {
+        "rate": float(os.getenv("LOAN_BUSINESS_RATE", "7.5")),
+        "years": int(os.getenv("LOAN_BUSINESS_YEARS", "10")),
+        "down_percent": float(os.getenv("LOAN_BUSINESS_DOWN_PERCENT", "30")),
+    },
+}
+
 # Celery: งานช้าทั้งหมด (อีเมล, เรียก API ภายนอก, AI, แปลงฝากขาย) ทำเบื้องหลัง
 REDIS_URL = os.getenv("REDIS_URL", "")
 CELERY_BROKER_URL = REDIS_URL

@@ -17,8 +17,10 @@ from properties.selectors.property_selector import map_points
 from properties.services import image_service as services
 from properties.services.consignment_service import convert_to_property
 from properties.constants import FEATURES
-from properties.forms import LandmarksField
-from properties.models import Bookmark, Category, Consignment, ConsignmentDeed, Location, Property, coords_from_maps_link, thai_slugify
+from dashboard.forms import PropertyForm
+from properties.forms import LandmarksField, ListingForm
+from properties.services import loan_service
+from properties.models import Bookmark, Category, Consignment, ConsignmentDeed, Location, Property, coords_from_maps_link, land_text, split_sqw, thai_slugify, total_sqw
 
 MEDIA = tempfile.mkdtemp()
 PRIVATE = tempfile.mkdtemp()
@@ -470,3 +472,179 @@ class DashboardPermissionTests(Base):
         self.client.force_login(self.agent)
         self.client.post(f"/dashboard/categories/{self.category.pk}/delete/")
         self.assertTrue(Category.objects.filter(pk=self.category.pk).exists())
+
+
+class CategoryFieldsTests(Base):
+    def setUp(self):
+        super().setUp()
+        self.warehouse = Category.objects.get(slug="warehouse")
+
+    def form_data(self, **extra):
+        return {
+            "title": "โกดังราชบุรี", "property_type": "SALE", "category": self.warehouse.pk, "location": self.location.pk,
+            "price": "48000000", "description": "รายละเอียด", "seller_name": "คุณเอ", "seller_phone": "081", **extra,
+        }
+
+    def test_land_units_convert_both_ways(self):
+        self.assertEqual(total_sqw(7, 2, 82), 3082)
+        self.assertIsNone(total_sqw(None, None, None))
+        self.assertEqual(split_sqw(3082), (7, 2, 82))
+        self.assertEqual(land_text(3082), "7 ไร่ 2 งาน 82 ตร.ว.")
+
+    def test_form_combines_land_and_keeps_warehouse_fields(self):
+        form = ListingForm(self.form_data(
+            land_rai="7", land_ngan="2", land_sqw="82", zoning="PINK", land_width="34", land_depth="240", road_name="แสงชูโต",
+        ))
+        self.assertTrue(form.is_valid(), form.errors)
+        form.instance.owner = self.customer
+        prop = form.save()
+        self.assertEqual(prop.size_land, 3082)
+        self.assertEqual(prop.land_display, "7 ไร่ 2 งาน 82 ตร.ว.")
+        self.assertEqual(prop.price_per_sqwah, 15574)
+        self.assertEqual(prop.get_zoning_display(), "ผังสีชมพู")
+
+    def test_form_rejects_land_parts_out_of_range(self):
+        for extra in ({"land_ngan": "4"}, {"land_sqw": "100"}):
+            with self.subTest(extra=extra):
+                self.assertFalse(ListingForm(self.form_data(**extra)).is_valid())
+
+    def test_fields_outside_category_and_type_are_cleared(self):
+        form = ListingForm(self.form_data(bedrooms="3", deposit="abc", minimum_lease="1 ปี", rent_price="50000"))
+        self.assertTrue(form.is_valid(), form.errors)
+        form.instance.owner = self.customer
+        prop = form.save()
+        self.assertIsNone(prop.bedrooms)
+        self.assertIsNone(prop.deposit)
+        self.assertEqual(prop.minimum_lease, "")
+        self.assertEqual(prop.rent_price, 50000)
+
+    def test_condo_has_no_land(self):
+        form = ListingForm(self.form_data(category=Category.objects.get(slug="condo").pk, land_rai="1"))
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertIsNone(form.cleaned_data["size_land"])
+
+    def test_rent_clears_sale_only_fields(self):
+        form = ListingForm(self.form_data(property_type="RENT", rent_price="50000", transfer_fee="SPLIT", deposit="100000"))
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertIsNone(form.cleaned_data["rent_price"])
+        self.assertEqual(form.cleaned_data["transfer_fee"], "")
+        self.assertEqual(form.cleaned_data["deposit"], 100000)
+
+    def test_public_form_hides_staff_fields(self):
+        form = ListingForm()
+        for name in ("reference_code", "status", "agent", "source"):
+            self.assertNotIn(name, form.fields)
+        self.assertIn("reference_code", PropertyForm().fields)
+
+    def test_edit_form_shows_saved_land_and_selected_category(self):
+        prop = self.make_property(category=self.warehouse, size_land=3082)
+        form = PropertyForm(instance=prop)
+        self.assertEqual((form.initial["land_rai"], form.initial["land_ngan"], form.initial["land_sqw"]), (7, 2, 82))
+        html = str(form["category"])
+        self.assertIn('data-slug="warehouse"', html)
+        self.assertRegex(html, r'value="%d"[^>]*selected' % self.warehouse.pk)
+
+    def test_sections_mark_which_fields_show_for_each_category(self):
+        rows = {item["field"].name: item for section in ListingForm().sections() for item in section["fields"]}
+        self.assertNotIn("condo", rows["zoning"]["show_for"].split(","))
+        self.assertIn("warehouse", rows["zoning"]["show_for"].split(","))
+        self.assertEqual(rows["title"]["show_for"], "")
+        self.assertEqual(rows["deposit"]["show_type"], "RENT")
+        self.assertEqual(rows["rent_price"]["show_type"], "SALE")
+
+    def test_custom_category_shows_every_field(self):
+        custom = Category.objects.create(name="หมวดใหม่")
+        rows = {item["field"].name: item for section in ListingForm().sections() for item in section["fields"]}
+        self.assertIn(custom.slug, rows["zoning"]["show_for"].split(","))
+        form = ListingForm(self.form_data(category=custom.pk, bedrooms="2", zoning="RED"))
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.cleaned_data["bedrooms"], 2)
+
+    def test_every_dashboard_field_is_rendered(self):
+        form = PropertyForm()
+        rendered = {item["field"].name for section in form.sections() for item in section["fields"]}
+        visible = {name for name, field in form.fields.items() if not field.widget.is_hidden}
+        self.assertEqual(visible - rendered, set())
+
+    def test_warehouse_can_reach_full_completeness(self):
+        prop = self.make_property(
+            title="โกดังพร้อมออฟฟิศ ราชบุรี", description="ก" * 30, category=self.warehouse,
+            google_maps_link="https://maps.example.com/x", size_land=3082, features=["office_attached"],
+        )
+        for index in range(2):
+            prop.images.create(image=f"x{index}.jpg", thumbnail=f"x{index}.webp", order=index)
+        self.assertEqual(prop.completeness(), {"score": 100, "missing": []})
+
+    def test_house_still_asks_for_bedrooms(self):
+        self.assertIn("จำนวนห้องนอน/ห้องน้ำ", self.make_property().completeness()["missing"])
+
+    def test_search_finds_reference_code_and_province(self):
+        prop = self.make_property(reference_code="FH040", province="ราชบุรี", zoning="PINK", sub_type="WAREHOUSE")
+        self.make_property(title="หลังอื่น")
+        for query in ("q=FH040", "q=ราชบุรี", "province=ราชบุรี", "zoning=PINK", "sub_type=WAREHOUSE"):
+            with self.subTest(query=query):
+                self.assertEqual(list(self.client.get(f"/properties/?{query}").context["page"].object_list), [prop])
+
+    def test_detail_shows_new_fields(self):
+        prop = self.make_property(
+            category=self.warehouse, size_land=3082, zoning="PINK", transfer_fee="SPLIT",
+            province="ราชบุรี", district="บ้านโป่ง", subdistrict="หนองอ้อ", road_name="แสงชูโต",
+        )
+        response = self.client.get(prop.get_absolute_url())
+        for text in ("7 ไร่ 2 งาน 82 ตร.ว.", "ผังสีชมพู", "คนละครึ่ง", "หนองอ้อ บ้านโป่ง ราชบุรี", "แสงชูโต"):
+            self.assertContains(response, text)
+
+    def test_conversion_copies_new_fields(self):
+        consignment = self.make_consignment(
+            property_type="WAREHOUSE", project_name="นิคมก", road_name="แสงชูโต", has_license=True, estate_name="นิคม",
+        )
+        prop = convert_to_property(consignment.pk, self.agent)
+        self.assertEqual((prop.province, prop.district, prop.subdistrict), ("ชลบุรี", "บางละมุง", "หนองปรือ"))
+        self.assertEqual((prop.project_name, prop.road_name, prop.estate_name), ("นิคมก", "แสงชูโต", "นิคม"))
+        self.assertTrue(prop.has_license)
+
+
+class ZoneMigrationTests(Base):
+    def test_moves_zone_features(self):
+        from importlib import import_module
+
+        from django.apps import apps
+
+        migration = import_module("properties.migrations.0006_property_category_details")
+        prop = self.make_property(features=["red_zone", "pool"])
+        migration.move_zone_features(apps, None)
+        prop.refresh_from_db()
+        self.assertEqual((prop.zoning, prop.features), ("RED", ["pool"]))
+        migration.restore_zone_features(apps, None)
+        prop.refresh_from_db()
+        self.assertEqual(prop.features, ["pool", "red_zone"])
+
+
+class LoanCalculatorTests(Base):
+    def test_sale_home_uses_home_mode(self):
+        response = self.client.get(self.make_property().get_absolute_url())
+        self.assertContains(response, "คำนวณสินเชื่อเบื้องต้น")
+        self.assertContains(response, 'data-income-ratio="40.0"')
+        self.assertContains(response, 'value="1000000"')
+        self.assertContains(response, "js/loan-calculator")
+
+    def test_business_category_has_no_income_estimate(self):
+        prop = self.make_property(category=Category.objects.get(slug="warehouse"))
+        response = self.client.get(prop.get_absolute_url())
+        self.assertContains(response, "ประมาณค่างวดเบื้องต้น")
+        self.assertNotContains(response, "data-income-ratio")
+        self.assertNotContains(response, 'data-loan="income"')
+
+    def test_rent_listing_has_no_calculator(self):
+        response = self.client.get(self.make_property(property_type="RENT").get_absolute_url())
+        self.assertNotContains(response, "data-loan-calculator")
+
+    def test_standalone_page_prefills_valid_price_only(self):
+        self.assertContains(self.client.get("/tools/loan-calculator/?price=2950000"), 'value="2950000"')
+        for bad in ("abc", "-1", "0", "๑๒", "99999999999"):
+            with self.subTest(bad=bad):
+                self.assertIsNone(loan_service.parse_price(bad))
+                self.assertEqual(self.client.get("/tools/loan-calculator/", {"price": bad}).status_code, 200)
+
+    def test_page_is_in_sitemap(self):
+        self.assertContains(self.client.get("/sitemap.xml"), "/tools/loan-calculator/")

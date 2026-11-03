@@ -1,0 +1,28 @@
+{% load l10n %}<section class="fh-money" data-loan-calculator data-mode="{{ loan.mode }}"{% if loan.income_ratio %} data-income-ratio="{{ loan.income_ratio|unlocalize }}"{% endif %} aria-labelledby="loan-title">
+  <h2 class="fh-panel-title" id="loan-title"><i class="fa-solid fa-calculator"></i>{% if loan.mode == 'home' %}คำนวณสินเชื่อเบื้องต้น{% else %}ประมาณค่างวดเบื้องต้น{% endif %}</h2>
+  <div class="row g-3">
+    <div class="col-md-6"><label class="form-label" for="loan-price">ราคาทรัพย์ (บาท)</label><input class="form-control" id="loan-price" type="number" min="0" step="1000" inputmode="numeric" value="{{ loan.price|default_if_none:''|unlocalize }}" data-loan="price"></div>
+    <div class="col-6 col-md-2"><label class="form-label" for="loan-down">เงินดาวน์ (%)</label><input class="form-control" id="loan-down" type="number" min="0" max="100" step="1" inputmode="decimal" value="{{ loan.down_percent|floatformat:"-2u" }}" data-loan="down"></div>
+    <div class="col-6 col-md-2"><label class="form-label" for="loan-rate">ดอกเบี้ย (%/ปี)</label><input class="form-control" id="loan-rate" type="number" min="0" max="30" step="0.1" inputmode="decimal" value="{{ loan.rate|floatformat:"-2u" }}" data-loan="rate"></div>
+    <div class="col-6 col-md-2"><label class="form-label" for="loan-years">จำนวนปี</label><input class="form-control" id="loan-years" type="number" min="1" max="40" step="1" inputmode="numeric" value="{{ loan.years|unlocalize }}" data-loan="years"></div>
+    {% if loan.mode == 'home' %}
+    <div class="col-md-6"><label class="form-label" for="loan-income">รายได้ต่อเดือน (ไม่บังคับ)</label><input class="form-control" id="loan-income" type="number" min="0" step="1000" inputmode="numeric" data-loan="income"></div>
+    <div class="col-md-6"><label class="form-label" for="loan-debt">หนี้ที่ผ่อนอยู่ต่อเดือน (ไม่บังคับ)</label><input class="form-control" id="loan-debt" type="number" min="0" step="500" inputmode="numeric" data-loan="debt"></div>
+    {% endif %}
+  </div>
+  <div class="row g-3 row-cols-2 row-cols-md-4 mt-1" aria-live="polite">
+    <div class="col"><div class="fh-money-tile"><span>ค่างวดต่อเดือน</span><strong class="big" data-loan-result="payment">-</strong></div></div>
+    <div class="col"><div class="fh-money-tile"><span>ยอดกู้</span><strong data-loan-result="principal">-</strong></div></div>
+    <div class="col"><div class="fh-money-tile"><span>ดอกเบี้ยรวม</span><strong data-loan-result="interest">-</strong></div></div>
+    <div class="col"><div class="fh-money-tile"><span>ยอดจ่ายรวม</span><strong data-loan-result="total">-</strong></div></div>
+  </div>
+  {% if loan.mode == 'home' %}
+  <p class="mt-3 mb-0" data-loan-result="income"></p>
+  <p class="small text-body-secondary mt-2 mb-0">ประมาณด้วยค่างวดรวมหนี้เดิมไม่เกิน {{ loan.income_ratio|floatformat }}% ของรายได้ เกณฑ์จริงแต่ละธนาคารต่างกัน</p>
+  {% else %}
+  <p class="small text-body-secondary mt-3 mb-0">ทรัพย์ประเภทนี้มักใช้สินเชื่อธุรกิจ เงินดาวน์ ดอกเบี้ย และระยะเวลาขึ้นกับธนาคารและผู้กู้ ค่าเริ่มต้นเป็นเพียงตัวอย่าง</p>
+  {% endif %}
+  <p class="small text-body-secondary mt-2 mb-0" data-loan-error hidden>กรุณากรอกราคา เงินดาวน์ ดอกเบี้ย และจำนวนปีให้ถูกต้อง</p>
+  <p class="small text-body-secondary mt-2">เป็นการคำนวณเบื้องต้น ไม่ใช่ผลอนุมัติหรือข้อเสนอสินเชื่อ ระบบไม่บันทึกตัวเลขที่กรอก</p>
+  <a class="btn btn-primary" href="{% url 'pages:contact' %}"><i class="fa-regular fa-comments me-1"></i>ปรึกษาเรื่องสินเชื่อ</a>
+</section>

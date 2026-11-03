@@ -15,13 +15,13 @@ from pages.services import schema_service
 from .forms import ConsignmentForm, ListingForm, SearchForm
 from .models import Consignment, ConsignmentDeed, ConsignmentImage, Property, PropertyImage
 from .selectors import property_selector as selector
-from .services import consignment_service, image_service, listing_service, seo_service
+from .services import consignment_service, image_service, listing_service, loan_service, seo_service
 
-ADVANCED_FILTERS = ("category", "location", "price_min", "price_max")
+ADVANCED_FILTERS = ("category", "location", "province", "price_min", "price_max", "bedrooms", "sub_type", "zoning")
 
 
 def property_list(request):
-    form = SearchForm(request.GET)
+    form = SearchForm(request.GET, provinces=selector.provinces())
     form.is_valid()  # ค่าที่ผิดรูปถูกข้าม ไม่ทำให้หน้าเว็บ error
     params = request.GET.copy()
     params.pop("page", None)
@@ -66,6 +66,7 @@ def property_detail(request, slug):
             "message": f"สนใจทรัพย์รหัส {prop.property_code} - {prop.title}",
         }),
         "related": selector.related(prop),
+        "loan": loan_service.for_property(prop),
     })
 
 

@@ -30,6 +30,10 @@
       <div class="row g-3 pt-3 mt-3 border-top align-items-end">
         <div class="col-sm-6 col-lg-3"><label class="form-label small" for="{{ form.category.id_for_label }}"><i class="fa-solid fa-house-chimney me-1"></i>หมวดหมู่ทรัพย์</label>{{ form.category }}</div>
         <div class="col-sm-6 col-lg-3"><label class="form-label small" for="{{ form.location.id_for_label }}"><i class="fa-solid fa-location-dot me-1"></i>ทำเล</label>{{ form.location }}</div>
+        <div class="col-sm-6 col-lg-3"><label class="form-label small" for="{{ form.province.id_for_label }}"><i class="fa-solid fa-map-location-dot me-1"></i>จังหวัด</label>{{ form.province }}</div>
+        <div class="col-sm-6 col-lg-3" data-show-for="{{ form.show_for.bedrooms }}"><label class="form-label small" for="{{ form.bedrooms.id_for_label }}"><i class="fa-solid fa-bed me-1"></i>ห้องนอนขั้นต่ำ</label>{{ form.bedrooms }}</div>
+        <div class="col-sm-6 col-lg-3" data-show-for="{{ form.show_for.sub_type }}"><label class="form-label small" for="{{ form.sub_type.id_for_label }}"><i class="fa-solid fa-clipboard-list me-1"></i>ประเภทย่อย</label>{{ form.sub_type }}</div>
+        <div class="col-sm-6 col-lg-3" data-show-for="{{ form.show_for.zoning }}"><label class="form-label small" for="{{ form.zoning.id_for_label }}"><i class="fa-solid fa-map me-1"></i>ผังสี</label>{{ form.zoning }}</div>
         <div class="col-sm-6 col-lg-3">
           <label class="form-label small" for="{{ form.price_min.id_for_label }}"><i class="fa-solid fa-coins me-1"></i>ช่วงราคา (บาท)</label>
           <div class="d-flex gap-2">{{ form.price_min }}{{ form.price_max }}</div>

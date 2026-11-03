@@ -20,7 +20,7 @@
         <tr><th scope="row">ห้องนอน</th>{% for p in items %}<td>{{ p.bedrooms|default_if_none:"-" }}</td>{% endfor %}</tr>
         <tr><th scope="row">ห้องน้ำ</th>{% for p in items %}<td>{{ p.bathrooms|default_if_none:"-" }}</td>{% endfor %}</tr>
         <tr><th scope="row">พื้นที่ใช้สอย</th>{% for p in items %}<td>{% if p.size_usable %}{{ p.size_usable|floatformat }} ตร.ม.{% else %}-{% endif %}</td>{% endfor %}</tr>
-        <tr><th scope="row">ที่ดิน</th>{% for p in items %}<td>{% if p.size_land %}{{ p.size_land|floatformat }} ตร.ว.{% else %}-{% endif %}</td>{% endfor %}</tr>
+        <tr><th scope="row">ที่ดิน</th>{% for p in items %}<td>{% if p.size_land %}{{ p.land_display }}{% else %}-{% endif %}</td>{% endfor %}</tr>
         <tr><th scope="row">ราคาต่อ ตร.ม.</th>{% for p in items %}<td>{% if p.price_per_sqm %}{{ p.price_per_sqm|floatformat:"0g" }} บาท{% else %}-{% endif %}</td>{% endfor %}</tr>
         <tr><th scope="row">ราคาต่อ ตร.ว.</th>{% for p in items %}<td>{% if p.price_per_sqwah %}{{ p.price_per_sqwah|floatformat:"0g" }} บาท{% else %}-{% endif %}</td>{% endfor %}</tr>
         <tr><th scope="row">ราคาต่อไร่</th>{% for p in items %}<td>{% if p.price_per_rai %}{{ p.price_per_rai|floatformat:"0g" }} บาท{% else %}-{% endif %}</td>{% endfor %}</tr>

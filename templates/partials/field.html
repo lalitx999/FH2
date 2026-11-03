@@ -1,4 +1,4 @@
-<div class="{% if field.widget_type == 'textarea' or field.widget_type == 'clearablefile' or field.widget_type == 'checkboxselectmultiple' or wide %}col-12{% else %}col-md-6{% endif %}"{% if show_for %} data-show-for="{{ show_for }}"{% endif %}>
+<div class="{% if field.widget_type == 'textarea' or field.widget_type == 'clearablefile' or field.widget_type == 'checkboxselectmultiple' or wide %}col-12{% else %}col-md-6{% endif %}"{% if show_for %} data-show-for="{{ show_for }}"{% endif %}{% if show_type %} data-show-type="{{ show_type }}"{% endif %}>
   {% if field.widget_type == 'checkbox' %}
   <div class="form-check mt-md-4">
     {{ field }}

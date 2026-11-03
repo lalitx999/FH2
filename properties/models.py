@@ -10,10 +10,33 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.deconstruct import deconstructible
 
-from .constants import FEATURES
+from .constants import CATEGORY_FIELDS, FEATURES, SUB_TYPE_CHOICES, TRANSFER_FEE_CHOICES, ZONING_CHOICES
 
 # slug ที่ชนกับ URL อื่นใน /properties/
 RESERVED_SLUGS = {"compare", "create"}
+SQW_PER_RAI = 400
+SQW_PER_NGAN = 100
+
+
+def total_sqw(rai, ngan, sqw):
+    """รวมเนื้อที่เป็นตารางวา ถ้าไม่ได้กรอกเลยคืน None"""
+    if not (rai or ngan or sqw):
+        return None
+    return (rai or 0) * SQW_PER_RAI + (ngan or 0) * SQW_PER_NGAN + (sqw or 0)
+
+
+def split_sqw(total):
+    """แยกตารางวาเป็น (ไร่, งาน, ตารางวา)"""
+    rai = int(total // SQW_PER_RAI)
+    ngan = int((total % SQW_PER_RAI) // SQW_PER_NGAN)
+    return rai, ngan, total % SQW_PER_NGAN
+
+
+def land_text(total):
+    """7 ไร่ 2 งาน 82 ตร.ว."""
+    rai, ngan, sqw = split_sqw(total)
+    parts = [f"{rai:,} ไร่" if rai else "", f"{ngan} งาน" if ngan else "", f"{float(sqw):g} ตร.ว." if sqw else ""]
+    return " ".join(part for part in parts if part)
 
 
 def thai_slugify(text):
@@ -152,6 +175,26 @@ class Property(models.Model):
     availability = models.BooleanField("ว่างพร้อมให้บริการ", default=True)
     source = models.CharField("แหล่งทรัพย์", max_length=20, choices=Source.choices, default=Source.FINDING_HOUSE)
     sale_condition = models.CharField("เงื่อนไขการขาย", max_length=20, choices=SaleCondition.choices, default=SaleCondition.SALE_ONLY)
+    reference_code = models.CharField("รหัสอ้างอิงเดิม", max_length=30, blank=True, db_index=True, help_text="รหัสบนเว็บอื่น เช่น FH040")
+    sub_type = models.CharField("ประเภทย่อย", max_length=20, choices=SUB_TYPE_CHOICES, blank=True, db_index=True)
+    project_name = models.CharField("ชื่อโครงการ/หมู่บ้าน", max_length=200, blank=True)
+    province = models.CharField("จังหวัด", max_length=100, blank=True, db_index=True)
+    district = models.CharField("อำเภอ/เขต", max_length=100, blank=True)
+    subdistrict = models.CharField("ตำบล/แขวง", max_length=100, blank=True)
+    land_width = models.DecimalField("หน้ากว้าง (เมตร)", max_digits=8, decimal_places=2, null=True, blank=True)
+    land_depth = models.DecimalField("ความลึก (เมตร)", max_digits=8, decimal_places=2, null=True, blank=True)
+    road_name = models.CharField("ติดถนน", max_length=150, blank=True)
+    road_width = models.DecimalField("ความกว้างถนน (เมตร)", max_digits=6, decimal_places=2, null=True, blank=True)
+    zoning = models.CharField("ผังสี", max_length=10, choices=ZONING_CHOICES, blank=True, db_index=True)
+    floor_level = models.CharField("อยู่ชั้นที่", max_length=20, blank=True)
+    building_count = models.PositiveIntegerField("จำนวนอาคาร", null=True, blank=True)
+    unit_count = models.PositiveIntegerField("จำนวนคูหา", null=True, blank=True)
+    room_count = models.PositiveIntegerField("จำนวนห้อง", null=True, blank=True)
+    estate_name = models.CharField("นิคมอุตสาหกรรม", max_length=150, blank=True)
+    has_license = models.BooleanField("มีใบอนุญาต (รง.4 / โกดัง / กิจการ)", default=False)
+    sell_with_business = models.BooleanField("ขายพร้อมกิจการ", default=False)
+    rent_price = models.DecimalField("ค่าเช่า (บาท/เดือน)", max_digits=12, decimal_places=2, null=True, blank=True)
+    transfer_fee = models.CharField("ค่าโอน", max_length=20, choices=TRANSFER_FEE_CHOICES, blank=True)
     features = models.JSONField("คุณสมบัติ", default=list, blank=True)
     landmarks = models.JSONField("สถานที่ใกล้เคียง", default=list, blank=True)
     google_maps_link = models.URLField("ลิงก์ Google Maps", max_length=500, blank=True)
@@ -247,12 +290,28 @@ class Property(models.Model):
             ("fa-tag", "ประเภทประกาศ", self.get_property_type_display()),
             ("fa-house", "หมวดหมู่", self.category.name),
             ("fa-location-dot", "ทำเล", self.location.name),
+            ("fa-clipboard-list", "ประเภทย่อย", self.get_sub_type_display()),
+            ("fa-building-circle-check", "โครงการ", self.project_name),
+            ("fa-map-location-dot", "ที่ตั้ง", self.address_text),
+            ("fa-road", "ติดถนน", self.road_name),
             ("fa-file-contract", "เงื่อนไข", self.get_sale_condition_display() if self.property_type == self.Type.SALE else ""),
-            ("fa-mountain-sun", "ขนาดที่ดิน", f"{self.size_land:,.2f} ตร.ว." if self.size_land else ""),
+            ("fa-money-bill-transfer", "ค่าโอน", self.get_transfer_fee_display()),
+            ("fa-mountain-sun", "ขนาดที่ดิน", f"{self.land_display} ({self.size_land:,.2f} ตร.ว.)" if self.size_land else ""),
             ("fa-ruler-combined", "พื้นที่ใช้สอย", f"{self.size_usable:,.2f} ตร.ม." if self.size_usable else ""),
+            ("fa-arrows-left-right", "หน้ากว้าง", f"{self.land_width:,.2f} เมตร" if self.land_width else ""),
+            ("fa-arrows-up-down", "ความลึก", f"{self.land_depth:,.2f} เมตร" if self.land_depth else ""),
+            ("fa-road", "ความกว้างถนน", f"{self.road_width:,.2f} เมตร" if self.road_width else ""),
+            ("fa-map", "ผังเมือง", self.get_zoning_display()),
+            ("fa-warehouse", "จำนวนอาคาร", self.building_count),
+            ("fa-store", "จำนวนคูหา", self.unit_count),
+            ("fa-door-open", "จำนวนห้อง", self.room_count),
+            ("fa-industry", "นิคมอุตสาหกรรม", self.estate_name),
+            ("fa-certificate", "ใบอนุญาต", "มีใบอนุญาต" if self.has_license else ""),
+            ("fa-briefcase", "กิจการ", "ขายพร้อมกิจการ" if self.sell_with_business else ""),
             ("fa-bed", "ห้องนอน", self.bedrooms),
             ("fa-bath", "ห้องน้ำ", self.bathrooms),
             ("fa-layer-group", "จำนวนชั้น", self.floors),
+            ("fa-stairs", "อยู่ชั้นที่", self.floor_level),
             ("fa-car", "ที่จอดรถ", f"{self.parking_spaces} คัน" if self.parking_spaces else ""),
             ("fa-compass", "ทิศหน้าทรัพย์", self.direction),
             ("fa-couch", "เฟอร์นิเจอร์", self.furniture),
@@ -265,6 +324,14 @@ class Property(models.Model):
             ("fa-circle-check", "สถานะ", "พร้อมให้บริการ" if self.availability else "ไม่ว่าง/จองแล้ว"),
         ]
         return [{"icon": icon, "label": label, "value": value} for icon, label, value in rows if value not in ("", None)]
+
+    @property
+    def land_display(self):
+        return land_text(self.size_land) if self.size_land else ""
+
+    @property
+    def address_text(self):
+        return " ".join(part for part in (self.subdistrict, self.district, self.province) if part)
 
     @property
     def price_per_sqm(self):
@@ -285,6 +352,9 @@ class Property(models.Model):
     def completeness(self):
         """คะแนนความครบถ้วนของประกาศ เพื่อเตือนแอดมินก่อนเผยแพร่"""
         image_count = self.images.count()
+        # หมวดที่ไม่รู้จัก เช่น หมวดที่เพิ่มเองในหลังบ้าน คิดเฉพาะเกณฑ์ที่ใช้ได้ทุกหมวด
+        fields = CATEGORY_FIELDS.get(self.category.slug, ())
+        is_rent = self.property_type == self.Type.RENT
         checks = [
             (10, len(self.title.strip()) >= 10, "ชื่อประกาศอย่างน้อย 10 ตัวอักษร"),
             (10, len(self.description.strip()) >= 30, "รายละเอียดอย่างน้อย 30 ตัวอักษร"),
@@ -292,13 +362,17 @@ class Property(models.Model):
             (20, image_count >= settings.MIN_LISTING_IMAGES, f"รูปภาพอย่างน้อย {settings.MIN_LISTING_IMAGES} รูป (มี {image_count} รูป)"),
             (10, bool(self.google_maps_link), "ลิงก์ Google Maps"),
             (10, bool(self.size_land or self.size_usable), "ขนาดที่ดินหรือพื้นที่ใช้สอย"),
-            (10, self.bedrooms is not None or self.bathrooms is not None, "จำนวนห้องนอน/ห้องน้ำ"),
-            (5, bool(self.direction), "ทิศหน้าทรัพย์"),
-            (5, bool(self.common_fee or self.deposit or self.minimum_lease), "ค่าส่วนกลางหรือเงื่อนไขสัญญา"),
             (10, bool(self.feature_list), "จุดเด่นของทรัพย์"),
         ]
+        if "bedrooms" in fields:
+            checks.append((10, self.bedrooms is not None or self.bathrooms is not None, "จำนวนห้องนอน/ห้องน้ำ"))
+        if "direction" in fields:
+            checks.append((5, bool(self.direction), "ทิศหน้าทรัพย์"))
+        if is_rent or "common_fee" in fields:
+            checks.append((5, bool(self.common_fee or self.deposit or self.minimum_lease), "ค่าส่วนกลางหรือเงื่อนไขสัญญา"))
+        earned = sum(points for points, passed, _ in checks if passed)
         return {
-            "score": sum(points for points, passed, _ in checks if passed),
+            "score": round(earned * 100 / sum(points for points, _, _ in checks)),
             "missing": [label for _, passed, label in checks if not passed],
         }
 
@@ -392,11 +466,7 @@ class Consignment(models.Model):
     @property
     def land_total_sqw(self):
         """รวมเนื้อที่เป็นตารางวา: 1 ไร่ = 400 ตร.ว., 1 งาน = 100 ตร.ว."""
-        if self.size_land:
-            return self.size_land
-        if self.land_rai or self.land_ngan or self.land_sqw:
-            return (self.land_rai or 0) * 400 + (self.land_ngan or 0) * 100 + (self.land_sqw or 0)
-        return None
+        return self.size_land or total_sqw(self.land_rai, self.land_ngan, self.land_sqw)
 
     @property
     def spec_rows(self):

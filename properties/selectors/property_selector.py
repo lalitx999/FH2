@@ -19,7 +19,11 @@ def search(data):
     """รับ cleaned_data จาก SearchForm คืนทรัพย์ที่ตรงเงื่อนไข"""
     items = _published()
     if q := data.get("q"):
-        items = items.filter(Q(title__icontains=q) | Q(property_code__icontains=q) | Q(description__icontains=q))
+        fields = ("title", "property_code", "description", "reference_code", "project_name", "province", "district", "subdistrict")
+        condition = Q()
+        for field in fields:
+            condition |= Q(**{f"{field}__icontains": q})
+        items = items.filter(condition)
     if data.get("type"):
         items = items.filter(property_type=data["type"])
     if data.get("category"):
@@ -32,6 +36,9 @@ def search(data):
         items = items.filter(price__lte=data["price_max"])
     if data.get("bedrooms"):
         items = items.filter(bedrooms__gte=data["bedrooms"])
+    for field in ("province", "sub_type", "zoning"):
+        if data.get(field):
+            items = items.filter(**{field: data[field]})
     order = {"price_asc": "price", "price_desc": "-price"}.get(data.get("sort"), "-published_at")
     return _as_cards(items).order_by(order, "-id")
 
@@ -85,6 +92,11 @@ def categories():
 
 def locations():
     return Location.objects.only("name", "slug")
+
+
+def provinces():
+    """จังหวัดที่มีทรัพย์เผยแพร่อยู่จริง สำหรับตัวกรอง"""
+    return _published().exclude(province="").order_by("province").values_list("province", flat=True).distinct()
 
 
 def map_points(limit=300):

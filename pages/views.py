@@ -7,6 +7,7 @@ from inquiries.forms import InquiryForm
 from pages import content
 from pages.services import llms_service, schema_service
 from properties.selectors import property_selector
+from properties.services import loan_service
 from reviews.selectors import article_selector
 
 
@@ -49,6 +50,22 @@ def faq(request):
         "schema": schema_service.to_script(
             schema_service.faq_page(request),
             schema_service.breadcrumbs(request, ("คำถามที่พบบ่อย", request.path)),
+        ),
+    })
+
+
+def loan_calculator(request):
+    title = "คำนวณสินเชื่ออสังหาริมทรัพย์เบื้องต้น"
+    return render(request, "pages/loan_calculator.html", {
+        "heading": title,
+        "summary": content.LOAN_SUMMARY,
+        "reviewed": content.LOAN_REVIEWED,
+        "notes": content.LOAN_NOTES,
+        "sources": content.LOAN_SOURCES,
+        "loan": loan_service.calculator(price=loan_service.parse_price(request.GET.get("price"))),
+        "schema": schema_service.to_script(
+            schema_service.guide_article(request, title, content.LOAN_SUMMARY, content.LOAN_REVIEWED),
+            schema_service.breadcrumbs(request, (title, request.path)),
         ),
     })
 

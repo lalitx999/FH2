@@ -15,6 +15,7 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("faq/", views.faq, name="faq"),
     path("guides/transfer-fees/", views.fee_guide, name="fee_guide"),
+    path("tools/loan-calculator/", views.loan_calculator, name="loan_calculator"),
     path("services/", static_page("services"), name="services"),
     path("projects/", static_page("projects"), name="projects"),
     path("contact/", views.contact, name="contact"),

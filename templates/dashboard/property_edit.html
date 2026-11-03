@@ -21,7 +21,7 @@
       <div class="card-header"><h2 class="card-title">ข้อมูลประกาศ</h2></div>
       <div class="card-body">
         {% csrf_token %}
-        {% include "partials/form_fields.html" %}
+        {% include "properties/_property_fields.html" %}
       </div>
       <div class="card-footer"><button class="btn btn-primary" type="submit"><i class="fa-regular fa-floppy-disk me-1"></i>บันทึก</button></div>
     </form>

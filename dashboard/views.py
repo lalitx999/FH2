@@ -84,8 +84,8 @@ class PropertyList(StaffMixin, generic.ListView):
 class PropertyCreate(StaffMixin, generic.CreateView):
     model = Property
     form_class = PropertyForm
-    template_name = "dashboard/form.html"
-    extra_context = {"title": "เพิ่มประกาศ", "back": "dashboard:properties", "multipart": False}
+    template_name = "dashboard/property_form.html"
+    extra_context = {"title": "เพิ่มประกาศ", "back": "dashboard:properties"}
 
     def get_success_url(self):
         messages.success(self.request, "สร้างประกาศแล้ว เพิ่มรูปภาพได้เลย")

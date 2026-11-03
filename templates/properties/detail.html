@@ -80,10 +80,13 @@
           {% if property.price_per_sqm %}<div class="col"><div class="fh-money-tile"><span>เฉลี่ยต่อ ตร.ม.</span><strong>฿{{ property.price_per_sqm|floatformat:"0g" }}</strong></div></div>{% endif %}
           {% if property.price_per_sqwah and property.property_type == 'SALE' %}<div class="col"><div class="fh-money-tile"><span>เฉลี่ยต่อ ตร.ว.</span><strong>฿{{ property.price_per_sqwah|floatformat:"0g" }}</strong></div></div>{% endif %}
           {% if property.price_per_rai and property.property_type == 'SALE' %}<div class="col"><div class="fh-money-tile"><span>เฉลี่ยต่อไร่</span><strong>฿{{ property.price_per_rai|floatformat:"0g" }}</strong></div></div>{% endif %}
+          {% if property.rent_price and property.property_type == 'SALE' %}<div class="col"><div class="fh-money-tile"><span>ค่าเช่า</span><strong>฿{{ property.rent_price|floatformat:"0g" }} <small>/ด.</small></strong></div></div>{% endif %}
           {% if property.common_fee %}<div class="col"><div class="fh-money-tile"><span>ค่าส่วนกลาง</span><strong>฿{{ property.common_fee|floatformat:"0g" }} <small>/ด.</small></strong></div></div>{% endif %}
           {% if property.deposit %}<div class="col"><div class="fh-money-tile"><span>เงินประกัน</span><strong>฿{{ property.deposit|floatformat:"0g" }}</strong></div></div>{% endif %}
         </div>
       </section>
+
+      {% if loan %}{% include "properties/_loan_calculator.html" %}{% endif %}
 
       <section class="fh-panel p-4">
         <h2 class="fh-panel-title"><i class="fa-regular fa-file-lines"></i>รายละเอียดและจุดเด่นของทรัพย์</h2>
@@ -191,5 +194,8 @@
 {% block extra_js %}
 {% if property.has_coordinates %}
 <script defer src="{% static 'js/map.js' %}"></script>
+{% endif %}
+{% if loan %}
+<script defer src="{% static 'js/loan-calculator.js' %}"></script>
 {% endif %}
 {% endblock %}
